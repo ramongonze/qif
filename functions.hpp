@@ -2,6 +2,8 @@
 #include "structs.hpp"
 #endif
 
+#define _functions
+
 /*
  * Bayes Vulnerability of a distribution D:
  * Adversary's probability of guessing a secret X in one try.
@@ -15,3 +17,10 @@ long double bayesVulnerability(Distribution D);
  * where D.n is the number of secrets.
 */
 long double shannonEntropy(Distribution D);
+
+/*
+ * A function which measures how vulnerable a secret is.
+ * It corresonds to the expected gain of an adversary through
+ * actions in set W and secrets in set X.
+*/
+long double gVulnerability(Actions W);

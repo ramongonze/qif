@@ -5,36 +5,22 @@
 #include "structs.hpp"
 #endif
 
+#ifndef _functions
+#include "functions.hpp"
+#endif
+
 using namespace std;
 
 int main(){
 
-	srand(time(NULL));
-	int size = 30;
-	Distribution D("dist");
+	srand(8);
+	Distribution D(5,"uniform",1);
 
-	for(int i = 0; i < D.n; i++){
-		cout << D.probability[i] << endl;
-	}
-	
-	cout << "Shannon Entropy: " << shannonEntropy(D) << endl;
+	D.toString();
 
+	Actions W(D,10,-5,5);
 
-/*
-	while(1){
-
-		cout << "V(D): " << bayesVulnerability(D) << endl;
-
-		long double tot_sum = 0;
-		for(int i = 0; i < size; i++)
-			tot_sum += D.probability[i];
-
-		if(1-EPS > tot_sum || tot_sum > 1+EPS){
-			printf("It is not a probability distribution!!\n");
-		}
-	}
-*/
-	
+	cout << "Vg(W) = " << gVulnerability(W) << endl;
 
 	return 0;
 }

@@ -3,7 +3,6 @@
 #endif
 
 Distribution::Distribution(string file){
-	long double p;
 	long double tot_sum = 0;
 	FILE *F;
 
@@ -14,11 +13,11 @@ Distribution::Distribution(string file){
 		return;
 	}
 
-	n = 0;
-	while(fscanf(F, "%Lf", &p) != EOF){
-		probability.push_back(p);
-		n++;
-		tot_sum += p;
+	fscanf(F, "%d", &n);
+	probability.resize(n);
+	for(int i = 0; i < n; i++){
+		fscanf(F, "%Lf", &probability[i]);
+		tot_sum += probability[i];
 	}
 
 	fclose(F);
@@ -51,5 +50,56 @@ Distribution::Distribution(int _n, string type, float max_prob){
 		probability.push_back((long double)threshold/RAND_MAX);
 	}else{
 		printf("Invalid argument! \n");
+	}
+}
+
+void Distribution::toString(){
+	printf("Number of elements: %d\n", n);
+	printf("Probability distribution: (");
+	for(int i = 0; i < n-1; i++){
+		printf("%.2Lf,", probability[i]);
+	}
+	printf("%.2Lf)\n", probability[n-1]);
+}
+
+Actions::Actions(Distribution &_D, string file){
+	int k;
+	long double p;
+	FILE *F;
+
+	F = fopen(file.c_str(), "r");
+
+	if(F == NULL){
+		printf("Error reading file!\n");
+		return;
+	}
+
+	fscanf(F, "%d,%d", &w, &k);
+	if(k != _D.n || w < 0){
+		printf("Invalid matrix size!\n");
+		return;
+	}
+
+	D = &_D;
+	G.resize(w, vector<long double>(D->n));
+
+	for(int i = 0; i < w; i++){
+		for(int j = 0; j < D->n; j++){
+			fscanf(F, "%Lf,", &G[i][j]);
+		}
+	}
+
+	fclose(F);
+}
+
+Actions::Actions(Distribution &_D, int _w, int MIN, int MAX){
+	D = &_D;
+	w = _w;
+	G.resize(w, vector<long double>(D->n));
+
+	for(int i = 0; i < w; i++){
+		for(int j = 0; j < D->n; j++){
+			G[i][j] = rand()%(MAX-MIN+1) + MIN;
+		}
 	}
 }
