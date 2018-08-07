@@ -1,6 +1,5 @@
-#ifndef _structs
+#ifndef _functions
 #include "structs.hpp"
-#endif
 
 #define _functions
 
@@ -24,3 +23,4 @@ long double shannonEntropy(Distribution D);
  * actions in set W and secrets in set X.
 */
 long double gVulnerability(Actions W);
+#endif

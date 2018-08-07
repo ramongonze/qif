@@ -1,26 +1,22 @@
 #include <iostream>
 #include <time.h>
-
-#ifndef _structs
 #include "structs.hpp"
-#endif
-
-#ifndef _functions
 #include "functions.hpp"
-#endif
 
 using namespace std;
 
 int main(){
 
 	srand(8);
-	Distribution D(5,"uniform",1);
+	Distribution D("prior");
 
-	D.toString();
+	Channels C = Channels(D,"channel");
 
-	Actions W(D,10,-5,5);
-
-	cout << "Vg(W) = " << gVulnerability(W) << endl;
+	for(int i = 0; i < C.prior->n; i++){
+		for(int j = 0; j < C.y; j++){
+			printf("%.2Lf ", C.H[i][j]);
+		}printf("\n");
+	}
 
 	return 0;
 }

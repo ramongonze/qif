@@ -17,15 +17,15 @@ long double gVulnerability(Actions W){
 	long double MAX;
 	long double acc = 0;
 
-	for(int j = 0; j < W.D->n; j++){
-		acc += (W.D->probability[j] * W.G[0][j]); 
+	for(int j = 0; j < W.prior->n; j++){
+		acc += (W.prior->probability[j] * W.G[0][j]); 
 	}
 
 	MAX = acc;
 	for(int i = 1; i < W.w; i++){
 		acc = 0;
-		for(int j = 0; j < W.D->n; j++){
-			acc += (W.D->probability[j] * W.G[0][j]);
+		for(int j = 0; j < W.prior->n; j++){
+			acc += (W.prior->probability[j] * W.G[0][j]);
 		}
 		if(acc > MAX)
 			MAX = acc;

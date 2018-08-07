@@ -2,6 +2,10 @@
 #include "structs.hpp"
 #endif
 
+bool isOne(long double n){
+	return 1-EPS <= n && n <= 1+EPS;
+}
+
 Distribution::Distribution(string file){
 	long double tot_sum = 0;
 	FILE *F;
@@ -9,7 +13,7 @@ Distribution::Distribution(string file){
 	F = fopen(file.c_str(), "r");
 
 	if(F == NULL){
-		printf("Error reading file!\n");
+		fprintf(stderr, "Error reading file!\n");
 		return;
 	}
 
@@ -23,10 +27,10 @@ Distribution::Distribution(string file){
 	fclose(F);
 
 	// Check if the sum of all elements are 1, that is, is a probability distribution
-	if(1-EPS > tot_sum || tot_sum > 1+EPS){
+	if(!isOne(tot_sum)){
 		printf("The numbers in the file %s are not a probability distribution!!\n", file.c_str());
 	}
-}
+}	
 
 Distribution::Distribution(int _n, string type, float max_prob){
 
@@ -41,50 +45,53 @@ Distribution::Distribution(int _n, string type, float max_prob){
 
 		for(int i = 0; i < _n-1; i++){
 			x = rand() % threshold;
-			if((long double)x/RAND_MAX > max_prob)
+
+			if((long double)x/RAND_MAX > max_prob){
 				x = RAND_MAX * max_prob;
+			}
 			
 			probability.push_back((long double)x/RAND_MAX);
 			threshold -= x;
 		}
 		probability.push_back((long double)threshold/RAND_MAX);
 	}else{
-		printf("Invalid argument! \n");
+		fprintf(stderr, "Invalid argument! \n");
 	}
 }
 
-void Distribution::toString(){
-	printf("Number of elements: %d\n", n);
-	printf("Probability distribution: (");
-	for(int i = 0; i < n-1; i++){
-		printf("%.2Lf,", probability[i]);
+string Distribution::toString(){
+	setprecision(PRECISION);
+	string out = to_string(n) + "\n";
+	
+	for(int i = 0; i < n; i++){
+		out = out + to_string(probability[i]) + "\n";
 	}
-	printf("%.2Lf)\n", probability[n-1]);
+
+	return out;
 }
 
-Actions::Actions(Distribution &_D, string file){
+Actions::Actions(Distribution &_prior, string file){
 	int k;
-	long double p;
 	FILE *F;
 
 	F = fopen(file.c_str(), "r");
 
 	if(F == NULL){
-		printf("Error reading file!\n");
+		fprintf(stderr, "Error reading file!\n");
 		return;
 	}
 
 	fscanf(F, "%d,%d", &w, &k);
-	if(k != _D.n || w < 0){
-		printf("Invalid matrix size!\n");
+	if(k != _prior.n || w <= 0){
+		fprintf(stderr, "Invalid matrix size!\n");
 		return;
 	}
 
-	D = &_D;
-	G.resize(w, vector<long double>(D->n));
+	prior = &_prior;
+	G.resize(w, vector<long double>(prior->n));
 
 	for(int i = 0; i < w; i++){
-		for(int j = 0; j < D->n; j++){
+		for(int j = 0; j < prior->n; j++){
 			fscanf(F, "%Lf,", &G[i][j]);
 		}
 	}
@@ -92,14 +99,140 @@ Actions::Actions(Distribution &_D, string file){
 	fclose(F);
 }
 
-Actions::Actions(Distribution &_D, int _w, int MIN, int MAX){
-	D = &_D;
+Actions::Actions(Distribution &_prior, int _w, int MIN, int MAX){
+	prior = &_prior;
 	w = _w;
-	G.resize(w, vector<long double>(D->n));
+	G.resize(w, vector<long double>(prior->n));
 
 	for(int i = 0; i < w; i++){
-		for(int j = 0; j < D->n; j++){
+		for(int j = 0; j < prior->n; j++){
 			G[i][j] = rand()%(MAX-MIN+1) + MIN;
+		}
+	}
+}
+
+string Actions::toString(){
+	setprecision(PRECISION);
+	string out = to_string(w) + ","  + to_string(prior->n) + "\n";
+	
+	for(int i = 0; i < w; i++){
+		for(int j = 0; j < prior->n-1; j++){
+			out = out + to_string(G[i][j]) + ",";
+		}
+		out = out + to_string(G[i][prior->n-1]) + "\n";
+	}
+
+	return out;
+}
+
+Channels::Channels(Distribution &_prior, string file){
+	int k;
+	bool test_distribution;
+	long double row_sum;
+	FILE *F;
+
+	F = fopen(file.c_str(), "r");
+
+	if(F == NULL){
+		fprintf(stderr, "Error reading file!\n");
+		return;
+	}
+
+	fscanf(F, "%d,%d", &k, &y);
+	if(k != _prior.n || y <= 0){
+		fprintf(stderr, "Invalid matrix size!\n");
+		return;
+	}
+
+	prior = &_prior;
+
+	C.resize(prior->n, vector<long double>(y));
+
+	test_distribution = true;
+	for(int i = 0; i < prior->n; i++){
+		row_sum = 0;
+		for(int j = 0; j < y; j++){
+			fscanf(F, "%Lf,", &(C[i][j]));
+			row_sum += C[i][j];
+		}
+			if(!isOne(row_sum)){
+			test_distribution = false;
+			break;
+		}
+	}
+
+	if(!test_distribution){
+		fprintf(stderr, "Error reading a channel. One of the rows is not a probability distribution!\n");
+	}
+
+	fclose(F);
+
+	Channels::buildHyper();
+}
+
+Channels::Channels(Distribution &_prior, int _y, float max_prob){
+
+	prior = &_prior;
+	y = _y;
+
+	C.resize(prior->n, vector<long double>(y));
+	// Random
+
+	for(int i = 0; i < prior->n; i++){
+		int threshold = RAND_MAX;
+		int x;
+
+		for(int j = 0; j < y-1; j++){
+			x = rand() % threshold;
+
+			if((long double)x/RAND_MAX > max_prob){
+				x = RAND_MAX * max_prob;
+			}
+			
+			C[i][j] = (long double)x/RAND_MAX;
+			threshold -= x;
+		}
+
+		C[i][y-1] = (long double)threshold/RAND_MAX;
+	}
+
+	Channels::buildHyper();
+}
+
+string Channels::toString(){
+	setprecision(PRECISION);
+	string out = to_string(prior->n) + "," + to_string(y) + "\n";
+	
+	for(int i = 0; i < prior->n; i++){
+		for(int j = 0; j < y-1; j++){
+			out = out + to_string(C[i][j]) + ",";
+		}
+		out = out + to_string(C[i][y-1]) + "\n";
+	}
+
+	return out;
+}
+
+void Channels::buildHyper(){
+	J.resize(prior->n, vector<long double>(y));
+	PY.resize(y,0);
+
+	for(int i = 0; i < prior->n; i++){
+		for(int j = 0; j < y; j++){
+			J[i][j] = C[i][j] * prior->probability[i];
+			PY[j] += J[i][j];
+		}
+	}
+
+	H.resize(prior->n, vector<long double>(y));
+
+	for(int i = 0; i < prior->n; i++){
+		for(int j = 0; j < y; j++){
+			if(PY[j] == 0){
+				H[i][j] = 0;
+			}else{
+				H[i][j] = J[i][j] / PY[j];
+			}
 		}
 	}
 }
