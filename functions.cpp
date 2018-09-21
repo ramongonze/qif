@@ -20,7 +20,7 @@ long double posteriorBayesVulnerability(Channel &C){
 	return vulnerability;
 }
 
-long double ShannonEntropy(Distribution &D){
+long double shannonEntropy(Distribution &D){
 	long double entropy = 0;
 
 	for(int i = 0; i < D.n; i++){
@@ -71,25 +71,21 @@ long double gVulnerability(Actions &W){
 }
 
 long double posteriorGVulnerability(Channel &C, Actions &W){
-	
-	long double vulnerability = 0;
 
 	if(C.prior != W.prior){
 		fprintf(stderr, "The prior distribution from channel and actions are not the same!\n");
 		exit(EXIT_FAILURE);
 	}
 
+	long double vulnerability = 0;
+
 	for(int i = 0; i < C.y; i++){
 		/* For each posterior distribution.*/
-		long double MAX = 0;
-		long double acc = 0;
 
-		for(int j = 0; j < C.prior->n; j++){
-			acc += (C.J[j][i] * W.G[0][j]);
-		}
+		long double MAX = -1;
+		long double acc;
 
-		MAX = acc;
-		for(int k = 1; k < C.prior->n; k++){
+		for(int k = 0; k < W.w; k++){
 			/* For each action k.*/
 			acc = 0;
 			for(int j = 0; j < C.prior->n; j++){
@@ -101,7 +97,7 @@ long double posteriorGVulnerability(Channel &C, Actions &W){
 				MAX = acc;
 			}
 		}
-
+		
 		vulnerability += MAX;
 	}
 

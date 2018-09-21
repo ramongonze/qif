@@ -22,9 +22,14 @@ long double shannonEntropy(Distribution &D);
 long double posteriorShannonEntropy(Channel &C);
 
 /* A function which measures how vulnerable a secret is.
- * It corresonds to the expected gain of an adversary through
+ * It corresponds to the expected gain of an adversary through
  * actions in set W and secrets in set X. */
 long double gVulnerability(Actions &W);
+
+/* A function which measures how vulnerable a secret is after passing in a 
+ * channel C. It corresponds to the expected gain of an adversary through
+ * actions in set W and secrets in set X. */
+long double posteriorGVulnerability(Channel &C, Actions &W);
 
 /* The probability of the adversary guess the value of the secret correctly in
  * k tries, looking into a prior distribution. */

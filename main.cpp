@@ -9,8 +9,8 @@ int main(){
 
 	srand(8);
 	Distribution prior("prior");
-
+	
 	Channel C(prior, "channel");
-
+	
 	return 0;
 }
