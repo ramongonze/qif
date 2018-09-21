@@ -8,15 +8,9 @@ using namespace std;
 int main(){
 
 	srand(8);
-	Distribution D("prior");
+	Distribution prior("prior");
 
-	Channels C = Channels(D,"channel");
-
-	for(int i = 0; i < C.prior->n; i++){
-		for(int j = 0; j < C.y; j++){
-			printf("%.2Lf ", C.H[i][j]);
-		}printf("\n");
-	}
+	Channel C(prior, "channel");
 
 	return 0;
 }
