@@ -1,3 +1,8 @@
+/*! 
+ * \author Ramon Gonze
+ * \version 1.0
+ */
+
 #ifndef _functions
 #include "structs.hpp"
 

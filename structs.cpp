@@ -1,10 +1,13 @@
-#ifndef _structs
 #include "structs.hpp"
-#endif
 
-/*********** Distributions ***********/
+/*********** Distribution ***********/
 
-Distribution::Distribution(string file){
+Distribution::Distribution(){
+	num_el = 0;
+	prob.resize(0);
+}
+
+Distribution::Distribution(std::string file){
 	FILE *F;
 
 	F = fopen(file.c_str(), "r");
@@ -14,90 +17,122 @@ Distribution::Distribution(string file){
 		exit(EXIT_FAILURE);
 	}
 
-	fscanf(F, "%d", &n);
-	probability.resize(n);
-	for(int i = 0; i < n; i++){
-		fscanf(F, "%Lf", &probability[i]);
+	if(!fscanf(F, "%d", &num_el)){
+		exit(EXIT_FAILURE);
+	}
+
+	prob.resize(num_el);
+	for(int i = 0; i < num_el; i++){
+		if(!fscanf(F, "%Lf", &prob[i])){
+			exit(EXIT_FAILURE);
+		}
 	}
 
 	fclose(F);
 
-	if(!isDistribution(probability)){
-		fprintf(stderr, "The numbers in the file %s are not a probability distribution!!\n", file.c_str());
+	if(!isDistribution(prob)){
+		fprintf(stderr, "The numbers in the file %s are not a probability distribution!\n", file.c_str());
 		exit(EXIT_FAILURE);
 	}
 }	
 
-Distribution::Distribution(int _n, string type, long double max_prob){
+Distribution::Distribution(std::vector<long double> &prob){
+	if(!isDistribution(prob)){
+		fprintf(stderr, "The numbers in the vector does not make up a probability distribution!\n");
+		exit(EXIT_FAILURE);
+	}
 
-	n = _n;
+	num_el = prob.size();
+	this->prob.resize(0);
+
+	for(int i = 0; i < num_el; i++){
+		this->prob.push_back(prob[i]);		
+	}
+}
+
+Distribution::Distribution(int num_el, std::string type, long double max_prob){
+
+	this->num_el = num_el;
 	
 	if(type == "uniform"){
-		probability.resize(n, 1/(long double)n);
+		prob.resize(this->num_el, 1/(long double)this->num_el);
 	}else if(type == "random"){
-		// Random
+		// Random distribution
 		int threshold = RAND_MAX;
 		int x;
 
-		for(int i = 0; i < _n-1; i++){
+		for(int i = 0; i < num_el-1; i++){
 			x = rand() % threshold;
 
 			if((long double)x/RAND_MAX > max_prob){
 				x = RAND_MAX * max_prob;
 			}
 			
-			probability.push_back((long double)x/RAND_MAX);
+			prob.push_back((long double)x/RAND_MAX);
 			threshold -= x;
 		}
-		probability.push_back((long double)threshold/RAND_MAX);
+		prob.push_back((long double)threshold/RAND_MAX);
 	}else{
 		fprintf(stderr, "Invalid argument to create a distribution! \n");
 		exit(EXIT_FAILURE);
 	}
 }
 
-bool Distribution::isDistribution(vector<long double> &D){
+bool Distribution::isDistribution(std::vector<long double> &prob){
 	long double S = 0;
 
-	for(unsigned int i = 0; i < D.size(); i++){
-		if(D[i] < 0 || D[i] > 1+EPS){
+	for(unsigned int i = 0; i < prob.size(); i++){
+		if(prob[i] < 0 || prob[i] > 1+EPS){
 			return false;
 		}
 
-		S += D[i];
+		S += prob[i];
 	}
 
 	return 1-EPS <= S && S <= 1+EPS;
 }
 
-string Distribution::toString(int precision){
-	ostringstream out;
-	out << setprecision(precision) << n << "\n";
-	
+std::string Distribution::toString(int precision){
+	std::ostringstream out;
 
-	for(int i = 0; i < n-1; i++){
-		out << probability[i] << ",";
+	out << std::fixed << std::setprecision(precision);
+	
+	for(int i = 0; i < num_el-1; i++){
+		out << prob[i] << " ";
 	}
-	out << probability[n-1] << "\n";
+	out << prob[num_el-1];
 
 	return out.str();
 }
 
-string Distribution::toString(){
-	ostringstream out;
-	out << n << "\n";
-	
-	for(int i = 0; i < n-1; i++){
-		out << probability[i] << ",";
-	}
-	out << probability[n-1] << "\n";
+void printToFile(Distribution &D, std::string file, int precision){
+	std::ofstream F;
 
-	return out.str();
+	F.open(file);
+
+	if(F.is_open() == false){
+		fprintf(stderr, "Error opening the file ""%s""!\n", file.c_str());
+		exit(EXIT_FAILURE);
+	}
+
+	F << D.num_el << "\n";
+	F << std::fixed << std::setprecision(precision);
+	for(int i = 0; i < D.num_el; i++){
+		F << D.prob[i] << "\n";
+	}
+
+	F.close();
 }
 
 /*********** Actions ***********/
 
-Actions::Actions(Distribution &_prior, string file){
+Actions::Actions(){
+	num_ac = 0;
+	prior = NULL;
+	gain.resize(0, std::vector<long double>(0));
+}
+
+Actions::Actions(Distribution &_prior, std::string file){
 	int k;
 	FILE *F;
 
@@ -108,59 +143,64 @@ Actions::Actions(Distribution &_prior, string file){
 		exit(EXIT_FAILURE);
 	}
 
-	fscanf(F, "%d,%d", &w, &k);
-	if(k != _prior.n || w <= 0){
+	if(!fscanf(F, "%d,%d", &num_ac, &k)){
+		exit(EXIT_FAILURE);
+	}
+
+	if(k != _prior.num_el || num_ac <= 0){
 		fprintf(stderr, "Invalid matrix size!\n");
 		exit(EXIT_FAILURE);
 	}
 
 	prior = &_prior;
-	G.resize(w, vector<long double>(prior->n));
+	gain.resize(num_ac, std::vector<long double>(prior->num_el));
 
-	for(int i = 0; i < w; i++){
-		for(int j = 0; j < prior->n; j++){
-			fscanf(F, "%Lf,", &G[i][j]);
+	for(int i = 0; i < num_ac; i++){
+		for(int j = 0; j < prior->num_el; j++){
+			if(!fscanf(F, "%Lf,", &gain[i][j])){
+				exit(EXIT_FAILURE);
+			}
 		}
 	}
 
 	fclose(F);
 }
 
-Actions::Actions(Distribution &_prior, int _w, int MIN, int MAX){
+Actions::Actions(Distribution &_prior, int _num_ac, int MIN, int MAX){
 	prior = &_prior;
-	w = _w;
-	G.resize(w, vector<long double>(prior->n));
+	num_ac = _num_ac;
+	gain.resize(num_ac, std::vector<long double>(prior->num_el));
 
-	for(int i = 0; i < w; i++){
-		for(int j = 0; j < prior->n; j++){
-			G[i][j] = rand()%(MAX-MIN+1) + MIN;
+	for(int i = 0; i < num_ac; i++){
+		for(int j = 0; j < prior->num_el; j++){
+			gain[i][j] = rand()%(MAX-MIN+1) + MIN;
 		}
 	}
 }
 
-string Actions::toString(int precision){
-	ostringstream out;
-	out << setprecision(precision) << w << ","  << prior->n << "\n";
+std::string Actions::toString(int precision){
+	std::ostringstream out;
+	out << std::setprecision(precision) << num_ac << " "  << prior->num_el << "\n";
 	
-	for(int i = 0; i < w; i++){
-		for(int j = 0; j < prior->n-1; j++){
-			out << G[i][j] << ",";
+	for(int i = 0; i < num_ac; i++){
+		for(int j = 0; j < prior->num_el-1; j++){
+			out << gain[i][j] << " ";
 		}
-		out << G[i][prior->n-1] << "\n";
+		out << gain[i][prior->num_el-1];
 	}
 
 	return out.str();
 }
 
-string Actions::toString(){
-	ostringstream out;
-	out << w << ","  << prior->n << "\n";
+std::string Actions::toString(){
+	std::ostringstream out;
+	out << num_ac << " " << prior->num_el << "\n";
 	
-	for(int i = 0; i < w; i++){
-		for(int j = 0; j < prior->n-1; j++){
-			out << G[i][j] << ",";
+	for(int i = 0; i < num_ac; i++){
+		for(int j = 0; j < prior->num_el-1; j++){
+			out << gain[i][j] << " ";
 		}
-		out << G[i][prior->n-1] << "\n";
+		out << gain[i][prior->num_el-1];
 	}
 
 	return out.str();
@@ -168,9 +208,9 @@ string Actions::toString(){
 
 /*********** Channels ***********/
 
-bool Channel::isChannel(vector<vector<long double> > &C){
-	for(unsigned int i = 0; i < C.size(); i++){
-		if(!Distribution::isDistribution(C[i])){
+bool Channel::isChannel(std::vector<std::vector<long double> > &matrix){
+	for(unsigned int i = 0; i < matrix.size(); i++){
+		if(!Distribution::isDistribution(matrix[i])){
 			return false;
 		}
 	}
@@ -178,7 +218,13 @@ bool Channel::isChannel(vector<vector<long double> > &C){
 	return true;
 }
 
-Channel::Channel(Distribution &_prior, string file){
+Channel::Channel(){
+	num_out = 0;
+	prior = NULL;
+	matrix.resize(0, std::vector<long double>(0));
+}
+
+Channel::Channel(Distribution &_prior, std::string file){
 	int k;
 	FILE *F;
 
@@ -189,108 +235,131 @@ Channel::Channel(Distribution &_prior, string file){
 		exit(EXIT_FAILURE);
 	}
 
-	fscanf(F, "%d,%d", &k, &y);
-	if(k != _prior.n || y <= 0){
+	if(!fscanf(F, "%d,%d", &k, &num_out)){
+		exit(EXIT_FAILURE);
+	}
+
+	if(k != _prior.num_el || num_out <= 0){
 		fprintf(stderr, "Invalid matrix size!\n");
 		exit(EXIT_FAILURE);
 	}
 
 	prior = &_prior;
 
-	C.resize(prior->n, vector<long double>(y));
+	matrix.resize(prior->num_el, std::vector<long double>(num_out));
 
-	for(int i = 0; i < prior->n; i++){
-		for(int j = 0; j < y; j++){
-			fscanf(F, "%Lf,", &(C[i][j]));
+	for(int i = 0; i < prior->num_el; i++){
+		for(int j = 0; j < num_out; j++){
+			if(!fscanf(F, "%Lf,", &(matrix[i][j]))){
+				exit(EXIT_FAILURE);
+			}
 		}
 	}
 	fclose(F);
 
-	if(!Channel::isChannel(C)){
+	if(!Channel::isChannel(matrix)){
 		fprintf(stderr, "Error reading a channel. One of the rows is not a probability distribution!\n");
 		exit(EXIT_FAILURE);
-	}else{
-		Channel::buildHyper();
 	}
 }
 
-Channel::Channel(Distribution &_prior, int _y, long double max_prob){
+Channel::Channel(Distribution &_prior, int _num_out, long double max_prob){
 
 	prior = &_prior;
-	y = _y;
+	num_out = _num_out;
 
-	C.resize(prior->n, vector<long double>(y));
-	// Random
+	matrix.resize(prior->num_el, std::vector<long double>(num_out));
 
-	for(int i = 0; i < prior->n; i++){
+	for(int i = 0; i < prior->num_el; i++){
 		int threshold = RAND_MAX;
 		int x;
 
-		for(int j = 0; j < y-1; j++){
+		for(int j = 0; j < num_out-1; j++){
 			x = rand() % threshold;
 
 			if((long double)x/RAND_MAX > max_prob){
 				x = RAND_MAX * max_prob;
 			}
 			
-			C[i][j] = (long double)x/RAND_MAX;
+			matrix[i][j] = (long double)x/RAND_MAX;
 			threshold -= x;
 		}
 
-		C[i][y-1] = (long double)threshold/RAND_MAX;
+		matrix[i][num_out-1] = (long double)threshold/RAND_MAX;
 	}
-
-	Channel::buildHyper();
 }
 
-string Channel::toString(int precision){
-	ostringstream out;
-	out << setprecision(precision) << prior->n << "," << y << "\n";
+std::string Channel::toString(int precision){
+	std::ostringstream out;
+	out << std::setprecision(precision) << prior->num_el << " " << num_out << "\n";
 	
-	for(int i = 0; i < prior->n; i++){
-		for(int j = 0; j < y-1; j++){
-			out << C[i][j] << ",";
+	for(int i = 0; i < prior->num_el; i++){
+		for(int j = 0; j < num_out-1; j++){
+			out << matrix[i][j] << " ";
 		}
-		out << C[i][y-1] << "\n";
+		out << matrix[i][num_out-1];
 	}
 
 	return out.str();
 }
 
-string Channel::toString(){
-	ostringstream out;
-	out << prior->n << "," << y << "\n";
+std::string Channel::toString(){
+	std::ostringstream out;
+	out << prior->num_el << " " << num_out << "\n";
 	
-	for(int i = 0; i < prior->n; i++){
-		for(int j = 0; j < y-1; j++){
-			out << C[i][j] << ",";
+	for(int i = 0; i < prior->num_el; i++){
+		for(int j = 0; j < num_out-1; j++){
+			out << matrix[i][j] << " ";
 		}
-		out << C[i][y-1] << "\n";
+		out << matrix[i][num_out-1];
 	}
 
 	return out.str();
 }
 
-void Channel::buildHyper(){
-	J.resize(prior->n, vector<long double>(y));
-	outer.resize(y,0);
+/************ Hyper *************/
 
-	for(int i = 0; i < prior->n; i++){
-		for(int j = 0; j < y; j++){
-			J[i][j] = C[i][j] * prior->probability[i];
-			outer[j] += J[i][j];
+void Hyper::buildHyper(Distribution &prior, Channel &channel, std::vector<std::vector<long double> > &joint, Distribution &outer, std::vector<std::vector<long double> > &inners){
+
+	joint.resize(prior.num_el, std::vector<long double>(channel.num_out));
+
+	outer.num_el = channel.num_out;
+	outer.prob.resize(outer.num_el, 0);
+
+	for(int i = 0; i < prior.num_el; i++){
+		for(int j = 0; j < channel.num_out; j++){
+			joint[i][j] = channel.matrix[i][j] * prior.prob[i];
+			outer.prob[j] += joint[i][j];
 		}
 	}
 
-	inners.resize(prior->n, vector<long double>(y));
+	inners.resize(prior.num_el, std::vector<long double>(channel.num_out));
 
-	for(int i = 0; i < prior->n; i++){
-		for(int j = 0; j < y; j++){
-			if(outer[j] == 0){
+	for(int i = 0; i < prior.num_el; i++){
+		for(int j = 0; j < channel.num_out; j++){
+			if(outer.prob[j] == 0){
 				inners[i][j] = 0;
 			}else{
-				inners[i][j] = J[i][j] / outer[j];
+				inners[i][j] = joint[i][j]/outer.prob[j];
 			}
 		}
 	}
+}
+
+Hyper::Hyper(){
+	prior = NULL;
+	channel = NULL;
+	joint.resize(0, std::vector<long double>(0));
+	inners.resize(0, std::vector<long double>(0));
+}
+
+Hyper::Hyper(std::string prior_file, std::string channel_file){
+	Distribution prior(prior_file);
+	Channel channel(prior, channel_file);
+
+	Hyper::buildHyper(prior, channel, joint, outer, inners);
+}
+
+Hyper::Hyper(Distribution &prior, Channel &channel){
+	Hyper::buildHyper(prior, channel, joint, outer, inners);	
 }
