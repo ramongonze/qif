@@ -144,16 +144,16 @@ class Distribution{
  * As a gain function makes reference to a set of secrets, one of the attributes is a pointer to a @ref Distribution, which represents the prior probability distribution over the set of secrets.
  */
 
-class Actions{
+class Gain{
 	
 	public:
 		/**
 		 * \brief Default constructor
 		 *
-		 * It instances an @ref Actions object with @ref num_ac = 0, @ref prior = NULL and an empty matrix @ref gain.
+		 * It instances a @ref Gain object with @ref num_ac = 0, @ref prior = NULL and an empty matrix @ref gain.
 		 */
 
-		Actions();
+		Gain();
 
 		/**
 		 * \brief Construtor used when the gain function matrix is in a file.
@@ -176,7 +176,7 @@ class Actions{
 		 *
 		 * \warning The number of rows in the gain function matrix must be as same as the number of elements in the @ref prior distribution.
 		 */
-		Actions(Distribution &prior, std::string file);
+		Gain(Distribution &prior, std::string file);
 
 		/**
 		 * \brief Constructor used to generate random gain function to a set of secrets.
@@ -193,7 +193,7 @@ class Actions{
 		 *
 		 * \warning The number of rows in the gain function matrix must be as same as the number of elements in the @ref prior distribution.
 		 */
-		Actions(Distribution &prior, int num_ac, int MIN, int MAX);
+		Gain(Distribution &prior, int num_ac, int MIN, int MAX);
 
 		/**
 		 * \brief Number of distinct actions that an adversary can take.
@@ -384,9 +384,16 @@ class Channel{
 		void printToFile(std::string, int precision);
 };
 
+
+/**
+ * \brief Class used to represent a Hyper distribution.
+ *
+ * A Hyper distribution
+ */
 class Hyper{
 	private:
 		void buildHyper(Distribution &prior, Channel &channel, std::vector<std::vector<long double> > &joint, Distribution &outer, std::vector<std::vector<long double> > &inners);
+
 	public:
 		Hyper();
 		Hyper(std::string prior_file, std::string channel_file);

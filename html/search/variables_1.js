@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['gain',['gain',['../classActions.html#a05b61f835576c23951c4c7271cd5ea53',1,'Actions']]]
+  ['gain',['gain',['../classGain.html#a48d5762f1a6bf97a09ab83df86493563',1,'Gain']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['distribution',['Distribution',['../classDistribution.html',1,'']]]
+  ['gain',['Gain',['../classGain.html',1,'']]]
 ];

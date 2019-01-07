@@ -5,5 +5,5 @@ var searchData=
   ['posteriorgvulnerability',['posteriorGVulnerability',['../functions_8hpp.html#aefe0c498d633a59dbb8d3336999d1ff5',1,'functions.hpp']]],
   ['posteriorktries',['posteriorKTries',['../functions_8hpp.html#a2f5cfce1bd7e015b19e28e67ed3ccb31',1,'functions.hpp']]],
   ['posteriorshannonentropy',['posteriorShannonEntropy',['../functions_8hpp.html#a4240afb65fb165a3eb2ff3c74865ee0b',1,'functions.hpp']]],
-  ['printtofile',['printToFile',['../classDistribution.html#aadc1ad2ae8a06be2cf941377225f7932',1,'Distribution::printToFile()'],['../classActions.html#a1ef8fa9291e6be235f448eb9f7f59e20',1,'Actions::printToFile()'],['../classChannel.html#aa7823e1aa1dea119ae0bf41d42f24b31',1,'Channel::printToFile()']]]
+  ['printtofile',['printToFile',['../classDistribution.html#aadc1ad2ae8a06be2cf941377225f7932',1,'Distribution::printToFile()'],['../classGain.html#a75fc2d0f0f74e4f24c39e4b04963c7b1',1,'Gain::printToFile()'],['../classChannel.html#aa7823e1aa1dea119ae0bf41d42f24b31',1,'Channel::printToFile()']]]
 ];

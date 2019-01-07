@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['actions',['Actions',['../classActions.html',1,'']]]
+  ['channel',['Channel',['../classChannel.html',1,'']]]
 ];

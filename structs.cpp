@@ -122,15 +122,15 @@ void Distribution::printToFile(std::string file, int precision){
 	F.close();
 }
 
-/*********** Actions ***********/
+/*********** Gain ***********/
 
-Actions::Actions(){
+Gain::Gain(){
 	num_ac = 0;
 	prior = NULL;
 	gain.resize(0, std::vector<long double>(0));
 }
 
-Actions::Actions(Distribution &prior, std::string file){
+Gain::Gain(Distribution &prior, std::string file){
 	int k;
 	FILE *F;
 
@@ -164,7 +164,7 @@ Actions::Actions(Distribution &prior, std::string file){
 	fclose(F);
 }
 
-Actions::Actions(Distribution &prior, int num_ac, int MIN, int MAX){
+Gain::Gain(Distribution &prior, int num_ac, int MIN, int MAX){
 	this->prior = &prior;
 	this->num_ac = num_ac;
 
@@ -177,7 +177,7 @@ Actions::Actions(Distribution &prior, int num_ac, int MIN, int MAX){
 	}
 }
 
-std::string Actions::toString(int precision){
+std::string Gain::toString(int precision){
 	std::ostringstream out;
 	out << std::fixed << std::setprecision(precision);
 	
@@ -192,7 +192,7 @@ std::string Actions::toString(int precision){
 	return out.str();
 }
 
-void Actions::printToFile(std::string file, int precision){
+void Gain::printToFile(std::string file, int precision){
 	std::ofstream F(file);
 
 	if(F.is_open() == false){
