@@ -141,7 +141,7 @@ class Distribution{
  *
  * A gain makes reference to an adversary's gain. The adversary can take some action, and for each secret, he or she achieves a gain.
  *
- * A gain function makes reference to a set of secrets, so one of the attributes of this class is a pointer to a @ref Distribution, which represents the prior distribution over the set of secrets. 
+ * As a gain function makes reference to a set of secrets, one of the attributes is a pointer to a @ref Distribution, which represents the prior probability distribution over the set of secrets.
  */
 
 class Actions{
@@ -166,13 +166,15 @@ class Actions{
 		 * 	...
 		 * 	pw1 pw2 ... pwn
 		 *
-		 * where \c w is the number of actions, and \c n is the number of secrets.
+		 * where \c w is the number of actions, and \c n is the number of secrets (\c n = @ref Distribution::num_el in the @ref prior).
 		 * The rows correspond to actions and the columns correspond to secrets.
 		 * Each probability \c pij is the gain of taking action \c i when the secret value is \c j. Every two numbers
 		 * must be separated by a " " (space).
 		 * 
 		 * \param prior: Prior distribution over a set of secrets
 		 * \param file: File's name which contains a gain function matrix.
+		 *
+		 * \warning The number of rows in the gain function matrix must be as same as the number of elements in the @ref prior distribution.
 		 */
 		Actions(Distribution &prior, std::string file);
 
@@ -188,6 +190,8 @@ class Actions{
 		 *
 		 * The parameters @ref MIN and @ref MAX must form an interval. All the gains generated randomly will be in the interval [@ref MIN,@ref MAX].
 		 * Each gain is a \c long \c double value.
+		 *
+		 * \warning The number of rows in the gain function matrix must be as same as the number of elements in the @ref prior distribution.
 		 */
 		Actions(Distribution &prior, int num_ac, int MIN, int MAX);
 
@@ -243,73 +247,141 @@ class Actions{
 		 * Each probability \c pij is the gain of taking action \c i when the secret value is \c j. Every two numbers
 		 * are separated by a " " (space).
 		 *
-		 * \param file A file's name to print the distribution.
+		 * \param file A file's name to print the gain function matrix.
 		 * \param precision Decimal precision for float numbers. For example, use the value 3 to print 0.322, use 5 to print 0.32197, and so on.
 		 */
 		void printToFile(std::string file, int precision);
 };
 
+/**
+ * \brief Class used to represent an informational channel.
+ *
+ * A channel can be described as a system that takes as input a secret - from a set of secrets - and whose only observable behavior is to produce an output - from a set of possible outputs.
+ * So a channel is a function from a set of secrets to a set of possible outputs. 
+ *
+ * We can use a matrix to represent the entire channel. In this library, a channel matrix is a matrix whose rows give the distribution on outputs corresponding to each possible input. 
+ * Hence each cell is the conditional probability p(\c y|\c x), for every secret \c x in the set of secrets and every \c y in the set of possible outputs.
+ *
+ * As a channel makes reference to a set of secrets, one of the attributes is a pointer to a @ref Distribution, which represents the prior probability distribution over the set of secrets.
+ *
+ */
+
 class Channel{
 	public:
+		/**
+		 * \brief Default constructor
+		 *
+		 * It instances a @ref Channel object with @ref num_out = 0, @ref prior = NULL and an empty @ref matrix.
+		 */
 		Channel();
 		
-		/* Construtor used when the matrix C of secret x output is in a file.
-		 * The matrix has dimensions |X| x |Y|.
-		 * |Y| is the number of outputs, which will be read in the file.
-		 *
+		/**
+		 * \brief Construtor used when the channel matrix is in a file.
+		 * 
 		 * The file format must be:
 		 *
-		 * n,y
-		 * p11,p12,...,p1y
-		 * p21,p22,...,p2y
-		 * ...
-		 * pn1,pn2,...,pny
+		 * 	n y
+		 * 	p11 p12 ... p1y
+		 * 	p21 p22 ... p2y
+		 * 	...
+		 * 	pn1 pn2 ... pny
 		 *
-		 * where y is the number of outputs in the channel and n is the number 
-		 * of elements in the distribution D.
+		 * where \c n is the number of secrets (\c n = @ref Distribution::num_el in the @ref prior) and \c y is the number of outputs.
+		 * The rows correspond to secrets and the columns correspond to outputs. Each \c pij is the conditional probability p(\c j|\c i) of the 
+		 * output \c j happens when the current secret is \c i.
+		 * Every two numbers must be separated by a " " (space).
+		 * 
+		 * The rows give the distribution on outputs corresponding to each possible input.
 		 *
-		 * -> The rows correspond to secrets
-		 * -> The columns correspond to outputs
+		 * \param prior Prior distribution over a set of secrets
+		 * \param file File's name which contains a channel matrix.
 		 *
-		 * All entries in the channel matrix are between 0 and 1, and each row 
-		 * sums to 1.
-		 * The rows give the distribution on outputs corresponding to each 
-		 * possible input.  */
+		 * \warning The number of rows in the channel matrix must be as same as the number of elements in the @ref prior distribution.
+		 *
+		 */
 		Channel(Distribution &prior, std::string file);
 
-		/* Constructor used to generate random channels.
+		/**
+		 * \brief Constructor used to generate random channels.
 		 *
-		 * \param _prior: Prior distribution
-		 * \param _y: Number of outputs
-		 * \param max_prob: A float number in the interval [0,1]. It is 
-		 *                      used as an upper bound of any outputs' 
-		 *                      probabilities. Used to generate random 
-		 *                      distributions. */
-		Channel(Distribution &prior, int _y, long double max_prob);
+		 * Given a set of secrets in the pointer @ref prior, the constructor builds a random channel matrix.
+		 * The number of the channel outputs is passed as an argument.
+		 *
+		 * \param prior: Prior distribution over a set of secrets.
+		 * \param num_out: Number of outputs.
+		 * \param max_prob: A float number in the interval [0,1]. It is used as an upper bound of any outputs' probabilities.
+		 * For example, when \c max_prob is \c 0.4, all the probabilities in the matrix will be less equal to \c 0.4.
+		 * 
+		 * \warning We must have \c max_prob * \c num_out >= 1, otherwise a row in the channel matrix would not represent a probability distribution.
+		 * \warning The number of rows in the channel matrix must be as same as the number of elements in the @ref prior distribution.
+		 */
+		Channel(Distribution &prior, int num_ac, long double max_prob);
 
-		/* Number of outputs. */
+		/**
+		 * \brief Number of channel outputs.
+		 */
 		int num_out;
 		
-		/* A probability distribution of a set of X screts. */
+		/**
+		 * \brief A probability distribution over a set of secrets. 
+		 */
 		Distribution *prior;
 		
-		/* Channel matrix, indexed by X*Y, whose rows give the distribution 
-		 * on outputs corresponding to each possible input. It has size n*y. */
+		/**
+		 * \brief Channel matrix.
+		 *
+		 * The rows give the distribution on outputs corresponding to each possible input.
+		 *
+		 * The matrix has dimensions N*Y, where N = @ref Distribution::num_el in the @ref prior and Y = @ref num_out.
+		 */
 		std::vector<std::vector<long double> > matrix;
 
-		/* Verify if the channel matrix corresponds to a valid channel. */
+		/**
+		 * \brief Verify if a matrix corresponds to a valid channel matrix.
+		 * 
+		 * A channel matrix is a valid one if each row is a probability distribution.
+		 *
+		 * \param matrix A channel matrix
+		 */
 		static bool isChannel(std::vector<std::vector<long double> > &matrix);
 		
-		/* Generates a string with the channel matrix C in the same format the 
-		 * constructor Channel(Distribution &prior, string file) reads it in a 
-		 * file.
+		/**
+		 * \brief Returns a string with the channel matrix.
 		 *
-		 * \param precision: Decimal precision for float numbers. */
+		 * The string's format is the following:
+		 *
+		 * 	p11 p12 ... p1y
+		 * 	p21 p22 ... p2y
+		 * 	...
+		 * 	pn1 pn2 ... pny
+		 *
+		 * where \c n is the number of secrets (\c n = @ref Distribution::num_el in the @ref prior) and \c y is the number of outputs of the channel.
+		 * Each \c pij is the conditional probability p(\c j|\c i) of the output \c j happens when the current secret is \c i.
+		 * Every two numbers are separated by a " " (space).
+		 *
+		 * \param precision Decimal precision for float numbers. For example, use the value 3 to print 0.322, use 5 to print 0.32197, and so on.
+		 */
 		std::string toString(int precision);
 
-		/* Generates a string with a standard float numbers precision from 
-		 * C++. */
-		std::string toString();
+		/**
+		 * \brief Print the channel matrix in a file.
+		 *
+		 * The channel matrix is printed in the following format:
+		 *
+		 * 	n y
+		 * 	p11 p12 ... p1y
+		 * 	p21 p22 ... p2y
+		 * 	...
+		 * 	pn1 pn2 ... pny
+		 *
+		 * where \c n is the number of secrets (\c n = @ref Distribution::num_el in the @ref prior) and \c y is the number of outputs of the channel.
+		 * Each \c pij is the conditional probability p(\c j|\c i) of the output \c j happens when the current secret is \c i.
+		 * Every two numbers are separated by a " " (space).
+		 *
+		 * \param file A file's name to print the channel matrix.
+		 * \param precision Decimal precision for float numbers. For example, use the value 3 to print 0.322, use 5 to print 0.32197, and so on.
+		 */
+		void printToFile(std::string, int precision);
 };
 
 class Hyper{

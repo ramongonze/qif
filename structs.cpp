@@ -214,23 +214,13 @@ void Actions::printToFile(std::string file, int precision){
 
 /*********** Channels ***********/
 
-bool Channel::isChannel(std::vector<std::vector<long double> > &matrix){
-	for(unsigned int i = 0; i < matrix.size(); i++){
-		if(!Distribution::isDistribution(matrix[i])){
-			return false;
-		}
-	}
-
-	return true;
-}
-
 Channel::Channel(){
 	num_out = 0;
 	prior = NULL;
 	matrix.resize(0, std::vector<long double>(0));
 }
 
-Channel::Channel(Distribution &_prior, std::string file){
+Channel::Channel(Distribution &prior, std::string file){
 	int k;
 	FILE *F;
 
@@ -245,16 +235,16 @@ Channel::Channel(Distribution &_prior, std::string file){
 		exit(EXIT_FAILURE);
 	}
 
-	if(k != _prior.num_el || num_out <= 0){
+	if(k != prior.num_el || num_out <= 0){
 		fprintf(stderr, "Invalid matrix size!\n");
 		exit(EXIT_FAILURE);
 	}
 
-	prior = &_prior;
+	this->prior = &prior;
 
-	matrix.resize(prior->num_el, std::vector<long double>(num_out));
+	matrix.resize(this->prior->num_el, std::vector<long double>(num_out));
 
-	for(int i = 0; i < prior->num_el; i++){
+	for(int i = 0; i < this->prior->num_el; i++){
 		for(int j = 0; j < num_out; j++){
 			if(!fscanf(F, "%Lf,", &(matrix[i][j]))){
 				exit(EXIT_FAILURE);
@@ -269,18 +259,18 @@ Channel::Channel(Distribution &_prior, std::string file){
 	}
 }
 
-Channel::Channel(Distribution &_prior, int _num_out, long double max_prob){
+Channel::Channel(Distribution &prior, int num_out, long double max_prob){
 
-	prior = &_prior;
-	num_out = _num_out;
+	this->prior = &prior;
+	this->num_out = num_out;
 
-	matrix.resize(prior->num_el, std::vector<long double>(num_out));
+	matrix.resize(this->prior->num_el, std::vector<long double>(this->num_out));
 
-	for(int i = 0; i < prior->num_el; i++){
+	for(int i = 0; i < this->prior->num_el; i++){
 		int threshold = RAND_MAX;
 		int x;
 
-		for(int j = 0; j < num_out-1; j++){
+		for(int j = 0; j < this->num_out-1; j++){
 			x = rand() % threshold;
 
 			if((long double)x/RAND_MAX > max_prob){
@@ -291,36 +281,53 @@ Channel::Channel(Distribution &_prior, int _num_out, long double max_prob){
 			threshold -= x;
 		}
 
-		matrix[i][num_out-1] = (long double)threshold/RAND_MAX;
+		matrix[i][this->num_out-1] = (long double)threshold/RAND_MAX;
 	}
+}
+
+bool Channel::isChannel(std::vector<std::vector<long double> > &matrix){
+	for(unsigned int i = 0; i < matrix.size(); i++){
+		if(!Distribution::isDistribution(matrix[i])){
+			return false;
+		}
+	}
+
+	return true;
 }
 
 std::string Channel::toString(int precision){
 	std::ostringstream out;
-	out << std::setprecision(precision) << prior->num_el << " " << num_out << "\n";
+	out << std::fixed << std::setprecision(precision);
 	
+	out << prior->num_el << " " << num_out << "\n";
 	for(int i = 0; i < prior->num_el; i++){
 		for(int j = 0; j < num_out-1; j++){
 			out << matrix[i][j] << " ";
 		}
-		out << matrix[i][num_out-1];
+		out << matrix[i][num_out-1] << "\n";
 	}
 
 	return out.str();
 }
 
-std::string Channel::toString(){
-	std::ostringstream out;
-	out << prior->num_el << " " << num_out << "\n";
-	
-	for(int i = 0; i < prior->num_el; i++){
-		for(int j = 0; j < num_out-1; j++){
-			out << matrix[i][j] << " ";
-		}
-		out << matrix[i][num_out-1];
+void Channel::printToFile(std::string file, int precision){
+	std::ofstream F(file);
+
+	if(F.is_open() == false){
+		fprintf(stderr, "Error opening the file ""%s""!\n", file.c_str());
+		exit(EXIT_FAILURE);
 	}
 
-	return out.str();
+	F << prior->num_el << " " << num_out << "\n";
+	F << std::fixed << std::setprecision(precision);
+	for(int i = 0; i < prior->num_el; i++){
+		for(int j = 0; j < num_out-1; j++){
+			F << matrix[i][j] << " ";
+		}
+		F << matrix[i][num_out-1] << "\n";
+	}
+
+	F.close();
 }
 
 /************ Hyper *************/
