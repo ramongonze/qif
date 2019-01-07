@@ -29,9 +29,10 @@
 #define EPS 1e-6
 
 /**
- * \brief A class used to represent a probability distribution.
+ * \brief Class used to represent a probability distribution.
  * 
- * A probability distribution is made up by the number of elements in the distribution (attribute @ref num_el) and a vector of probabilities (attribute @ref prob).
+ * A probability distribution is over a set of elements, so the class has the attribute @ref num_el to keep the number of elements in the set
+ * and the attribute @ref prob to keep the probability of each element from the set occurs.
  */
 
 class Distribution{
@@ -40,7 +41,7 @@ class Distribution{
 		/**
 		 * \brief Default constructor.
 		 *
-		 * It instances a probability distribution with \c num_el = 0 and an empty vector \c prob.
+		 * It instances an @ref Distribution object with @ref num_el = 0 and an empty vector @ref prob.
 		 */
 		Distribution();
 		
@@ -71,7 +72,7 @@ class Distribution{
 		/**
 		 * \brief Constructor used to generate a uniform or a random probability distribution.
 		 *
-		 * \param num_el Number of elements in the distribution.
+		 * \param num_el Number of elements in the set of elements.
 		 * \param type Must be "uniform" for a uniform distribution or "random" for a random distribution.
 		 * \param max_prob A number in the interval [0,1]. When \c type is "uniform", \c max_prob is ignored (any value can be passed).
 		 * When \c type is "random" it is used as an upper bound for generating the elements' probabilities in the distribution.
@@ -85,8 +86,8 @@ class Distribution{
 		/**
 		 * \brief A vector of elements' probabilities.
 		 * 
-		 * It is a vector which contains all the elements' probabilities of a probability distribution.
-		 * The vector is indexed from the position 0 (1st element) to the position @ref num_el - 1 (the last element). So the vector's size is @ref num_el.
+		 * It is a vector which contains all the elements' probabilities. Each position \c i in the vector is the probability of the ith element occurs.
+		 * The vector is indexed from the position 0 (1st element) to the position @ref num_el - 1 (last element). So the vector's size is @ref num_el.
 		 */
 		std::vector<long double> prob;
 
@@ -102,7 +103,7 @@ class Distribution{
 		static bool isDistribution(std::vector<long double> &prob);
 
 		/**
-		 * \brief Give back a string with the probability distribution.
+		 * \brief Returns a string with the probability distribution.
 		 * 
 		 * \param precision Decimal precision for float numbers. For example, use the value 3 to print 0.322, use 5 to print 0.32197, and so on.
 		 *
@@ -127,70 +128,125 @@ class Distribution{
 		 *
 		 * where \c n is the number of elements in the probability distribution and \c pi is the ith element in the vector of probabilities.
 		 *
-		 * \param D A probability distribution
-		 * \param file The file's name.
+		 * \param file A file's name to print the distribution.
 		 * \param precision Decimal precision for float numbers. For example, use the value 3 to print 0.322, use 5 to print 0.32197, and so on.
 		 */
-		void printToFile(Distribution &D, std::string file, int precision);
+		void printToFile(std::string file, int precision);
 };
+
+/**
+ * \brief Class used to represent a gain function.
+ *
+ * A gain function is a function from a set of secrets and a set of adversary actions to a real number.
+ *
+ * A gain makes reference to an adversary's gain. The adversary can take some action, and for each secret, he or she achieves a gain.
+ *
+ * A gain function makes reference to a set of secrets, so one of the attributes of this class is a pointer to a @ref Distribution, which represents the prior distribution over the set of secrets. 
+ */
 
 class Actions{
 	
 	public:
+		/**
+		 * \brief Default constructor
+		 *
+		 * It instances an @ref Actions object with @ref num_ac = 0, @ref prior = NULL and an empty matrix @ref gain.
+		 */
+
 		Actions();
 
-		/* Construtor used when the matrix of Gain x Secret is in a file.
+		/**
+		 * \brief Construtor used when the gain function matrix is in a file.
 		 *
-		 * The file must be in CSV format, following above:
+		 * The file must be in the following format:
 		 *
-		 * w,n
-		 * p11,p12,...,p1n
-		 * p21,p22,...,p2n
-		 * ...
-		 * pw1,pw2,...,pwn
+		 * 	w n
+		 * 	p11 p12 ... p1n
+		 * 	p21 p22 ... p2n
+		 * 	...
+		 * 	pw1 pw2 ... pwn
 		 *
-		 * where w is the number of actions and n is the number of elements in 
-		 * the prior distribution.
-		 *
-		 * -> The rows correspond to actions
-		 * -> The columns correspond to secrets
-		 *
-		 * Each cell (w,x) in the matrix is a gain g(w,x) that specifies the 
-		 * gain that the adversary achieves by taking action w when the actual 
-		 * value of the secret is x.
-		 *
-		 * @Parameter _prior: Prior distribution
-		 * @Parameter file: File's name which contains the matrix of actions. */
-		Actions(Distribution &_prior, std::string file);
+		 * where \c w is the number of actions, and \c n is the number of secrets.
+		 * The rows correspond to actions and the columns correspond to secrets.
+		 * Each probability \c pij is the gain of taking action \c i when the secret value is \c j. Every two numbers
+		 * must be separated by a " " (space).
+		 * 
+		 * \param prior: Prior distribution over a set of secrets
+		 * \param file: File's name which contains a gain function matrix.
+		 */
+		Actions(Distribution &prior, std::string file);
 
-		/* Constructor used to generate random gains for a given prior distribution.
+		/**
+		 * \brief Constructor used to generate random gain function to a set of secrets.
 		 *
-		 * @Parameter _prior: Prior distribution
-		 * @Parameter _num_ac: Number of actions
-		 * @Parameter MIN: Lower bound for the gain of an action
-		 * @Parameter MAX: Upper bound for the gain of an action */
-		Actions(Distribution &_prior, int _num_ac, int MIN, int MAX);
+		 * The set of secrets can be described by a @ref Distribution, so it is the first parameter.
+		 *
+		 * \param prior: Prior distribution over a set of secrets.
+		 * \param num_ac: Number of actions.
+		 * \param MIN: Lower bound for the gain of an action.
+		 * \param MAX: Upper bound for the gain of an action.
+		 *
+		 * The parameters @ref MIN and @ref MAX must form an interval. All the gains generated randomly will be in the interval [@ref MIN,@ref MAX].
+		 * Each gain is a \c long \c double value.
+		 */
+		Actions(Distribution &prior, int num_ac, int MIN, int MAX);
 
-		/* Number of possible actions */
+		/**
+		 * \brief Number of distinct actions that an adversary can take.
+		 */
 		int num_ac;
 
-		/* A probability distribution of a set X of secrets. */
+		/**
+		 * \brief A pointer to a prior probability distribution over a set of secrets.
+		 */
 		Distribution *prior;
 		
-		/* Matrix |W| x |X| representing actions and their gains for each 
-		 * secret. */
+		/**
+		 * \brief Gain function matrix.
+		 *
+		 * The lines are the actions, the columns are the secrets and each cell
+		 * (_w_,_x_) in the matrix is the gain that an adversary achieves by taking action _w_ when the actual value of the secret is _x_. 
+		 *
+		 * The matrix has dimensions W x N, where W is the number of actions (@ref num_ac) and N is the number of secrets (@ref num_el of the @ref prior).
+		 */
 		std::vector<std::vector<long double> > gain;
 
-		/* Generates a string with the matrix G in the same format that the 
-		 * constructor Actions(Distribution &prior, string file) reads it in a 
-		 * file.
+		/**
+		 * \brief Returns a string with the gain function matrix.
 		 *
-		 * @Parameter precision: Decimal precision for float numbers. */
+		 * The string's format is the following:
+		 *
+		 * 	p11 p12 ... p1n
+		 * 	p21 p22 ... p2n
+		 * 	...
+		 * 	pw1 pw2 ... pwn
+		 *
+		 * Each probability \c pij is the gain of taking action \c i when the secret value is \c j. Every two numbers
+		 * are separated by a " " (space).
+		 *
+		 * \param precision Decimal precision for float numbers. For example, use the value 3 to print 0.322, use 5 to print 0.32197, and so on.
+		 */
 		std::string toString(int precision);
 
-		/* Generates a string with a standard float numbers precision from 
-		 * C++. */
-		std::string toString();
+		/**
+		 * \brief Print the gain function matrix in a file.
+		 *
+		 * The gain function matrix is printed in the following format:
+		 *
+		 * 	w n
+		 * 	p11 p12 ... p1n
+		 * 	p21 p22 ... p2n
+		 * 	...
+		 * 	pw1 pw2 ... pwn
+		 *
+		 * where \c w is the number of actions, and \c n is the number of secrets.
+		 * Each probability \c pij is the gain of taking action \c i when the secret value is \c j. Every two numbers
+		 * are separated by a " " (space).
+		 *
+		 * \param file A file's name to print the distribution.
+		 * \param precision Decimal precision for float numbers. For example, use the value 3 to print 0.322, use 5 to print 0.32197, and so on.
+		 */
+		void printToFile(std::string file, int precision);
 };
 
 class Channel{
@@ -223,9 +279,9 @@ class Channel{
 
 		/* Constructor used to generate random channels.
 		 *
-		 * @Parameter _prior: Prior distribution
-		 * @Parameter _y: Number of outputs
-		 * @Parameter max_prob: A float number in the interval [0,1]. It is 
+		 * \param _prior: Prior distribution
+		 * \param _y: Number of outputs
+		 * \param max_prob: A float number in the interval [0,1]. It is 
 		 *                      used as an upper bound of any outputs' 
 		 *                      probabilities. Used to generate random 
 		 *                      distributions. */
@@ -248,7 +304,7 @@ class Channel{
 		 * constructor Channel(Distribution &prior, string file) reads it in a 
 		 * file.
 		 *
-		 * @Parameter precision: Decimal precision for float numbers. */
+		 * \param precision: Decimal precision for float numbers. */
 		std::string toString(int precision);
 
 		/* Generates a string with a standard float numbers precision from 

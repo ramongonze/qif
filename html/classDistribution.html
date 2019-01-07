@@ -71,7 +71,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>A class used to represent a probability distribution.  
+<p>Class used to represent a probability distribution.  
  <a href="classDistribution.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="structs_8hpp_source.html">structs.hpp</a>&gt;</code></p>
@@ -91,11 +91,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a9acd88002a7da76c0c4225f633aaa6af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor used to generate a uniform or a random probability distribution.  <a href="#a9acd88002a7da76c0c4225f633aaa6af">More...</a><br /></td></tr>
 <tr class="separator:a9acd88002a7da76c0c4225f633aaa6af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d0b69f7838f42a9b24891930c7b886c"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDistribution.html#a4d0b69f7838f42a9b24891930c7b886c">toString</a> (int precision)</td></tr>
-<tr class="memdesc:a4d0b69f7838f42a9b24891930c7b886c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Give back a string with the probability distribution.  <a href="#a4d0b69f7838f42a9b24891930c7b886c">More...</a><br /></td></tr>
+<tr class="memdesc:a4d0b69f7838f42a9b24891930c7b886c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string with the probability distribution.  <a href="#a4d0b69f7838f42a9b24891930c7b886c">More...</a><br /></td></tr>
 <tr class="separator:a4d0b69f7838f42a9b24891930c7b886c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a288ccad773b0bdc2f2cf99475857d157"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDistribution.html#a288ccad773b0bdc2f2cf99475857d157">printToFile</a> (<a class="el" href="classDistribution.html">Distribution</a> &amp;D, std::string file, int precision)</td></tr>
-<tr class="memdesc:a288ccad773b0bdc2f2cf99475857d157"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the probability distribution in a file.  <a href="#a288ccad773b0bdc2f2cf99475857d157">More...</a><br /></td></tr>
-<tr class="separator:a288ccad773b0bdc2f2cf99475857d157"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadc1ad2ae8a06be2cf941377225f7932"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDistribution.html#aadc1ad2ae8a06be2cf941377225f7932">printToFile</a> (std::string file, int precision)</td></tr>
+<tr class="memdesc:aadc1ad2ae8a06be2cf941377225f7932"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the probability distribution in a file.  <a href="#aadc1ad2ae8a06be2cf941377225f7932">More...</a><br /></td></tr>
+<tr class="separator:aadc1ad2ae8a06be2cf941377225f7932"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -113,8 +113,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:aa8747c6c9d07bb181a66db384f3d36ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A class used to represent a probability distribution. </p>
-<p>A probability distribution is made up by the number of elements in the distribution (attribute <a class="el" href="classDistribution.html#abf6d2562546255d476553d8b248dc8d9">num_el</a>) and a vector of probabilities (attribute <a class="el" href="classDistribution.html#aa8747c6c9d07bb181a66db384f3d36ae">prob</a>). </p>
+<div class="textblock"><p>Class used to represent a probability distribution. </p>
+<p>A probability distribution is over a set of elements, so the class has the attribute <a class="el" href="classDistribution.html#abf6d2562546255d476553d8b248dc8d9">num_el</a> to keep the number of elements in the set and the attribute <a class="el" href="classDistribution.html#aa8747c6c9d07bb181a66db384f3d36ae">prob</a> to keep the probability of each element from the set occurs. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ada837c9a1da728290d6bbea0bb6b266f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ada837c9a1da728290d6bbea0bb6b266f">&#9670;&nbsp;</a></span>Distribution() <span class="overload">[1/4]</span></h2>
@@ -132,7 +132,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Default constructor. </p>
-<p>It instances a probability distribution with <code>num_el</code> = 0 and an empty vector <code>prob</code>. </p>
+<p>It instances an <a class="el" href="classDistribution.html">Distribution</a> object with <a class="el" href="classDistribution.html#abf6d2562546255d476553d8b248dc8d9">num_el</a> = 0 and an empty vector <a class="el" href="classDistribution.html#aa8747c6c9d07bb181a66db384f3d36ae">prob</a>. </p>
 
 </div>
 </div>
@@ -229,7 +229,7 @@ pn
 <p>Constructor used to generate a uniform or a random probability distribution. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">num_el</td><td>Number of elements in the distribution. </td></tr>
+    <tr><td class="paramname">num_el</td><td>Number of elements in the set of elements. </td></tr>
     <tr><td class="paramname">type</td><td>Must be "uniform" for a uniform distribution or "random" for a random distribution. </td></tr>
     <tr><td class="paramname">max_prob</td><td>A number in the interval [0,1]. When <code>type</code> is "uniform", <code>max_prob</code> is ignored (any value can be passed). When <code>type</code> is "random" it is used as an upper bound for generating the elements' probabilities in the distribution. For example, when <code>max_prob</code> is <code>0.4</code>, all the probabilities in the new probability distribution are less equal to <code>0.4</code>. </td></tr>
   </table>
@@ -272,8 +272,8 @@ pn
 
 </div>
 </div>
-<a id="a288ccad773b0bdc2f2cf99475857d157"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a288ccad773b0bdc2f2cf99475857d157">&#9670;&nbsp;</a></span>printToFile()</h2>
+<a id="aadc1ad2ae8a06be2cf941377225f7932"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aadc1ad2ae8a06be2cf941377225f7932">&#9670;&nbsp;</a></span>printToFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -281,12 +281,6 @@ pn
         <tr>
           <td class="memname">void Distribution::printToFile </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classDistribution.html">Distribution</a> &amp;&#160;</td>
-          <td class="paramname"><em>D</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>file</em>, </td>
         </tr>
@@ -313,8 +307,7 @@ pn
 </pre><p>where <code>n</code> is the number of elements in the probability distribution and <code>pi</code> is the ith element in the vector of probabilities.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">D</td><td>A probability distribution </td></tr>
-    <tr><td class="paramname">file</td><td>The file's name. </td></tr>
+    <tr><td class="paramname">file</td><td>A file's name to print the distribution. </td></tr>
     <tr><td class="paramname">precision</td><td>Decimal precision for float numbers. For example, use the value 3 to print 0.322, use 5 to print 0.32197, and so on. </td></tr>
   </table>
   </dd>
@@ -338,7 +331,7 @@ pn
       </table>
 </div><div class="memdoc">
 
-<p>Give back a string with the probability distribution. </p>
+<p>Returns a string with the probability distribution. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">precision</td><td>Decimal precision for float numbers. For example, use the value 3 to print 0.322, use 5 to print 0.32197, and so on.</td></tr>
@@ -382,7 +375,7 @@ where <code>pi</code> is the probability of the ith element occurring. Each two 
 </div><div class="memdoc">
 
 <p>A vector of elements' probabilities. </p>
-<p>It is a vector which contains all the elements' probabilities of a probability distribution. The vector is indexed from the position 0 (1st element) to the position <a class="el" href="classDistribution.html#abf6d2562546255d476553d8b248dc8d9">num_el</a> - 1 (the last element). So the vector's size is <a class="el" href="classDistribution.html#abf6d2562546255d476553d8b248dc8d9">num_el</a>. </p>
+<p>It is a vector which contains all the elements' probabilities. Each position <code>i</code> in the vector is the probability of the ith element occurs. The vector is indexed from the position 0 (1st element) to the position <a class="el" href="classDistribution.html#abf6d2562546255d476553d8b248dc8d9">num_el</a> - 1 (last element). So the vector's size is <a class="el" href="classDistribution.html#abf6d2562546255d476553d8b248dc8d9">num_el</a>. </p>
 
 </div>
 </div>

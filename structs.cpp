@@ -105,20 +105,18 @@ std::string Distribution::toString(int precision){
 	return out.str();
 }
 
-void printToFile(Distribution &D, std::string file, int precision){
-	std::ofstream F;
-
-	F.open(file);
+void Distribution::printToFile(std::string file, int precision){
+	std::ofstream F(file);
 
 	if(F.is_open() == false){
 		fprintf(stderr, "Error opening the file ""%s""!\n", file.c_str());
 		exit(EXIT_FAILURE);
 	}
 
-	F << D.num_el << "\n";
+	F << num_el << "\n";
 	F << std::fixed << std::setprecision(precision);
-	for(int i = 0; i < D.num_el; i++){
-		F << D.prob[i] << "\n";
+	for(int i = 0; i < num_el; i++){
+		F << prob[i] << "\n";
 	}
 
 	F.close();
@@ -132,7 +130,7 @@ Actions::Actions(){
 	gain.resize(0, std::vector<long double>(0));
 }
 
-Actions::Actions(Distribution &_prior, std::string file){
+Actions::Actions(Distribution &prior, std::string file){
 	int k;
 	FILE *F;
 
@@ -147,16 +145,16 @@ Actions::Actions(Distribution &_prior, std::string file){
 		exit(EXIT_FAILURE);
 	}
 
-	if(k != _prior.num_el || num_ac <= 0){
+	if(k != prior.num_el || num_ac <= 0){
 		fprintf(stderr, "Invalid matrix size!\n");
 		exit(EXIT_FAILURE);
 	}
 
-	prior = &_prior;
-	gain.resize(num_ac, std::vector<long double>(prior->num_el));
+	this->prior = &prior;
+	gain.resize(num_ac, std::vector<long double>(this->prior->num_el));
 
 	for(int i = 0; i < num_ac; i++){
-		for(int j = 0; j < prior->num_el; j++){
+		for(int j = 0; j < this->prior->num_el; j++){
 			if(!fscanf(F, "%Lf,", &gain[i][j])){
 				exit(EXIT_FAILURE);
 			}
@@ -166,13 +164,14 @@ Actions::Actions(Distribution &_prior, std::string file){
 	fclose(F);
 }
 
-Actions::Actions(Distribution &_prior, int _num_ac, int MIN, int MAX){
-	prior = &_prior;
-	num_ac = _num_ac;
-	gain.resize(num_ac, std::vector<long double>(prior->num_el));
+Actions::Actions(Distribution &prior, int num_ac, int MIN, int MAX){
+	this->prior = &prior;
+	this->num_ac = num_ac;
 
-	for(int i = 0; i < num_ac; i++){
-		for(int j = 0; j < prior->num_el; j++){
+	gain.resize(this->num_ac, std::vector<long double>(this->prior->num_el));
+
+	for(int i = 0; i < this->num_ac; i++){
+		for(int j = 0; j < this->prior->num_el; j++){
 			gain[i][j] = rand()%(MAX-MIN+1) + MIN;
 		}
 	}
@@ -180,30 +179,37 @@ Actions::Actions(Distribution &_prior, int _num_ac, int MIN, int MAX){
 
 std::string Actions::toString(int precision){
 	std::ostringstream out;
-	out << std::setprecision(precision) << num_ac << " "  << prior->num_el << "\n";
+	out << std::fixed << std::setprecision(precision);
 	
+	out << num_ac << " " << prior->num_el << "\n";
 	for(int i = 0; i < num_ac; i++){
 		for(int j = 0; j < prior->num_el-1; j++){
 			out << gain[i][j] << " ";
 		}
-		out << gain[i][prior->num_el-1];
+		out << gain[i][prior->num_el-1] << "\n";
 	}
 
 	return out.str();
 }
 
-std::string Actions::toString(){
-	std::ostringstream out;
-	out << num_ac << " " << prior->num_el << "\n";
-	
-	for(int i = 0; i < num_ac; i++){
-		for(int j = 0; j < prior->num_el-1; j++){
-			out << gain[i][j] << " ";
-		}
-		out << gain[i][prior->num_el-1];
+void Actions::printToFile(std::string file, int precision){
+	std::ofstream F(file);
+
+	if(F.is_open() == false){
+		fprintf(stderr, "Error opening the file ""%s""!\n", file.c_str());
+		exit(EXIT_FAILURE);
 	}
 
-	return out.str();
+	F << num_ac << " " << prior->num_el << "\n";
+	F << std::fixed << std::setprecision(precision);
+	for(int i = 0; i < num_ac; i++){
+		for(int j = 0; j < prior->num_el-1; j++){
+			F << gain[i][j] << " ";
+		}
+		F << gain[i][prior->num_el-1] << "\n";
+	}
+
+	F.close();
 }
 
 /*********** Channels ***********/
