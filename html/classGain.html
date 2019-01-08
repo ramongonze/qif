@@ -99,7 +99,7 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a76381c0516ffcc3c6df5affe71898a6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of distinct actions that an adversary can take.  <a href="#a76381c0516ffcc3c6df5affe71898a6f">More...</a><br /></td></tr>
 <tr class="separator:a76381c0516ffcc3c6df5affe71898a6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a10e6d2c415433bf66ace95cbb4bac0f6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classDistribution.html">Distribution</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGain.html#a10e6d2c415433bf66ace95cbb4bac0f6">prior</a></td></tr>
-<tr class="memdesc:a10e6d2c415433bf66ace95cbb4bac0f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">A pointer to a prior probability distribution over a set of secrets.  <a href="#a10e6d2c415433bf66ace95cbb4bac0f6">More...</a><br /></td></tr>
+<tr class="memdesc:a10e6d2c415433bf66ace95cbb4bac0f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">A pointer to a prior probability distribution on a set of secrets.  <a href="#a10e6d2c415433bf66ace95cbb4bac0f6">More...</a><br /></td></tr>
 <tr class="separator:a10e6d2c415433bf66ace95cbb4bac0f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a48d5762f1a6bf97a09ab83df86493563"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; long double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGain.html#a48d5762f1a6bf97a09ab83df86493563">gain</a></td></tr>
 <tr class="memdesc:a48d5762f1a6bf97a09ab83df86493563"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classGain.html" title="Class used to represent a gain function.">Gain</a> function matrix.  <a href="#a48d5762f1a6bf97a09ab83df86493563">More...</a><br /></td></tr>
@@ -109,7 +109,7 @@ Public Attributes</h2></td></tr>
 <div class="textblock"><p>Class used to represent a gain function. </p>
 <p>A gain function is a function from a set of secrets and a set of adversary actions to a real number.</p>
 <p>A gain makes reference to an adversary's gain. The adversary can take some action, and for each secret, he or she achieves a gain.</p>
-<p>As a gain function makes reference to a set of secrets, one of the attributes is a pointer to a <a class="el" href="classDistribution.html">Distribution</a>, which represents the prior probability distribution over the set of secrets. </p>
+<p>As a gain function makes reference to a set of secrets, one of the attributes is a pointer to a <a class="el" href="classDistribution.html">Distribution</a>, which represents the prior probability distribution on the set of secrets. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a1fd16c9b66b14775500af306e6b8f704"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1fd16c9b66b14775500af306e6b8f704">&#9670;&nbsp;</a></span>Gain() <span class="overload">[1/3]</span></h2>
@@ -163,10 +163,10 @@ p11 p12 ... p1n
 p21 p22 ... p2n
 ...
 pw1 pw2 ... pwn
-</pre><p>where <code>w</code> is the number of actions, and <code>n</code> is the number of secrets (<code>n</code> = <a class="el" href="classDistribution.html#abf6d2562546255d476553d8b248dc8d9">Distribution::num_el</a> in the <a class="el" href="classGain.html#a10e6d2c415433bf66ace95cbb4bac0f6">prior</a>). The rows correspond to actions and the columns correspond to secrets. Each probability <code>pij</code> is the gain of taking action <code>i</code> when the secret value is <code>j</code>. Every two numbers must be separated by a " " (space).</p>
+</pre><p>where <code>w</code> is the number of actions, and <code>n</code> is the number of secrets (<code>n</code> = <a class="el" href="classDistribution.html#abf6d2562546255d476553d8b248dc8d9">Distribution::num_el</a> in the <a class="el" href="classGain.html#a10e6d2c415433bf66ace95cbb4bac0f6">prior</a>). The rows correspond to actions and the columns correspond to secrets. Each probability <code>pij</code> is the gain of taking action <code>i</code> when the secret value is <code>j</code>. Each two numbers must be separated by a " " (space).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">prior</td><td>Prior distribution over a set of secrets </td></tr>
+    <tr><td class="paramname">prior</td><td>Prior distribution on a set of secrets </td></tr>
     <tr><td class="paramname">file</td><td>File's name which contains a gain function matrix.</td></tr>
   </table>
   </dd>
@@ -217,7 +217,7 @@ pw1 pw2 ... pwn
 <p>The set of secrets can be described by a <a class="el" href="classDistribution.html">Distribution</a>, so it is the first parameter.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">prior</td><td>Prior distribution over a set of secrets. </td></tr>
+    <tr><td class="paramname">prior</td><td>Prior distribution on a set of secrets. </td></tr>
     <tr><td class="paramname">num_ac</td><td>Number of actions. </td></tr>
     <tr><td class="paramname">MIN</td><td>Lower bound for the gain of an action. </td></tr>
     <tr><td class="paramname">MAX</td><td>Upper bound for the gain of an action.</td></tr>
@@ -262,7 +262,7 @@ p11 p12 ... p1n
 p21 p22 ... p2n
 ...
 pw1 pw2 ... pwn
-</pre><p>where <code>w</code> is the number of actions, and <code>n</code> is the number of secrets. Each probability <code>pij</code> is the gain of taking action <code>i</code> when the secret value is <code>j</code>. Every two numbers are separated by a " " (space).</p>
+</pre><p>where <code>w</code> is the number of actions, and <code>n</code> is the number of secrets. Each probability <code>pij</code> is the gain of taking action <code>i</code> when the secret value is <code>j</code>. Each two numbers are separated by a " " (space).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">file</td><td>A file's name to print the gain function matrix. </td></tr>
@@ -294,7 +294,7 @@ pw1 pw2 ... pwn
 p21 p22 ... p2n
 ...
 pw1 pw2 ... pwn
-</pre><p>Each probability <code>pij</code> is the gain of taking action <code>i</code> when the secret value is <code>j</code>. Every two numbers are separated by a " " (space).</p>
+</pre><p>Each probability <code>pij</code> is the gain of taking action <code>i</code> when the secret value is <code>j</code>. Each two numbers are separated by a " " (space).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">precision</td><td>Decimal precision for float numbers. For example, use the value 3 to print 0.322, use 5 to print 0.32197, and so on. </td></tr>
@@ -351,7 +351,7 @@ pw1 pw2 ... pwn
       </table>
 </div><div class="memdoc">
 
-<p>A pointer to a prior probability distribution over a set of secrets. </p>
+<p>A pointer to a prior probability distribution on a set of secrets. </p>
 
 </div>
 </div>

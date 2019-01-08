@@ -106,7 +106,7 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a84733fc60f228eca16d759e11c8913a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of channel outputs.  <a href="#a84733fc60f228eca16d759e11c8913a3">More...</a><br /></td></tr>
 <tr class="separator:a84733fc60f228eca16d759e11c8913a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6863998670fd1abd2a20abfa488d18e2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classDistribution.html">Distribution</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classChannel.html#a6863998670fd1abd2a20abfa488d18e2">prior</a></td></tr>
-<tr class="memdesc:a6863998670fd1abd2a20abfa488d18e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">A probability distribution over a set of secrets.  <a href="#a6863998670fd1abd2a20abfa488d18e2">More...</a><br /></td></tr>
+<tr class="memdesc:a6863998670fd1abd2a20abfa488d18e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">A probability distribution on a set of secrets.  <a href="#a6863998670fd1abd2a20abfa488d18e2">More...</a><br /></td></tr>
 <tr class="separator:a6863998670fd1abd2a20abfa488d18e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a31b20e9e427d9508d330f0ade205f813"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; long double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classChannel.html#a31b20e9e427d9508d330f0ade205f813">matrix</a></td></tr>
 <tr class="memdesc:a31b20e9e427d9508d330f0ade205f813"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classChannel.html" title="Class used to represent an informational channel.">Channel</a> matrix.  <a href="#a31b20e9e427d9508d330f0ade205f813">More...</a><br /></td></tr>
@@ -116,7 +116,7 @@ Public Attributes</h2></td></tr>
 <div class="textblock"><p>Class used to represent an informational channel. </p>
 <p>A channel can be described as a system that takes as input a secret - from a set of secrets - and whose only observable behavior is to produce an output - from a set of possible outputs. So a channel is a function from a set of secrets to a set of possible outputs.</p>
 <p>We can use a matrix to represent the entire channel. In this library, a channel matrix is a matrix whose rows give the distribution on outputs corresponding to each possible input. Hence each cell is the conditional probability p(<code>y|<code>x</code>)</code>, for every secret <code>x</code> in the set of secrets and every <code>y</code> in the set of possible outputs.</p>
-<p>As a channel makes reference to a set of secrets, one of the attributes is a pointer to a <a class="el" href="classDistribution.html">Distribution</a>, which represents the prior probability distribution over the set of secrets. </p>
+<p>As a channel makes reference to a set of secrets, one of the attributes is a pointer to a <a class="el" href="classDistribution.html">Distribution</a>, which represents the prior probability distribution on the set of secrets. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af2b4b16288cbb2c592b1e0f6486c2430"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af2b4b16288cbb2c592b1e0f6486c2430">&#9670;&nbsp;</a></span>Channel() <span class="overload">[1/3]</span></h2>
@@ -170,11 +170,11 @@ p11 p12 ... p1y
 p21 p22 ... p2y
 ...
 pn1 pn2 ... pny
-</pre><p>where <code>n</code> is the number of secrets (<code>n</code> = <a class="el" href="classDistribution.html#abf6d2562546255d476553d8b248dc8d9">Distribution::num_el</a> in the <a class="el" href="classChannel.html#a6863998670fd1abd2a20abfa488d18e2">prior</a>) and <code>y</code> is the number of outputs. The rows correspond to secrets and the columns correspond to outputs. Each <code>pij</code> is the conditional probability p(<code>j|<code>i</code>)</code> of the output <code>j</code> happens when the current secret is <code>i</code>. Every two numbers must be separated by a " " (space).</p>
+</pre><p>where <code>n</code> is the number of secrets (<code>n</code> = <a class="el" href="classDistribution.html#abf6d2562546255d476553d8b248dc8d9">Distribution::num_el</a> in the <a class="el" href="classChannel.html#a6863998670fd1abd2a20abfa488d18e2">prior</a>) and <code>y</code> is the number of outputs. The rows correspond to secrets and the columns correspond to outputs. Each <code>pij</code> is the conditional probability p(<code>j|<code>i</code>)</code> of the output <code>j</code> happens when the current secret is <code>i</code>. Each two numbers must be separated by a " " (space).</p>
 <p>The rows give the distribution on outputs corresponding to each possible input.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">prior</td><td>Prior distribution over a set of secrets </td></tr>
+    <tr><td class="paramname">prior</td><td>Prior distribution on a set of secrets </td></tr>
     <tr><td class="paramname">file</td><td>File's name which contains a channel matrix.</td></tr>
   </table>
   </dd>
@@ -219,7 +219,7 @@ pn1 pn2 ... pny
 <p>Given a set of secrets in the pointer <a class="el" href="classChannel.html#a6863998670fd1abd2a20abfa488d18e2">prior</a>, the constructor builds a random channel matrix. The number of the channel outputs is passed as an argument.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">prior</td><td>Prior distribution over a set of secrets. </td></tr>
+    <tr><td class="paramname">prior</td><td>Prior distribution on a set of secrets. </td></tr>
     <tr><td class="paramname">num_out</td><td>Number of outputs. </td></tr>
     <tr><td class="paramname">max_prob</td><td>A float number in the interval [0,1]. It is used as an upper bound of any outputs' probabilities. For example, when <code>max_prob</code> is <code>0.4</code>, all the probabilities in the matrix will be less equal to <code>0.4</code>.</td></tr>
   </table>
@@ -299,7 +299,7 @@ p11 p12 ... p1y
 p21 p22 ... p2y
 ...
 pn1 pn2 ... pny
-</pre><p>where <code>n</code> is the number of secrets (<code>n</code> = <a class="el" href="classDistribution.html#abf6d2562546255d476553d8b248dc8d9">Distribution::num_el</a> in the <a class="el" href="classChannel.html#a6863998670fd1abd2a20abfa488d18e2">prior</a>) and <code>y</code> is the number of outputs of the channel. Each <code>pij</code> is the conditional probability p(<code>j|<code>i</code>)</code> of the output <code>j</code> happens when the current secret is <code>i</code>. Every two numbers are separated by a " " (space).</p>
+</pre><p>where <code>n</code> is the number of secrets (<code>n</code> = <a class="el" href="classDistribution.html#abf6d2562546255d476553d8b248dc8d9">Distribution::num_el</a> in the <a class="el" href="classChannel.html#a6863998670fd1abd2a20abfa488d18e2">prior</a>) and <code>y</code> is the number of outputs of the channel. Each <code>pij</code> is the conditional probability p(<code>j|<code>i</code>)</code> of the output <code>j</code> happens when the current secret is <code>i</code>. Each two numbers are separated by a " " (space).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">file</td><td>A file's name to print the channel matrix. </td></tr>
@@ -331,7 +331,7 @@ pn1 pn2 ... pny
 p21 p22 ... p2y
 ...
 pn1 pn2 ... pny
-</pre><p>where <code>n</code> is the number of secrets (<code>n</code> = <a class="el" href="classDistribution.html#abf6d2562546255d476553d8b248dc8d9">Distribution::num_el</a> in the <a class="el" href="classChannel.html#a6863998670fd1abd2a20abfa488d18e2">prior</a>) and <code>y</code> is the number of outputs of the channel. Each <code>pij</code> is the conditional probability p(<code>j|<code>i</code>)</code> of the output <code>j</code> happens when the current secret is <code>i</code>. Every two numbers are separated by a " " (space).</p>
+</pre><p>where <code>n</code> is the number of secrets (<code>n</code> = <a class="el" href="classDistribution.html#abf6d2562546255d476553d8b248dc8d9">Distribution::num_el</a> in the <a class="el" href="classChannel.html#a6863998670fd1abd2a20abfa488d18e2">prior</a>) and <code>y</code> is the number of outputs of the channel. Each <code>pij</code> is the conditional probability p(<code>j|<code>i</code>)</code> of the output <code>j</code> happens when the current secret is <code>i</code>. Each two numbers are separated by a " " (space).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">precision</td><td>Decimal precision for float numbers. For example, use the value 3 to print 0.322, use 5 to print 0.32197, and so on. </td></tr>
@@ -388,7 +388,7 @@ pn1 pn2 ... pny
       </table>
 </div><div class="memdoc">
 
-<p>A probability distribution over a set of secrets. </p>
+<p>A probability distribution on a set of secrets. </p>
 
 </div>
 </div>
