@@ -381,7 +381,6 @@ class Channel{
 		void printToFile(std::string, int precision);
 };
 
-
 /**
  * \brief Class used to represent a hyper-distribution.
  *

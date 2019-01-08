@@ -376,3 +376,79 @@ Hyper::Hyper(std::string prior_file, std::string channel_file){
 Hyper::Hyper(Distribution &prior, Channel &channel){
 	Hyper::buildHyper(prior, channel, joint, outer, inners);	
 }
+
+std::string Hyper::toString(std::string type, int precision){
+	std::ostringstream out;
+	out << std::fixed << std::setprecision(precision);
+	
+	if(type == "joint"){
+		for(int i = 0; i < prior->num_el; i++){
+			for(int j = 0; j < channel->num_out-1; j++){
+				out << joint[i][j] << " ";
+			}
+			out << joint[i][channel->num_out-1] << "\n";
+		}
+	}else if(type == "outer"){
+		for(int i = 0; i < channel->num_out-1; i++){
+			out << outer.prob[i] << " ";
+		}
+
+		out << outer.prob[channel->num_out-1] << "\n";
+	}else if(type == "inners"){
+		for(int i = 0; i < prior->num_el; i++){
+			for(int j = 0; j < channel->num_out-1; j++){
+				out << inners[i][j] << " ";
+			}
+			out << inners[i][channel->num_out-1] << "\n";
+		}
+	}else{
+		fprintf(stderr, "Invalid parameter type! It must be ""joint"", ""outer"" or ""inners""\n");
+		exit(EXIT_FAILURE);
+	}
+
+	return out.str();
+}
+
+void Hyper::printToFile(std::string type, std::string file, int precision){
+	std::ofstream F(file);
+
+	if(F.is_open() == false){
+		fprintf(stderr, "Error opening the file ""%s""!\n", file.c_str());
+		exit(EXIT_FAILURE);
+	}
+
+	F << std::fixed << std::setprecision(precision);
+
+	if(type == "joint"){
+		F << prior->num_el << " " << channel->num_out << "\n";
+			
+		for(int i = 0; i < prior->num_el; i++){
+			for(int j = 0; j < channel->num_out-1; j++){
+				F << joint[i][j] << " ";
+			}
+			F << joint[i][channel->num_out-1] << "\n";
+		}
+	}else if(type == "outer"){
+		F << channel->num_out << "\n";
+			
+		for(int i = 0; i < channel->num_out-1; i++){
+			F << outer.prob[i] << " ";
+		}
+
+		F << outer.prob[channel->num_out-1] << "\n";
+	}else if(type == "inners"){
+		F << prior->num_el << " " << channel->num_out << "\n";
+			
+		for(int i = 0; i < prior->num_el; i++){
+			for(int j = 0; j < channel->num_out-1; j++){
+				F << inners[i][j] << " ";
+			}
+			F << inners[i][channel->num_out-1] << "\n";
+		}
+	}else{
+		fprintf(stderr, "Invalid parameter type! It must be ""joint"", ""outer"" or ""inners""\n");
+		exit(EXIT_FAILURE);
+	}
+
+	F.close();
+}
