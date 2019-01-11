@@ -1,8 +1,8 @@
 # QIF Library
 
-This library has the goal to model QIF - Quantitative Information Flow.
+This library is meant to model QIF - Quantitative Information Flow.
 
-It can be used to model systems and measure entropies, vulnerabilities and leakages of them.
+It can be used to model systems and measure their entropies, vulnerabilities and information leakages.
 
 This library models the basics of QIF such as probability distributions, informational channels, gain functions, hyper-distributions, and some functions to measure information flow.
 
@@ -12,9 +12,9 @@ The documentation is available in HTML format. To access the documentation, open
 
 ## System Requirements
 
-- GNU **GCC** project C and C++ compiler - Available on most UNIX disrtibutions. For more details access [GCC documentation](https://gcc.gnu.org/onlinedocs/).
+- GNU **GCC** project C and C++ compiler - Available on most UNIX distributions. For more details access [GCC documentation](https://gcc.gnu.org/onlinedocs/).
  
-- GNU **ar**. Available on most UNIX disrtibutions. For more details acess [ar documentation](http://man7.org/linux/man-pages/man1/ar.1.html).
+- GNU **ar**. Available on most UNIX distributions. For more details access [ar documentation](http://man7.org/linux/man-pages/man1/ar.1.html).
 
 - GNU **make**. Available on most UNIX distributions. For more details access [make documentation](https://www.gnu.org/software/make/).
 
