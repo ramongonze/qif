@@ -16,9 +16,11 @@
  *
  * \section req System Requirements
  *
- * - G++ compiler - Available on most UNIX disrtibutions.
+ * - GNU **GCC** project C and C++ compiler - Available on most UNIX disrtibutions. For more details access [GCC documentation](https://gcc.gnu.org/onlinedocs/).
  *
- * - GNU **ar** (_archive_). It is also available on most UNIX disrtibutions. For more details acess [ar documentation](http://man7.org/linux/man-pages/man1/ar.1.html).
+ * - GNU **ar**. Available on most UNIX disrtibutions. For more details acess [ar documentation](http://man7.org/linux/man-pages/man1/ar.1.html).
+ *
+ * - GNU **make**. Available on most UNIX distributions. For more details access [make documentation](https://www.gnu.org/software/make/).
  *
  * \line l9
  *
