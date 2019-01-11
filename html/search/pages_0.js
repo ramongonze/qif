@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['qif',['qif',['../md_qif_README.html',1,'']]]
+  ['qif_20library',['QIF Library',['../md_qif_README.html',1,'']]]
 ];

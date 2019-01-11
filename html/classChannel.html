@@ -84,6 +84,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a568efba8f7a7d0ceaa6c0605c96fa382"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classChannel.html#a568efba8f7a7d0ceaa6c0605c96fa382">Channel</a> (<a class="el" href="classDistribution.html">Distribution</a> &amp;<a class="el" href="classChannel.html#a6863998670fd1abd2a20abfa488d18e2">prior</a>, std::string file)</td></tr>
 <tr class="memdesc:a568efba8f7a7d0ceaa6c0605c96fa382"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construtor used when the channel matrix is in a file.  <a href="#a568efba8f7a7d0ceaa6c0605c96fa382">More...</a><br /></td></tr>
 <tr class="separator:a568efba8f7a7d0ceaa6c0605c96fa382"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeaccc051fe49d4e6f29a4f6e17c53981"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classChannel.html#aeaccc051fe49d4e6f29a4f6e17c53981">Channel</a> (<a class="el" href="classDistribution.html">Distribution</a> &amp;<a class="el" href="classChannel.html#a6863998670fd1abd2a20abfa488d18e2">prior</a>, std::vector&lt; std::vector&lt; long double &gt; &gt; &amp;<a class="el" href="classChannel.html#a31b20e9e427d9508d330f0ade205f813">matrix</a>)</td></tr>
+<tr class="memdesc:aeaccc051fe49d4e6f29a4f6e17c53981"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor used when there is already a channel matrix in a variable.  <a href="#aeaccc051fe49d4e6f29a4f6e17c53981">More...</a><br /></td></tr>
+<tr class="separator:aeaccc051fe49d4e6f29a4f6e17c53981"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac71823ae05f70902595491d817a4d524"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classChannel.html#ac71823ae05f70902595491d817a4d524">Channel</a> (<a class="el" href="classDistribution.html">Distribution</a> &amp;<a class="el" href="classChannel.html#a6863998670fd1abd2a20abfa488d18e2">prior</a>, int num_ac, long double max_prob)</td></tr>
 <tr class="memdesc:ac71823ae05f70902595491d817a4d524"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor used to generate random channels.  <a href="#ac71823ae05f70902595491d817a4d524">More...</a><br /></td></tr>
 <tr class="separator:ac71823ae05f70902595491d817a4d524"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -119,7 +122,7 @@ Public Attributes</h2></td></tr>
 <p>As a channel makes reference to a set of secrets, one of the attributes is a pointer to a <a class="el" href="classDistribution.html">Distribution</a>, which represents the prior probability distribution on the set of secrets. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af2b4b16288cbb2c592b1e0f6486c2430"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af2b4b16288cbb2c592b1e0f6486c2430">&#9670;&nbsp;</a></span>Channel() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af2b4b16288cbb2c592b1e0f6486c2430">&#9670;&nbsp;</a></span>Channel() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -139,7 +142,7 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <a id="a568efba8f7a7d0ceaa6c0605c96fa382"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a568efba8f7a7d0ceaa6c0605c96fa382">&#9670;&nbsp;</a></span>Channel() <span class="overload">[2/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a568efba8f7a7d0ceaa6c0605c96fa382">&#9670;&nbsp;</a></span>Channel() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -183,8 +186,46 @@ pn1 pn2 ... pny
 
 </div>
 </div>
+<a id="aeaccc051fe49d4e6f29a4f6e17c53981"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeaccc051fe49d4e6f29a4f6e17c53981">&#9670;&nbsp;</a></span>Channel() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Channel::Channel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classDistribution.html">Distribution</a> &amp;&#160;</td>
+          <td class="paramname"><em>prior</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; std::vector&lt; long double &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>matrix</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructor used when there is already a channel matrix in a variable. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">prior</td><td>Prior distribution on a set of secrets. </td></tr>
+    <tr><td class="paramname">matrix</td><td>A channel matrix related to the distribution <a class="el" href="classChannel.html#a6863998670fd1abd2a20abfa488d18e2">prior</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section warning"><dt>Warning</dt><dd>The number of rows in the channel matrix must be as same as the number of elements in the <a class="el" href="classChannel.html#a6863998670fd1abd2a20abfa488d18e2">prior</a> distribution. </dd></dl>
+
+</div>
+</div>
 <a id="ac71823ae05f70902595491d817a4d524"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac71823ae05f70902595491d817a4d524">&#9670;&nbsp;</a></span>Channel() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac71823ae05f70902595491d817a4d524">&#9670;&nbsp;</a></span>Channel() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

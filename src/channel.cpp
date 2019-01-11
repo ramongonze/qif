@@ -45,6 +45,29 @@ Channel::Channel(Distribution &prior, std::string file){
 	}
 }
 
+Channel::Channel(Distribution &prior, std::vector<std::vector<long double> > &matrix){
+	this->prior = &prior;
+	this->num_out = matrix[0].size();
+
+	if((unsigned int)prior.num_el != matrix.size()){
+		fprintf(stderr, "The number of secrets in the prior distribution is different of the number of rows in the channel matrix!\n");
+		exit(EXIT_FAILURE);
+	}
+
+	this->matrix.resize(this->prior->num_el, std::vector<long double>(this->num_out));
+
+	for(int i = 0; i < prior.num_el; i++){
+		for(int j = 0; j < this->num_out; j++){
+			this->matrix[i][j] = matrix[i][j];
+		}
+	}
+
+	if(!isChannel(this->matrix)){
+		fprintf(stderr, "The channel matrix is not valid!\n");
+		exit(EXIT_FAILURE);
+	}
+}
+
 Channel::Channel(Distribution &prior, int num_out, long double max_prob){
 
 	this->prior = &prior;

@@ -51,6 +51,16 @@ class Channel{
 		Channel(Distribution &prior, std::string file);
 
 		/**
+		 * \brief Constructor used when there is already a channel matrix in a variable.
+		 *
+		 * \param prior: Prior distribution on a set of secrets.
+		 * \param matrix: A channel matrix related to the distribution @ref prior.
+		 * 
+		 * \warning The number of rows in the channel matrix must be as same as the number of elements in the @ref prior distribution.
+		 */
+		Channel(Distribution &prior, std::vector<std::vector<long double> > &matrix);
+
+		/**
 		 * \brief Constructor used to generate random channels.
 		 *
 		 * Given a set of secrets in the pointer @ref prior, the constructor builds a random channel matrix.
