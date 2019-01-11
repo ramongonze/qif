@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['tostring',['toString',['../classDistribution.html#a4d0b69f7838f42a9b24891930c7b886c',1,'Distribution::toString()'],['../classGain.html#af7d0e10e923439ab56033f719f67bea7',1,'Gain::toString()'],['../classChannel.html#a2d97d823f68fe35f4c35dc04ebee3114',1,'Channel::toString()'],['../classHyper.html#ac81a36d52602879830b2c49cc46f0b19',1,'Hyper::toString()']]]
+  ['shannonentropy',['shannonEntropy',['../entropy_8cpp.html#a15d635d0861a89c8ff584a6a82c08e02',1,'shannonEntropy(Distribution &amp;dist):&#160;entropy.cpp'],['../entropy_8cpp.html#abfca268fdfdd731c4843809eef911eb7',1,'shannonEntropy(Hyper &amp;hyper):&#160;entropy.cpp'],['../entropy_8hpp.html#a15d635d0861a89c8ff584a6a82c08e02',1,'shannonEntropy(Distribution &amp;dist):&#160;entropy.cpp'],['../entropy_8hpp.html#abfca268fdfdd731c4843809eef911eb7',1,'shannonEntropy(Hyper &amp;hyper):&#160;entropy.cpp']]]
 ];

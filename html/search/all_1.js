@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['additiveleakage',['additiveLeakage',['../functions_8hpp.html#ab50ae1d7c2da9e82332d68020a4a790e',1,'functions.hpp']]]
+  ['bayesvulnerability',['bayesVulnerability',['../vulnerability_8cpp.html#afee12e74426d8cade9a2bdd127a8321a',1,'bayesVulnerability(Distribution &amp;dist):&#160;vulnerability.cpp'],['../vulnerability_8cpp.html#a981341cb033b5a4a8562676a0b701b3c',1,'bayesVulnerability(Hyper &amp;hyper):&#160;vulnerability.cpp'],['../vulnerability_8hpp.html#afee12e74426d8cade9a2bdd127a8321a',1,'bayesVulnerability(Distribution &amp;dist):&#160;vulnerability.cpp'],['../vulnerability_8hpp.html#a981341cb033b5a4a8562676a0b701b3c',1,'bayesVulnerability(Hyper &amp;hyper):&#160;vulnerability.cpp']]]
 ];

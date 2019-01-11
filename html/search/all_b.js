@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['ktries',['kTries',['../functions_8hpp.html#a72dbe2b2da0f77c2b24fa737178ad226',1,'functions.hpp']]]
+  ['matrix',['matrix',['../classChannel.html#a31b20e9e427d9508d330f0ade205f813',1,'Channel::matrix()'],['../classGain.html#aecb3179fc01b9f3f83f491492de11375',1,'Gain::matrix()']]],
+  ['multiplicativeleakage',['multiplicativeLeakage',['../leakage_8cpp.html#af44b52c4e2ed1fec9dbe8586dc022a6e',1,'multiplicativeLeakage(Hyper &amp;hyper, Gain &amp;gain):&#160;leakage.cpp'],['../leakage_8hpp.html#af44b52c4e2ed1fec9dbe8586dc022a6e',1,'multiplicativeLeakage(Hyper &amp;hyper, Gain &amp;gain):&#160;leakage.cpp']]]
 ];

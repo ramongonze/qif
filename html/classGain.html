@@ -73,7 +73,7 @@ $(function() {
 <p>Class used to represent a gain function.  
  <a href="classGain.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="structs_8hpp_source.html">structs.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="gain_8hpp_source.html">gain.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -83,9 +83,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa7f48629008620f51acf6d6e4e2f4706"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGain.html#aa7f48629008620f51acf6d6e4e2f4706">Gain</a> (<a class="el" href="classDistribution.html">Distribution</a> &amp;<a class="el" href="classGain.html#a10e6d2c415433bf66ace95cbb4bac0f6">prior</a>, std::string file)</td></tr>
 <tr class="memdesc:aa7f48629008620f51acf6d6e4e2f4706"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construtor used when the gain function matrix is in a file.  <a href="#aa7f48629008620f51acf6d6e4e2f4706">More...</a><br /></td></tr>
 <tr class="separator:aa7f48629008620f51acf6d6e4e2f4706"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79e8a01455ea3ae9d24132568f720a0f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGain.html#a79e8a01455ea3ae9d24132568f720a0f">Gain</a> (<a class="el" href="classDistribution.html">Distribution</a> &amp;<a class="el" href="classGain.html#a10e6d2c415433bf66ace95cbb4bac0f6">prior</a>, int <a class="el" href="classGain.html#a76381c0516ffcc3c6df5affe71898a6f">num_ac</a>, int MIN, int MAX)</td></tr>
-<tr class="memdesc:a79e8a01455ea3ae9d24132568f720a0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor used to generate random gain function to a set of secrets.  <a href="#a79e8a01455ea3ae9d24132568f720a0f">More...</a><br /></td></tr>
-<tr class="separator:a79e8a01455ea3ae9d24132568f720a0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17ae92fd77401bc67a7be1b737dc92a2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGain.html#a17ae92fd77401bc67a7be1b737dc92a2">Gain</a> (<a class="el" href="classDistribution.html">Distribution</a> &amp;<a class="el" href="classGain.html#a10e6d2c415433bf66ace95cbb4bac0f6">prior</a>, int <a class="el" href="classGain.html#a27f3d6428f1fe183b5662fed0498d965">num_act</a>, int MIN, int MAX)</td></tr>
+<tr class="memdesc:a17ae92fd77401bc67a7be1b737dc92a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor used to generate random gain function to a set of secrets.  <a href="#a17ae92fd77401bc67a7be1b737dc92a2">More...</a><br /></td></tr>
+<tr class="separator:a17ae92fd77401bc67a7be1b737dc92a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af7d0e10e923439ab56033f719f67bea7"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGain.html#af7d0e10e923439ab56033f719f67bea7">toString</a> (int precision)</td></tr>
 <tr class="memdesc:af7d0e10e923439ab56033f719f67bea7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string with the gain function matrix.  <a href="#af7d0e10e923439ab56033f719f67bea7">More...</a><br /></td></tr>
 <tr class="separator:af7d0e10e923439ab56033f719f67bea7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -95,15 +95,15 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a76381c0516ffcc3c6df5affe71898a6f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGain.html#a76381c0516ffcc3c6df5affe71898a6f">num_ac</a></td></tr>
-<tr class="memdesc:a76381c0516ffcc3c6df5affe71898a6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of distinct actions that an adversary can take.  <a href="#a76381c0516ffcc3c6df5affe71898a6f">More...</a><br /></td></tr>
-<tr class="separator:a76381c0516ffcc3c6df5affe71898a6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27f3d6428f1fe183b5662fed0498d965"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGain.html#a27f3d6428f1fe183b5662fed0498d965">num_act</a></td></tr>
+<tr class="memdesc:a27f3d6428f1fe183b5662fed0498d965"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of distinct actions that an adversary can take.  <a href="#a27f3d6428f1fe183b5662fed0498d965">More...</a><br /></td></tr>
+<tr class="separator:a27f3d6428f1fe183b5662fed0498d965"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a10e6d2c415433bf66ace95cbb4bac0f6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classDistribution.html">Distribution</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGain.html#a10e6d2c415433bf66ace95cbb4bac0f6">prior</a></td></tr>
 <tr class="memdesc:a10e6d2c415433bf66ace95cbb4bac0f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">A pointer to a prior probability distribution on a set of secrets.  <a href="#a10e6d2c415433bf66ace95cbb4bac0f6">More...</a><br /></td></tr>
 <tr class="separator:a10e6d2c415433bf66ace95cbb4bac0f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a48d5762f1a6bf97a09ab83df86493563"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; long double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGain.html#a48d5762f1a6bf97a09ab83df86493563">gain</a></td></tr>
-<tr class="memdesc:a48d5762f1a6bf97a09ab83df86493563"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classGain.html" title="Class used to represent a gain function.">Gain</a> function matrix.  <a href="#a48d5762f1a6bf97a09ab83df86493563">More...</a><br /></td></tr>
-<tr class="separator:a48d5762f1a6bf97a09ab83df86493563"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecb3179fc01b9f3f83f491492de11375"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; long double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGain.html#aecb3179fc01b9f3f83f491492de11375">matrix</a></td></tr>
+<tr class="memdesc:aecb3179fc01b9f3f83f491492de11375"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classGain.html" title="Class used to represent a gain function.">Gain</a> function matrix.  <a href="#aecb3179fc01b9f3f83f491492de11375">More...</a><br /></td></tr>
+<tr class="separator:aecb3179fc01b9f3f83f491492de11375"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class used to represent a gain function. </p>
@@ -127,7 +127,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Default constructor. </p>
-<p>It instances a <a class="el" href="classGain.html">Gain</a> object with <a class="el" href="classGain.html#a76381c0516ffcc3c6df5affe71898a6f">num_ac</a> = 0, <a class="el" href="classGain.html#a10e6d2c415433bf66ace95cbb4bac0f6">prior</a> = NULL and an empty matrix <a class="el" href="classGain.html#a48d5762f1a6bf97a09ab83df86493563">gain</a>. </p>
+<p>It instances a <a class="el" href="classGain.html">Gain</a> object with <a class="el" href="classGain.html#a27f3d6428f1fe183b5662fed0498d965">num_act</a> = 0, <a class="el" href="classGain.html#a10e6d2c415433bf66ace95cbb4bac0f6">prior</a> = NULL and an empty gain <a class="el" href="classGain.html#aecb3179fc01b9f3f83f491492de11375">matrix</a>. </p>
 
 </div>
 </div>
@@ -175,8 +175,8 @@ pw1 pw2 ... pwn
 
 </div>
 </div>
-<a id="a79e8a01455ea3ae9d24132568f720a0f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a79e8a01455ea3ae9d24132568f720a0f">&#9670;&nbsp;</a></span>Gain() <span class="overload">[3/3]</span></h2>
+<a id="a17ae92fd77401bc67a7be1b737dc92a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17ae92fd77401bc67a7be1b737dc92a2">&#9670;&nbsp;</a></span>Gain() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -191,7 +191,7 @@ pw1 pw2 ... pwn
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>num_ac</em>, </td>
+          <td class="paramname"><em>num_act</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -218,7 +218,7 @@ pw1 pw2 ... pwn
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">prior</td><td>Prior distribution on a set of secrets. </td></tr>
-    <tr><td class="paramname">num_ac</td><td>Number of actions. </td></tr>
+    <tr><td class="paramname">num_act</td><td>Number of actions. </td></tr>
     <tr><td class="paramname">MIN</td><td>Lower bound for the gain of an action. </td></tr>
     <tr><td class="paramname">MAX</td><td>Upper bound for the gain of an action.</td></tr>
   </table>
@@ -305,32 +305,32 @@ pw1 pw2 ... pwn
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a48d5762f1a6bf97a09ab83df86493563"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a48d5762f1a6bf97a09ab83df86493563">&#9670;&nbsp;</a></span>gain</h2>
+<a id="aecb3179fc01b9f3f83f491492de11375"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecb3179fc01b9f3f83f491492de11375">&#9670;&nbsp;</a></span>matrix</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;std::vector&lt;long double&gt; &gt; Gain::gain</td>
+          <td class="memname">std::vector&lt;std::vector&lt;long double&gt; &gt; Gain::matrix</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p><a class="el" href="classGain.html" title="Class used to represent a gain function.">Gain</a> function matrix. </p>
-<p>The lines are the actions, the columns are the secrets and each cell (<em>w</em>,<em>x</em>) in the matrix is the gain that an adversary achieves by taking action <em>w</em> when the actual value of the secret is <em>x</em>.</p>
-<p>The matrix has dimensions W x N, where W is the number of actions (<a class="el" href="classGain.html#a76381c0516ffcc3c6df5affe71898a6f">num_ac</a>) and N is the number of secrets (num_el of the <a class="el" href="classGain.html#a10e6d2c415433bf66ace95cbb4bac0f6">prior</a>). </p>
+<p>The lines are the actions, the columns are the secrets and each cell (<code>w</code>,<code>x</code>) in the matrix is the gain that an adversary achieves by taking action <code>w</code> when the actual value of the secret is <code>x</code>.</p>
+<p>The matrix has dimensions W x N, where W is the number of actions (<a class="el" href="classGain.html#a27f3d6428f1fe183b5662fed0498d965">num_act</a>) and N is the number of secrets (num_el of the <a class="el" href="classGain.html#a10e6d2c415433bf66ace95cbb4bac0f6">prior</a>). </p>
 
 </div>
 </div>
-<a id="a76381c0516ffcc3c6df5affe71898a6f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a76381c0516ffcc3c6df5affe71898a6f">&#9670;&nbsp;</a></span>num_ac</h2>
+<a id="a27f3d6428f1fe183b5662fed0498d965"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27f3d6428f1fe183b5662fed0498d965">&#9670;&nbsp;</a></span>num_act</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int Gain::num_ac</td>
+          <td class="memname">int Gain::num_act</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -355,8 +355,9 @@ pw1 pw2 ... pwn
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>qif/<a class="el" href="structs_8hpp_source.html">structs.hpp</a></li>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>qif/include/<a class="el" href="gain_8hpp_source.html">gain.hpp</a></li>
+<li>qif/src/<a class="el" href="gain_8cpp.html">gain.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

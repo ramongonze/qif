@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['inners',['inners',['../classHyper.html#a8ebd2c596528b7809c1220833c93d07e',1,'Hyper']]],
-  ['ischannel',['isChannel',['../classChannel.html#a585912cbc63bbfe9dfba0fbaf43719b3',1,'Channel']]],
-  ['isdistribution',['isDistribution',['../classDistribution.html#aac6dce4db328983b6a3f4b290fd541ad',1,'Distribution']]]
+  ['ktries',['kTries',['../vulnerability_8cpp.html#acd62938a1473175d987ea0a2e459d192',1,'kTries(Distribution &amp;dist, int k):&#160;vulnerability.cpp'],['../vulnerability_8cpp.html#ac8c5307af8609bebb16d87619b8d54d1',1,'kTries(Hyper &amp;hyper, int k):&#160;vulnerability.cpp'],['../vulnerability_8hpp.html#acd62938a1473175d987ea0a2e459d192',1,'kTries(Distribution &amp;dist, int k):&#160;vulnerability.cpp'],['../vulnerability_8hpp.html#ac8c5307af8609bebb16d87619b8d54d1',1,'kTries(Hyper &amp;hyper, int k):&#160;vulnerability.cpp']]]
 ];

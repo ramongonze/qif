@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['gain',['gain',['../classGain.html#a48d5762f1a6bf97a09ab83df86493563',1,'Gain']]]
+  ['inners',['inners',['../classHyper.html#a8ebd2c596528b7809c1220833c93d07e',1,'Hyper']]]
 ];

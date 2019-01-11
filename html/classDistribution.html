@@ -74,7 +74,7 @@ $(function() {
 <p>Class used to represent a probability distribution.  
  <a href="classDistribution.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="structs_8hpp_source.html">structs.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="distribution_8hpp_source.html">distribution.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -99,9 +99,9 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:aac6dce4db328983b6a3f4b290fd541ad"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDistribution.html#aac6dce4db328983b6a3f4b290fd541ad">isDistribution</a> (std::vector&lt; long double &gt; &amp;<a class="el" href="classDistribution.html#aa8747c6c9d07bb181a66db384f3d36ae">prob</a>)</td></tr>
-<tr class="memdesc:aac6dce4db328983b6a3f4b290fd541ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a vector of numbers make up a probability distribution.  <a href="#aac6dce4db328983b6a3f4b290fd541ad">More...</a><br /></td></tr>
-<tr class="separator:aac6dce4db328983b6a3f4b290fd541ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a600928f4982342a045cf50e13b2110df"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDistribution.html#a600928f4982342a045cf50e13b2110df">isDistribution</a> (std::vector&lt; long double &gt; &amp;<a class="el" href="classDistribution.html#aa8747c6c9d07bb181a66db384f3d36ae">prob</a>)</td></tr>
+<tr class="memdesc:a600928f4982342a045cf50e13b2110df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a vector of numbers make up a probability distribution.  <a href="#a600928f4982342a045cf50e13b2110df">More...</a><br /></td></tr>
+<tr class="separator:a600928f4982342a045cf50e13b2110df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -239,8 +239,8 @@ pn
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aac6dce4db328983b6a3f4b290fd541ad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aac6dce4db328983b6a3f4b290fd541ad">&#9670;&nbsp;</a></span>isDistribution()</h2>
+<a id="a600928f4982342a045cf50e13b2110df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a600928f4982342a045cf50e13b2110df">&#9670;&nbsp;</a></span>isDistribution()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -249,7 +249,7 @@ pn
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool Distribution::isDistribution </td>
+          <td class="memname">bool Distribution::isDistribution </td>
           <td>(</td>
           <td class="paramtype">std::vector&lt; long double &gt; &amp;&#160;</td>
           <td class="paramname"><em>prob</em></td><td>)</td>
@@ -266,7 +266,7 @@ pn
 <p>Check if a vector of numbers make up a probability distribution. </p>
 <ul>
 <li>For every probability <code>p</code> in the vector, <code>0</code> &lt;= <code>p</code> &lt;= <code>1</code>;</li>
-<li>The sum of all probabilities in the vector is 1 , with margin of error equals to the consant EPS (upper or lower) - see the definition of constant <a class="el" href="structs_8hpp.html#a6ebf6899d6c1c8b7b9d09be872c05aae">EPS</a>.</li>
+<li>The sum of all probabilities in the vector is 1 , with margin of error equals to the consant EPS (upper or lower) - see the definition of constant <a class="el" href="distribution_8hpp.html#a6ebf6899d6c1c8b7b9d09be872c05aae">EPS</a>.</li>
 </ul>
 <dl class="section return"><dt>Returns</dt><dd>It returns <code>true</code> if the vector contains a probability distribution or <code>false</code> otherwise. </dd></dl>
 
@@ -379,8 +379,9 @@ where <code>pi</code> is the probability of the ith element occurring. Each two 
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>qif/<a class="el" href="structs_8hpp_source.html">structs.hpp</a></li>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>qif/include/<a class="el" href="distribution_8hpp_source.html">distribution.hpp</a></li>
+<li>qif/src/<a class="el" href="distribution_8cpp.html">distribution.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -1,11 +1,12 @@
-/** 
- * \mainpage
- * \author Ramon Gonze
- * \version 1.0
- * \date 2019-01
- */
+#ifndef _qif
+#define _qif
 
-#include "./structs/distribution.hpp"
-#include "./structs/channels.hpp"
-#include "./structs/gain.hpp"
-#include "./structs/hyper.hpp"
+#include "./include/distribution.hpp"
+#include "./include/channel.hpp"
+#include "./include/gain.hpp"
+#include "./include/hyper.hpp"
+#include "./include/vulnerability.hpp"
+#include "./include/entropy.hpp"
+#include "./include/leakage.hpp"
+
+#endif

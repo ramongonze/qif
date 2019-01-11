@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['_5ffunctions',['_functions',['../functions_8hpp.html#a9a8b5773876b813112924922c3044276',1,'functions.hpp']]]
+  ['additiveleakage',['additiveLeakage',['../leakage_8cpp.html#a74339cfe6bbd5a9f63b63d27cb274cbc',1,'additiveLeakage(Hyper &amp;hyper, Gain &amp;gain):&#160;leakage.cpp'],['../leakage_8hpp.html#a74339cfe6bbd5a9f63b63d27cb274cbc',1,'additiveLeakage(Hyper &amp;hyper, Gain &amp;gain):&#160;leakage.cpp']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['_5ffunctions',['_functions',['../functions_8hpp.html#a9a8b5773876b813112924922c3044276',1,'functions.hpp']]]
+  ['eps',['EPS',['../distribution_8hpp.html#a6ebf6899d6c1c8b7b9d09be872c05aae',1,'distribution.hpp']]]
 ];
