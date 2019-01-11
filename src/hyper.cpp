@@ -42,7 +42,9 @@ Hyper::Hyper(std::string prior_file, std::string channel_file){
 }
 
 Hyper::Hyper(Distribution &prior, Channel &channel){
-	Hyper::buildHyper(prior, channel, joint, outer, inners);	
+	Hyper::buildHyper(prior, channel, joint, outer, inners);
+	this->prior = &prior;
+	this->channel = &channel;
 }
 
 std::string Hyper::toString(std::string type, int precision){

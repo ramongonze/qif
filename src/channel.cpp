@@ -17,7 +17,7 @@ Channel::Channel(Distribution &prior, std::string file){
 		exit(EXIT_FAILURE);
 	}
 
-	if(!fscanf(F, "%d,%d", &k, &num_out)){
+	if(!fscanf(F, "%d %d", &k, &num_out)){
 		exit(EXIT_FAILURE);
 	}
 
@@ -32,7 +32,7 @@ Channel::Channel(Distribution &prior, std::string file){
 
 	for(int i = 0; i < this->prior->num_el; i++){
 		for(int j = 0; j < num_out; j++){
-			if(!fscanf(F, "%Lf,", &(matrix[i][j]))){
+			if(!fscanf(F, "%Lf", &(matrix[i][j]))){
 				exit(EXIT_FAILURE);
 			}
 		}
@@ -108,7 +108,6 @@ std::string Channel::toString(int precision){
 	std::ostringstream out;
 	out << std::fixed << std::setprecision(precision);
 	
-	out << prior->num_el << " " << num_out << "\n";
 	for(int i = 0; i < prior->num_el; i++){
 		for(int j = 0; j < num_out-1; j++){
 			out << matrix[i][j] << " ";

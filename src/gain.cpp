@@ -17,7 +17,7 @@ Gain::Gain(Distribution &prior, std::string file){
 		exit(EXIT_FAILURE);
 	}
 
-	if(!fscanf(F, "%d,%d", &num_act, &k)){
+	if(!fscanf(F, "%d %d", &num_act, &k)){
 		exit(EXIT_FAILURE);
 	}
 
@@ -31,7 +31,7 @@ Gain::Gain(Distribution &prior, std::string file){
 
 	for(int i = 0; i < num_act; i++){
 		for(int j = 0; j < this->prior->num_el; j++){
-			if(!fscanf(F, "%Lf,", &matrix[i][j])){
+			if(!fscanf(F, "%Lf", &matrix[i][j])){
 				exit(EXIT_FAILURE);
 			}
 		}
@@ -57,7 +57,6 @@ std::string Gain::toString(int precision){
 	std::ostringstream out;
 	out << std::fixed << std::setprecision(precision);
 	
-	out << num_act << " " << prior->num_el << "\n";
 	for(int i = 0; i < num_act; i++){
 		for(int j = 0; j < prior->num_el-1; j++){
 			out << matrix[i][j] << " ";
