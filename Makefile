@@ -1,7 +1,7 @@
-all: qif.o distribution.o channel.o gain.o hyper.o vulnerability.o entropy.o leakage.o move
+all: qif.o distribution.o channel.o gain.o hyper.o vulnerability.o entropy.o leakage.o binary
 
 qif.o:
-	g++ -std=c++11 -c qif.cpp -O2 -O3 -O4 -Wall -Wextra -Werror -pedantic
+	g++ -std=c++11 -c ./src/qif.cpp -O2 -O3 -O4 -Wall -Wextra -Werror -pedantic
 
 distribution.o:
 	g++ -std=c++11 -c ./src/distribution.cpp -O2 -O3 -O4 -Wall -Wextra -Werror -pedantic
@@ -24,6 +24,6 @@ entropy.o:
 leakage.o:
 	g++ -std=c++11 -c ./src/leakage.cpp -O2 -O3 -O4 -Wall -Wextra -Werror -pedantic
 
-move:
+binary:
+	ar rcs qif.a distribution.o channel.o gain.o hyper.o vulnerability.o entropy.o leakage.o
 	mv *.o ./bin/
-	mv ./bin/qif.o ./

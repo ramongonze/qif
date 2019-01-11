@@ -66,23 +66,29 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><h1><a class="anchor" id="description"></a>
-Library description</h1>
+Description</h1>
 <p>This library has the goal to model QIF - Quantitative Information Flow.</p>
 <p>It can be used to model systems and measure entropies, vulnerabilities and leakages of them.</p>
-<p>This library models the base of QIF, such as probability distributions, informational channels, gain functions, hyper-distributions, and some functions to measure information flow.</p>
+<p>This library models the basics of QIF such as probability distributions, informational channels, gain functions, hyper-distributions, and some functions to measure information flow.</p>
+<div class="fragment"></div><!-- fragment --><h1><a class="anchor" id="req"></a>
+System Requirements</h1>
+<ul>
+<li>G++ compiler - Available in most UNIX distros</li>
+<li>GNU <b>ar</b> (<em>archive</em>). It is also available in most UNIX distros. For more details acess <a href="http://man7.org/linux/man-pages/man1/ar.1.html">ar documentation</a>.</li>
+</ul>
 <div class="fragment"></div><!-- fragment --><h1><a class="anchor" id="usage"></a>
 Usage</h1>
 <p>To use the library follow these steps:</p>
-<ul>
+<ol type="1">
 <li>Copy the folder <b>qif</b> to your project's directory.</li>
-<li>Open the folder <b>qif</b> in the terminal and type <b>make</b> to compile all the modules. A binary file named <b>qif.o</b> will be generated.</li>
-<li>Include the library in your C++ project using <code>#include</code> <code>"./qif/qif.hpp"</code> </li>
-<li>Compile your project adding <b>qif.o</b> in the command line used to compile your C++ project. Example: <code>g++</code> <code>main.cpp</code> <code>qif.o</code> </li>
-</ul>
-<p>Following the steps above you will be able to use all the classes and functions of this library.</p>
+<li>Open the folder <b>qif</b> in the terminal and type <b>make</b> to compile all the modules. A binary file named <b>qif.a</b> will be generated.</li>
+<li>Include the library in your C++ project using <code>#include</code> <code>"qif/qif.hpp"</code> </li>
+<li>Compile your project adding <code><b>qif/qif.a</b></code> in the command line used to compile your C++ project. Example: <code>g++</code> <code>main.cpp</code> <code>qif/qif.a</code> </li>
+</ol>
+<p>Following the steps above you will be able to use all the classes and functions from this library.</p>
 <div class="fragment"></div><!-- fragment --><h1><a class="anchor" id="References"></a>
 References</h1>
-<p><a class="el" href="">[1] </a> Alvim M.S; Chatzikokolakis K; McIver A; Morgan C; Palamidessi C; Smith G.S. <b>The Science of Quantitative Information Flow</b>. Springer, 1 edition, 2019.</p>
+<p><a href="https://www.springer.com/us/book/9783319961293">[1]</a> Alvim M.S; Chatzikokolakis K; McIver A; Morgan C; Palamidessi C; Smith G.S. <b>The Science of Quantitative Information Flow</b>. Springer, 1 edition, 2019.</p>
 <div class="fragment"></div><!-- fragment --><dl class="section author"><dt>Author</dt><dd>Gonze, R. </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>1.0 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2019-01 </dd></dl>
