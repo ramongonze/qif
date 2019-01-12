@@ -68,7 +68,7 @@ Channel::Channel(Distribution &prior, std::vector<std::vector<long double> > &ma
 	}
 }
 
-Channel::Channel(Distribution &prior, int num_out, long double max_prob){
+Channel::Channel(Distribution &prior, int num_out){
 
 	this->prior = &prior;
 	this->num_out = num_out;
@@ -82,10 +82,6 @@ Channel::Channel(Distribution &prior, int num_out, long double max_prob){
 		for(int j = 0; j < this->num_out-1; j++){
 			x = rand() % threshold;
 
-			if((long double)x/RAND_MAX > max_prob){
-				x = RAND_MAX * max_prob;
-			}
-			
 			matrix[i][j] = (long double)x/RAND_MAX;
 			threshold -= x;
 		}

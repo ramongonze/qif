@@ -74,7 +74,7 @@ class Channel{
 		 * \warning We must have \c max_prob * \c num_out >= 1, otherwise a row in the channel matrix would not represent a probability distribution.
 		 * \warning The number of rows in the channel matrix must be as same as the number of elements in the @ref prior distribution.
 		 */
-		Channel(Distribution &prior, int num_ac, long double max_prob);
+		Channel(Distribution &prior, int num_out);
 
 		/**
 		 * \brief Number of channel outputs.
