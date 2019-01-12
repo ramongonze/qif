@@ -71,7 +71,7 @@ class Gain{
 		/**
 		 * \brief A pointer to a prior probability distribution on a set of secrets.
 		 */
-		Distribution *prior;
+		Distribution *prior = NULL;
 		
 		/**
 		 * \brief Gain function matrix.

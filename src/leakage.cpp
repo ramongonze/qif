@@ -1,11 +1,11 @@
 #include "../include/leakage.hpp"
 
 long double additiveLeakage(Hyper &hyper, Gain &gain){
-	return gVulnerability(hyper,gain) - gVulnerability(gain);
+	return gVulnerability(hyper, gain) - gVulnerability(gain);
 }
 
 long double multiplicativeLeakage(Hyper &hyper, Gain &gain){
-	long double vg_hyper = gVulnerability(hyper,gain);
+	long double vg_hyper = gVulnerability(hyper, gain);
 	long double vg_prior = gVulnerability(gain);
 
 	if(vg_prior < EPS){ /* Comparing if vg_prior == 0 */
