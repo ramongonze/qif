@@ -15,6 +15,7 @@
  */
 class Hyper{
 	private:
+		/* A method used to build the joint, outer and inner distributions. */
 		void buildHyper(Distribution &prior, Channel &channel, std::vector<std::vector<long double> > &joint, Distribution &outer, std::vector<std::vector<long double> > &inners);
 
 	public:
@@ -49,12 +50,12 @@ class Hyper{
 		/**
 		 * \brief A pointer to a probability distribution on a set of secrets.
 		 */
-		Distribution *prior;
+		Distribution *prior = NULL;
 
 		/**
 		 * \brief A pointer to a channel.
 		 */
-		Channel *channel;
+		Channel *channel = NULL;
 
 		/**
 		 * \brief Joint distribution matrix.

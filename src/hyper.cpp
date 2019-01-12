@@ -35,16 +35,17 @@ Hyper::Hyper(){
 }
 
 Hyper::Hyper(std::string prior_file, std::string channel_file){
-	Distribution prior(prior_file);
-	Channel channel(prior, channel_file);
+	prior = new Distribution(prior_file);
+	channel = new Channel(*prior, channel_file);
 
-	Hyper::buildHyper(prior, channel, joint, outer, inners);
+	buildHyper(*prior, *channel, joint, outer, inners);
 }
 
 Hyper::Hyper(Distribution &prior, Channel &channel){
-	Hyper::buildHyper(prior, channel, joint, outer, inners);
 	this->prior = &prior;
 	this->channel = &channel;
+
+	buildHyper(prior, channel, joint, outer, inners);
 }
 
 std::string Hyper::toString(std::string type, int precision){
