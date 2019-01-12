@@ -62,12 +62,9 @@ class Distribution{
 		 * \brief Constructor used to generate a uniform or a random probability distribution.
 		 *
 		 * \param num_el Number of elements in the set of elements.
-		 * \param type Must be "uniform" for a uniform distribution or "random" for a random distribution.
-		 * \param max_prob A number in the interval [0,1]. When \c type is "uniform", \c max_prob is ignored (any value can be passed).
-		 * When \c type is "random" it is used as an upper bound for generating the elements' probabilities in the distribution.
-		 * For example, when \c max_prob is \c 0.4, all the probabilities in the new probability distribution are less equal to \c 0.4.
+		 * \param type Must be "uniform" for generating a uniform distribution or "random" for a random distribution.
 		 */
-		Distribution(int num_el, std::string type, long double max_prob);
+		Distribution(int num_el, std::string type);
 		
 		/** \brief Number of elements in the distribution */
 		int num_el;

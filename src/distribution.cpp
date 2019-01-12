@@ -11,7 +11,7 @@ Distribution::Distribution(std::string file){
 	F = fopen(file.c_str(), "r");
 
 	if(F == NULL){
-		fprintf(stderr, "Error reading file!\n");
+		fprintf(stderr, "Error reading file \"%s\"!\n", file.c_str());
 		exit(EXIT_FAILURE);
 	}
 
@@ -29,7 +29,7 @@ Distribution::Distribution(std::string file){
 	fclose(F);
 
 	if(!isDistribution(prob)){
-		fprintf(stderr, "The numbers in the file %s are not a probability distribution!\n", file.c_str());
+		fprintf(stderr, "The numbers in the file \"%s\" are not a probability distribution!\n", file.c_str());
 		exit(EXIT_FAILURE);
 	}
 }	
@@ -48,28 +48,26 @@ Distribution::Distribution(std::vector<long double> &prob){
 	}
 }
 
-Distribution::Distribution(int num_el, std::string type, long double max_prob){
+Distribution::Distribution(int num_el, std::string type){
 
 	this->num_el = num_el;
 	
 	if(type == "uniform"){
 		prob.resize(this->num_el, 1/(long double)this->num_el);
 	}else if(type == "random"){
-		// Random distribution
-		int threshold = RAND_MAX;
-		int x;
+		do{
+			prob.resize(0);
+			int threshold = RAND_MAX;
+			int x;
 
-		for(int i = 0; i < num_el-1; i++){
-			x = rand() % threshold;
-
-			if((long double)x/RAND_MAX > max_prob){
-				x = RAND_MAX * max_prob;
+			for(int i = 0; i < num_el-1; i++){
+				x = rand() % threshold;
+				prob.push_back((long double)x/RAND_MAX);
+				threshold -= x;
 			}
-			
-			prob.push_back((long double)x/RAND_MAX);
-			threshold -= x;
-		}
-		prob.push_back((long double)threshold/RAND_MAX);
+			prob.push_back((long double)threshold/RAND_MAX);	
+
+		}while(!isDistribution(prob));
 	}else{
 		fprintf(stderr, "Invalid argument to create a distribution! \n");
 		exit(EXIT_FAILURE);
