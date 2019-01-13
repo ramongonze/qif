@@ -34,7 +34,7 @@ long double additiveLeakage(Hyper &hyper, Gain &gain);
  *
  * \return If both gVulnerability(prior distribtuion) and gVulnerability(hyper-distribtuion) are different of 0, it returns gVulnerability(hyper-distribtuion) / gVulnerability(prior distribtuion).
  *
- * See the section 5.2 in the reference [1] for more details about the return of multiplicative leakage.
+ * See the section 5.2 in the reference [[1]](https://www.springer.com/us/book/9783319961293) for more details about the return of multiplicative leakage.
  *
  */
 long double multiplicativeLeakage(Hyper &hyper, Gain &gain);

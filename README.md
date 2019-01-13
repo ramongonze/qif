@@ -1,6 +1,6 @@
 # QIF Library
 
-This library is meant to model QIF - Quantitative Information Flow.
+This is a C++ library and it is meant to model QIF - Quantitative Information Flow.
 
 It can be used to model systems and measure their entropies, vulnerabilities and information leakages.
 

@@ -5,9 +5,9 @@
  *
  * \section description Description
  *
- * This library has the goal to model QIF - Quantitative Information Flow.
+ * This is a C++ library and it is meant to model QIF - Quantitative Information Flow.
  *
- * It can be used to model systems and measure entropies, vulnerabilities and leakages of them.
+ * It can be used to model systems and measure their entropies, vulnerabilities and information leakages.
  *
  * This library models the basics of QIF such as probability distributions, informational channels, gain functions, hyper-distributions,
  * and some functions to measure information flow.
@@ -27,18 +27,20 @@
  * \section usage Usage
  *
  * To use the library follow these steps:
- *
- * 1. Copy the folder **qif** to your project's directory.
- *
- * 2. Open the folder **qif** in the terminal and type **make** to compile all the modules. 
- * A binary file named **qif.a** will be generated.
- *
- * 3. Include the library in your C++ project using \c #include \c "qif/qif.hpp"
- *
- * 4. Compile your project adding \c **qif/qif.a** in the command line used to compile your C++ project. 
- * Example: \c g++ \c main.cpp  \c qif/qif.a
- *
- * Following the steps above you will be able to use all the classes and functions from this library.
+ * 
+ * 1. Copy the folder ```qif``` to your project's directory;
+ * 
+ * 2. Open the folder ```qif``` in the terminal and type ```make``` to compile all the modules. 
+ * A binary file named ```qif.a``` will be generated;
+ * 
+ * 3. Include the library in your C++ project using ```#include "qif/qif.hpp"```;
+ * 
+ * 4. Compile your project adding ```qif/qif.a``` in the command line used to compile your C++ project. 
+ * 
+ * Example:
+ * ```bash
+ * $ g++ main.cpp qif/qif.a
+ * ```
  *
  * \line l2
  *
@@ -51,4 +53,8 @@
  * \author Gonze, R.
  * \version 1.0
  * \date 2019-01
+ *
+ * \section license License
+ *
+ * [MIT](https://choosealicense.com/licenses/mit/)
  */
