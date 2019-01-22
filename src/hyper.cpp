@@ -1,11 +1,14 @@
 #include "../include/hyper.hpp"
 
-void Hyper::buildHyper(Distribution &prior, Channel &channel, std::vector<std::vector<long double> > &joint, Distribution &outer, std::vector<std::vector<long double> > &inners){
+void Hyper::buildHyper(Distribution &prior, Channel &channel){
 
 	joint.resize(prior.num_el, std::vector<long double>(channel.num_out));
 
 	outer.num_el = channel.num_out;
-	outer.prob.resize(outer.num_el, 0);
+	outer.prob.resize(outer.num_el);
+
+	for(int i = 0; i < outer.num_el; i++)
+		outer.prob[i] = 0.0f;
 
 	for(int i = 0; i < prior.num_el; i++){
 		for(int j = 0; j < channel.num_out; j++){
@@ -38,14 +41,14 @@ Hyper::Hyper(std::string prior_file, std::string channel_file){
 	prior = new Distribution(prior_file);
 	channel = new Channel(*prior, channel_file);
 
-	buildHyper(*prior, *channel, joint, outer, inners);
+	buildHyper(*prior, *channel);
 }
 
 Hyper::Hyper(Distribution &prior, Channel &channel){
 	this->prior = &prior;
 	this->channel = &channel;
 
-	buildHyper(prior, channel, joint, outer, inners);
+	buildHyper(prior, channel);
 }
 
 std::string Hyper::toString(std::string type, int precision){

@@ -74,6 +74,9 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:ab620cbdfa384f054926f190cd7b23e59"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHyper.html#ab620cbdfa384f054926f190cd7b23e59">buildHyper</a> (<a class="el" href="classDistribution.html">Distribution</a> &amp;<a class="el" href="classHyper.html#a8a00b7aa377e1cebcb9be34f9ac35fbe">prior</a>, <a class="el" href="classChannel.html">Channel</a> &amp;<a class="el" href="classHyper.html#a0f80b944566c8bacb1c2de27b3b1b27b">channel</a>)</td></tr>
+<tr class="memdesc:ab620cbdfa384f054926f190cd7b23e59"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method used to build the joint, outer and inner distributions.  <a href="#ab620cbdfa384f054926f190cd7b23e59">More...</a><br /></td></tr>
+<tr class="separator:ab620cbdfa384f054926f190cd7b23e59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a605eebe5a8cf13fdb6c80859d40bfc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHyper.html#a6a605eebe5a8cf13fdb6c80859d40bfc">Hyper</a> ()</td></tr>
 <tr class="memdesc:a6a605eebe5a8cf13fdb6c80859d40bfc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="#a6a605eebe5a8cf13fdb6c80859d40bfc">More...</a><br /></td></tr>
 <tr class="separator:a6a605eebe5a8cf13fdb6c80859d40bfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -84,10 +87,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a43b97ecb528db585f696f374d94a75bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor used when the prior distribution on the set of secrets and the channel are already instanced in variables.  <a href="#a43b97ecb528db585f696f374d94a75bc">More...</a><br /></td></tr>
 <tr class="separator:a43b97ecb528db585f696f374d94a75bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac81a36d52602879830b2c49cc46f0b19"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHyper.html#ac81a36d52602879830b2c49cc46f0b19">toString</a> (std::string type, int precision)</td></tr>
-<tr class="memdesc:ac81a36d52602879830b2c49cc46f0b19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string with the joint matrix, the outer distribution or the inners distributions.  <a href="#ac81a36d52602879830b2c49cc46f0b19">More...</a><br /></td></tr>
+<tr class="memdesc:ac81a36d52602879830b2c49cc46f0b19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string with the joint matrix, the outer distribution or the inner distributions.  <a href="#ac81a36d52602879830b2c49cc46f0b19">More...</a><br /></td></tr>
 <tr class="separator:ac81a36d52602879830b2c49cc46f0b19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6907c18d1a6810d1ab052ad08bc1bf1f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHyper.html#a6907c18d1a6810d1ab052ad08bc1bf1f">printToFile</a> (std::string type, std::string file, int precision)</td></tr>
-<tr class="memdesc:a6907c18d1a6810d1ab052ad08bc1bf1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the joint matrix, outer distribution or the inners distributions in a file.  <a href="#a6907c18d1a6810d1ab052ad08bc1bf1f">More...</a><br /></td></tr>
+<tr class="memdesc:a6907c18d1a6810d1ab052ad08bc1bf1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the joint matrix, outer distribution or the inner distributions in a file.  <a href="#a6907c18d1a6810d1ab052ad08bc1bf1f">More...</a><br /></td></tr>
 <tr class="separator:a6907c18d1a6810d1ab052ad08bc1bf1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
@@ -105,13 +108,13 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a3fd93e3ba31d6ef6f495316c864e9876"><td class="mdescLeft">&#160;</td><td class="mdescRight">The distribution on the set of outputs.  <a href="#a3fd93e3ba31d6ef6f495316c864e9876">More...</a><br /></td></tr>
 <tr class="separator:a3fd93e3ba31d6ef6f495316c864e9876"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ebd2c596528b7809c1220833c93d07e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; long double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHyper.html#a8ebd2c596528b7809c1220833c93d07e">inners</a></td></tr>
-<tr class="memdesc:a8ebd2c596528b7809c1220833c93d07e"><td class="mdescLeft">&#160;</td><td class="mdescRight">A matrix for the inners distributions.  <a href="#a8ebd2c596528b7809c1220833c93d07e">More...</a><br /></td></tr>
+<tr class="memdesc:a8ebd2c596528b7809c1220833c93d07e"><td class="mdescLeft">&#160;</td><td class="mdescRight">A matrix for the inner distributions.  <a href="#a8ebd2c596528b7809c1220833c93d07e">More...</a><br /></td></tr>
 <tr class="separator:a8ebd2c596528b7809c1220833c93d07e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class used to represent a hyper-distribution. </p>
 <p>A hyper-distribution is a distribution on distributions on a set of secrets. Each output in a informational channel is a possible "world", and each possible world is a new distribution on the set of secrets. We call the possible worlds the <em>inner distributions</em>. Each possible world has a probability to occur, and we call the distribution on the possible worlds as the <em>outer distribution</em>.</p>
-<p>We can calculate the outer and the inners distributions using the joint distribution between the set of secrets and the set of outputs. </p>
+<p>We can calculate the outer and the inner distributions using the joint distribution between the set of secrets and the set of outputs. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a6a605eebe5a8cf13fdb6c80859d40bfc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6a605eebe5a8cf13fdb6c80859d40bfc">&#9670;&nbsp;</a></span>Hyper() <span class="overload">[1/3]</span></h2>
@@ -162,8 +165,8 @@ Public Attributes</h2></td></tr>
 <p>Constructor used when the prior distribution on the set of secrets and the channel are in a file. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">prior_file</td><td>File's name which contains a prior distribution on a set of secrets. </td></tr>
-    <tr><td class="paramname">channel_file</td><td>File's name which contains a channel matrix.</td></tr>
+    <tr><td class="paramname">prior_file</td><td>File's name which contains a <a class="el" href="classHyper.html#a8a00b7aa377e1cebcb9be34f9ac35fbe">prior</a> distribution on a set of secrets. </td></tr>
+    <tr><td class="paramname">channel_file</td><td>File's name which contains a <a class="el" href="classHyper.html#a0f80b944566c8bacb1c2de27b3b1b27b">channel</a> matrix.</td></tr>
   </table>
   </dd>
 </dl>
@@ -201,7 +204,7 @@ Public Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">prior</td><td>Prior distribution on a set of secrets </td></tr>
-    <tr><td class="paramname">channel</td><td><a class="el" href="classChannel.html" title="Class used to represent an informational channel. ">Channel</a> matrix</td></tr>
+    <tr><td class="paramname">channel</td><td>Information channel, corresponding to the <a class="el" href="classHyper.html#a8a00b7aa377e1cebcb9be34f9ac35fbe">prior</a></td></tr>
   </table>
   </dd>
 </dl>
@@ -210,6 +213,50 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab620cbdfa384f054926f190cd7b23e59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab620cbdfa384f054926f190cd7b23e59">&#9670;&nbsp;</a></span>buildHyper()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Hyper::buildHyper </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classDistribution.html">Distribution</a> &amp;&#160;</td>
+          <td class="paramname"><em>prior</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classChannel.html">Channel</a> &amp;&#160;</td>
+          <td class="paramname"><em>channel</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A method used to build the joint, outer and inner distributions. </p>
+<p>It calculates:</p>
+<ul>
+<li>The <a class="el" href="classHyper.html#ab906ba6923940b6eb754a7b690628fae">joint</a> distribution - multiplying the <a class="el" href="classHyper.html#a0f80b944566c8bacb1c2de27b3b1b27b">channel</a> and the <a class="el" href="classHyper.html#a8a00b7aa377e1cebcb9be34f9ac35fbe">prior</a> distribution;</li>
+<li>The <a class="el" href="classHyper.html#a3fd93e3ba31d6ef6f495316c864e9876">outer</a> distribution - summing all the joint probabilities for each posterior distribution;</li>
+<li>The <a class="el" href="classHyper.html#a8ebd2c596528b7809c1220833c93d07e">inners</a> - normalizing each column of the joint matrix by the respectively outer probability.</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">prior</td><td>Prior distribution on a set of secrets </td></tr>
+    <tr><td class="paramname">channel</td><td>Information channel, corresponding to the <a class="el" href="classHyper.html#a8a00b7aa377e1cebcb9be34f9ac35fbe">prior</a></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section warning"><dt>Warning</dt><dd>The number of rows in the channel matrix must be as same as the number of elements in the prior distribution. </dd></dl>
+
+</div>
+</div>
 <a id="a6907c18d1a6810d1ab052ad08bc1bf1f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6907c18d1a6810d1ab052ad08bc1bf1f">&#9670;&nbsp;</a></span>printToFile()</h2>
 
@@ -242,7 +289,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Print the joint matrix, outer distribution or the inners distributions in a file. </p>
+<p>Print the joint matrix, outer distribution or the inner distributions in a file. </p>
 <p>The choice of what will be printed is passed in the first parameter <code>type</code>.</p>
 <p>The joint matrix is printed in the following format: </p><pre class="fragment">n y
 p11 p12 ... p1y
@@ -262,7 +309,7 @@ pn1 pn2 ... pny
 <p>Each two numbers in any printing are separated by a " " (space).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">type</td><td>The name of what will be printed. It must be "joint", "outer" or "inners", to print the joint matrix, outer distribution or the inners distribution matrix, respectively. </td></tr>
+    <tr><td class="paramname">type</td><td>The name of what will be printed. It must be "joint", "outer" or "inners", to print the joint matrix, outer distribution or the inners' matrix, respectively. </td></tr>
     <tr><td class="paramname">file</td><td>A file's name. </td></tr>
     <tr><td class="paramname">precision</td><td>Decimal precision for float numbers. For example, use the value 3 to print 0.322, use 5 to print 0.32197, and so on. </td></tr>
   </table>
@@ -297,7 +344,7 @@ pn1 pn2 ... pny
       </table>
 </div><div class="memdoc">
 
-<p>Returns a string with the joint matrix, the outer distribution or the inners distributions. </p>
+<p>Returns a string with the joint matrix, the outer distribution or the inner distributions. </p>
 <p>The choice of what will be returned is passed in the first parameter <code>type</code>.</p>
 <p>The joint matrix is returned in the following format: </p><pre class="fragment">p11 p12 ... p1y
 p21 p22 ... p2y
@@ -306,7 +353,7 @@ pn1 pn2 ... pny
 </pre><p>where <code>n</code> is the number of secrets, <code>y</code> is the number of outputs and <code>pij</code> is the joint probability p(<code>i</code>,<code>j</code>) of a secret <code>i</code> and an output <code>j</code>.</p>
 <p>The outer distribution is returned in the following format: </p><pre class="fragment">p1 p2 ... py
 </pre><p>where <code>y</code> is the number of outputs. Each two numbers are separated by a " " (space).</p>
-<p>The inners distributions matrix is returned in the following format: </p><pre class="fragment">p11 p12 ... p1y
+<p>The inner distributions matrix is returned in the following format: </p><pre class="fragment">p11 p12 ... p1y
 p21 p22 ... p2y
 ...
 pn1 pn2 ... pny
@@ -314,7 +361,7 @@ pn1 pn2 ... pny
 <p>Each two numbers in any choice are are separated by a " " (space).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">type</td><td>The name of what will be returned. It must be "joint", "outer" or "inners", to return the joint matrix, outer distribution or the inners distribution matrix, respectively. </td></tr>
+    <tr><td class="paramname">type</td><td>The name of what will be returned. It must be "joint", "outer" or "inners", to return the joint matrix, outer distribution or the inners' matrix, respectively. </td></tr>
     <tr><td class="paramname">precision</td><td>Decimal precision for float numbers. For example, use the value 3 to print 0.322, use 5 to print 0.32197, and so on. </td></tr>
   </table>
   </dd>
@@ -351,7 +398,7 @@ pn1 pn2 ... pny
       </table>
 </div><div class="memdoc">
 
-<p>A matrix for the inners distributions. </p>
+<p>A matrix for the inner distributions. </p>
 <p>Each position (<code>x</code>,<code>y</code>) in the matrix is the conditional probability p(<code>x|<code>y</code>)</code> which is the probability of the secret being <code>x</code> when the output is <code>y</code>. Each column is a posterior distribution. </p>
 
 </div>

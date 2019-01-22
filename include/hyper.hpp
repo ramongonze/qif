@@ -11,14 +11,27 @@
  * and each possible world is a new distribution on the set of secrets. We call the possible worlds the *inner distributions*. 
  * Each possible world has a probability to occur, and we call the distribution on the possible worlds as the *outer distribution*.
  *
- * We can calculate the outer and the inners distributions using the joint distribution between the set of secrets and the set of outputs.
+ * We can calculate the outer and the inner distributions using the joint distribution between the set of secrets and the set of outputs.
  */
 class Hyper{
-	private:
-		/* A method used to build the joint, outer and inner distributions. */
-		void buildHyper(Distribution &prior, Channel &channel, std::vector<std::vector<long double> > &joint, Distribution &outer, std::vector<std::vector<long double> > &inners);
-
 	public:
+		/**
+		 * \brief A method used to build the joint, outer and inner distributions.
+		 *
+		 * It calculates:
+		 *
+		 * - The @ref joint distribution - multiplying the @ref channel and the @ref prior distribution;
+		 *
+		 * - The @ref outer distribution - summing all the joint probabilities for each posterior distribution;
+		 *
+		 * - The @ref inners - normalizing each column of the joint matrix by the respectively outer probability.
+		 *
+		 * \param prior Prior distribution on a set of secrets
+		 * \param channel Information channel, corresponding to the @ref prior
+		 *
+		 * \warning The number of rows in the channel matrix must be as same as the number of elements in the prior distribution.
+		 */
+		void buildHyper(Distribution &prior, Channel &channel);
 
 		/**
 		 * \brief Default constructor.
@@ -30,8 +43,8 @@ class Hyper{
 		/**
 		 * \brief Constructor used when the prior distribution on the set of secrets and the channel are in a file.
 		 *
-		 * \param prior_file File's name which contains a prior distribution on a set of secrets.
-		 * \param channel_file File's name which contains a channel matrix.
+		 * \param prior_file File's name which contains a @ref prior distribution on a set of secrets.
+		 * \param channel_file File's name which contains a @ref channel matrix.
 		 *
 		 * \warning The number of rows in the channel matrix must be as same as the number of elements in the prior distribution.
 		 */
@@ -41,7 +54,7 @@ class Hyper{
 		 * \brief Constructor used when the prior distribution on the set of secrets and the channel are already instanced in variables.
 		 *
 		 * \param prior Prior distribution on a set of secrets
-		 * \param channel Channel matrix
+		 * \param channel Information channel, corresponding to the @ref prior
 		 *
 		 * \warning The number of rows in the channel matrix must be as same as the number of elements in the prior distribution.
 		 */
@@ -70,7 +83,7 @@ class Hyper{
 		Distribution outer;
 
 		/**
-		 * \brief A matrix for the inners distributions.
+		 * \brief A matrix for the inner distributions.
 		 *
 		 * Each position (\c x,\c y) in the matrix is the conditional
 		 * probability p(\c x|\c y) which is the probability of the secret being \c x when the output is \c y.
@@ -78,7 +91,7 @@ class Hyper{
 		 */
 		std::vector<std::vector<long double> > inners;
 
-		/** \brief Returns a string with the joint matrix, the outer distribution or the inners distributions.
+		/** \brief Returns a string with the joint matrix, the outer distribution or the inner distributions.
 		 *
 		 * The choice of what will be returned is passed in the first parameter \c type.
 		 *
@@ -98,7 +111,7 @@ class Hyper{
 		 *
 		 * where \c y is the number of outputs. Each two numbers are separated by a " " (space).
 		 *
-		 * The inners distributions matrix is returned in the following format:
+		 * The inner distributions matrix is returned in the following format:
 		 *
 		 * 	p11 p12 ... p1y
 		 * 	p21 p22 ... p2y
@@ -111,13 +124,13 @@ class Hyper{
 		 * Each two numbers in any choice are are separated by a " " (space).
 		 *
 		 * \param type The name of what will be returned. It must be "joint", "outer" or "inners", to return the joint matrix, outer distribution
-		 * or the inners distribution matrix, respectively.
+		 * or the inners' matrix, respectively.
 		 * \param precision Decimal precision for float numbers. For example, use the value 3 to print 0.322, use 5 to print 0.32197, and so on.
 		 */
 		std::string toString(std::string type, int precision);
 
 		/**
-		 * \brief Print the joint matrix, outer distribution or the inners distributions in a file.
+		 * \brief Print the joint matrix, outer distribution or the inner distributions in a file.
 		 *
 		 * The choice of what will be printed is passed in the first parameter \c type.
 		 *
@@ -154,7 +167,7 @@ class Hyper{
 		 * Each two numbers in any printing are separated by a " " (space).
 		 *
 		 * \param type The name of what will be printed. It must be "joint", "outer" or "inners", to print the joint matrix, outer distribution
-		 * or the inners distribution matrix, respectively.
+		 * or the inners' matrix, respectively.
 		 * \param file A file's name.
 		 * \param precision Decimal precision for float numbers. For example, use the value 3 to print 0.322, use 5 to print 0.32197, and so on.
 		 */
