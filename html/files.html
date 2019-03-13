@@ -80,7 +80,7 @@ $(function() {
 
 <hr>
 
-<h3 id="creating_distributions">Creating distribtuions</h3>
+<h2 id="creating_distributions">Creating distribtuions</h2>
 <div class="textblock">
   A probability distribution is represented as a vector of long double numbers, which:
   <ul>
@@ -88,7 +88,7 @@ $(function() {
     <li>Every number is in the interval [0,1].</li>
   </ul>
 
-To create an object <b>Distribution</b>, you must call the constructor, and there are 3 possibilities:
+To create an object <b>Distribution</b>, you must call its constructor, and there are 3 options:
   
 <ul style="list-style-type:circle;">
 <li><u>Read the distribution from a file</u></li>
@@ -101,13 +101,13 @@ p2
 pn</pre>
 <p>where <code>n</code> is the number of elements in the distribution and <code>pi</code> is the probability of the ith element occurs.</p>
 
-Suppose you have a file called <code>prior_distribution</code>. You must call:
+Suppose you have a file called <code>prior_distribution.txt</code>. You must call:
 <pre class="fragment">
-<a style="color:#0066ff">Distribution</a> dist(<a style="color:#b3b300">"prior_distribution"</a>);
+<a style="color:#0066ff">Distribution</a> dist(<a style="color:#b3b300">"prior_distribution.txt"</a>);
 </pre>
 
 <br><br>
-<li><u>Create the distribution from a vector of numbers</u></li>
+<li><u>Use an existing vector of numbers</u></li>
 You have just to call the constructor and give the vector of numbers. The parameter is a <code>std::vector&lt;long double&gt;</code>
 <pre class="fragment">
 std::vector&lt;<a style="color:#0066ff">long double</a>&gt;<a style="color:#0066ff"> v</a>({0.25, 0.25, 0.5});
@@ -129,10 +129,12 @@ To create a random distribution, the first argument of the constructor must be t
 </ul>
 
 <br>
-<h3 id="using_distributions">Using distributions</h3>
+<h2 id="using_distributions">Using distributions</h2>
 
-Suppose you have created a new distribution using any constructor above, and stored it in the variable <b>dist</b>.
+Suppose you have created a new distribution using one of the constructors above and stored it in the variable <b>dist</b>.
 
+<br>
+<h3>Accessing the elements</h3>
 <p>To get the probability of each element, you have to access the attribute vector <code>prob</code>.
 The elements in <code>prob</code> are indexed from 0 to <code>n-1</code>, where <code>n</code> is the number of elements in the probability distribution.
 For example, to get the fourth element of the distribution, you call the index <b>3</b>:</p>
@@ -141,27 +143,126 @@ For example, to get the fourth element of the distribution, you call the index <
 </pre>
 
 <br>
+<h3>Getting the number of elements</h3>
 The number of elements is stored in the attribute <b>num_el</b>.
 <pre class="fragment">
 <a style="color:#0066ff">int</a> number_elements = dist.num_el;
 </pre>
 
 <br>
-To print the distribution on the screen, you can use the method <code>toString()</code>. It has one argument: the precision of the probabilities. This method returns a string. For example, if you want to get a string with precision of 4, you must call:
+<h3>Printing</h3>
+To print the distribution on the screen, you can use the method <code>toString()</code>. It has one argument: the precision of the probabilities. This method returns a <code>string</code>. For example, if you want to get a string with precision of 4, you must call:
 <pre class="fragment">
 std::string d = dist.toString(4);
-cout << d << std::endl;
+std::cout << d << std::endl;
 </pre>
 
+<br>
 The result is the following:
 <pre class="fragment">
 0.2500 0.2500 0.5000
 </pre>
 
 <br>
+For more details, see the documentation <a href="classDistribution.html#a4d0b69f7838f42a9b24891930c7b886c">Distribution::toString()</a>.
+
+<br><br>
 You can also print the distribution right into a file using the method <code>printToFile()</code>. See the documentation of <a href="classDistribution.html#aadc1ad2ae8a06be2cf941377225f7932">Distribution::printToFile()</a>.
 
+<br><br>
+<hr><hr>
 
+<h2 id="creating_channels">Creating channels</h2>
+A informational channel can be represented as a matrix <code>n</code> x <code>y</code>, where <code>n</code> is the number of secrets (the rows), <code>y</code> is the number of possible outputs (the columns) and each cell (x<sub>i</sub>,y<sub>i</sub>) is the conditional probability p(y<sub>i</sub>|x<sub>i</sub>). 
+
+<p>Before create a channel, you must already have an object <b>Distribution</b>, which contains the <i>prior distribution</i> on the set of secrets. The set of secrets of the channel must be the same as the set from the prior distribution. After that, to create an object <b>Channel</b> you have to call its constructor, and there are 3 options:</p>
+
+<ul style="list-style-type:circle;">
+<li><u>Read the channel from a file</u></li>
+You can read it from a file in the following format:
+<pre class="fragment">n y
+p11 p12 ... p1y
+p21 p22 ... p2y
+...
+pn1 pn2 ... pny
+</pre>
+
+<br>
+Suppose you have a file called <code>channel.txt</code>. You must call:
+<pre class="fragment">
+<a style="color:#0066ff">Distribution</a> dist(<a style="color:#b3b300">"prior_distribution.txt"</a>);
+<a style="color:#0066ff">Channel</a> channel(dist, <a style="color:#b3b300">"channel.txt"</a>);
+</pre>
+
+<br><br>
+<li><u>Use an existing matrix of numbers</u></li>
+You have just to call the constructor and give the matrix. The matrix is a <code>std::vector&lt;std::vector&lt;long double&gt;&gt;</code>.
+<pre class="fragment">
+<a style="color:#0066ff">Distribution</a> dist(<a style="color:#b3b300">"prior_distribution.txt"</a>);
+std::vector&lt;std::vector&lt;<a style="color:#0066ff">long double</a>&gt;&gt;<a style="color:#0066ff"> matrix</a>({{0.25, 0.25, 0.5}, {0.3, 0.3, 0.4}, {1, 0, 0}});
+<a style="color:#0066ff">Channel</a> channel(dist, matrix);
+</pre>
+
+
+<br><br>
+<li><u>Generate a random channel</u></li>
+To create a random channel, the first argument of the constructor must be the prior distribution and the second one the number of outputs of the channel. For example, to create a channel with 3 possible outputs, you must call:
+<pre class="fragment">
+<a style="color:#0066ff">Distribution</a> dist(<a style="color:#b3b300">"prior_distribution.txt"</a>);
+<a style="color:#0066ff">Channel</a> channel(dist, 3);
+</pre>
+</ul>
+
+<br>
+<h2 id="using_channels">Using channels</h2>
+Suppose you have created a channel using one of the constructors above and stored it in the variable <b>channel</b>. 
+
+<h3>Acessing the prior distribution</h3>
+There is a pointer to an object Distribution: <b>prior</b>. You can get, for example, the number of secrets:
+<pre class="fragment">
+<a style="color:#0066ff">int</a> number_secrets = channel.prior->num_el;
+</pre>
+
+<br>
+<h3>Acessing the matrix channel</h3>
+To get a conditional probability from the matrix, you have to access the attribute <code>matrix</code>. The rows are indexed from 0 to <code>n-1</code>, where <code>n</code> is the number of secrets, and the columns are indexed from 0 to <code>y-1</code>, where <code>y</code> is the number of outputs. For example, to get the probability p(y<sub>3</sub>|x<sub>2</sub>), you must call:
+<pre class="fragment">
+<a style="color:#0066ff">long double</a> p = channel.matrix[2][1];
+</pre>
+
+<br>
+<h3>Getting the number of outputs of the channel</h3>
+The number of outputs is stored in the attribute <b>num_out</b>.
+<pre class="fragment">
+<a style="color:#0066ff">int</a> number_outputs = channel.num_out;
+</pre>
+
+<br>
+<h3>Printing</h3>
+To print the channel on the screen, you can use the method <code>toString()</code>. It has one argument: the precision of the probabilities. This method returns a <code>string</code>. For example, if you want to get a string with precision of 4, you must call:
+<pre class="fragment">
+std::string c = channel.toString(4);
+std::cout << c << std::endl;
+</pre>
+
+<br>
+The result is the following:
+<pre class="fragment">
+0.2500 0.2500 0.5000
+1.0000 0.0000 0.0000
+0.9000 0.0100 0.0900
+</pre>
+
+<br>
+For more details, see the documentation <a href="classChannel.html#a2d97d823f68fe35f4c35dc04ebee3114">Channel::toString()</a>.
+
+<br><br>
+You can also print the channel right into a file using the method <code>printToFile()</code>. See the documentation of <a href="classChannel.html#aa7823e1aa1dea119ae0bf41d42f24b31">Channel::printToFile()</a>. 
+
+<br><br>
+<hr><hr>
+
+<h2 id="building_hd">Building hyper-distributions</h2>
 
 
 <!-- start footer part -->

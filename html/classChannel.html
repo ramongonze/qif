@@ -253,11 +253,10 @@ pn1 pn2 ... pny
   <table class="params">
     <tr><td class="paramname">prior</td><td>Prior distribution on a set of secrets. </td></tr>
     <tr><td class="paramname">num_out</td><td>Number of outputs. </td></tr>
-    <tr><td class="paramname">max_prob</td><td>A float number in the interval [0,1]. It is used as an upper bound of any outputs' probabilities. For example, when <code>max_prob</code> is <code>0.4</code>, all the probabilities in the matrix will be less equal to <code>0.4</code>.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section warning"><dt>Warning</dt><dd>We must have <code>max_prob</code> * <code>num_out</code> &gt;= 1, otherwise a row in the channel matrix would not represent a probability distribution. </dd>
+<dl class="section warning"><dt>Warning</dt>
 <dd>
 The number of rows in the channel matrix must be as same as the number of elements in the <a class="el" href="classChannel.html#a6863998670fd1abd2a20abfa488d18e2">prior</a> distribution. </dd></dl>
 

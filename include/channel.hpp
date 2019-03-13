@@ -68,10 +68,7 @@ class Channel{
 		 *
 		 * \param prior: Prior distribution on a set of secrets.
 		 * \param num_out: Number of outputs.
-		 * \param max_prob: A float number in the interval [0,1]. It is used as an upper bound of any outputs' probabilities.
-		 * For example, when \c max_prob is \c 0.4, all the probabilities in the matrix will be less equal to \c 0.4.
 		 * 
-		 * \warning We must have \c max_prob * \c num_out >= 1, otherwise a row in the channel matrix would not represent a probability distribution.
 		 * \warning The number of rows in the channel matrix must be as same as the number of elements in the @ref prior distribution.
 		 */
 		Channel(Distribution &prior, int num_out);
