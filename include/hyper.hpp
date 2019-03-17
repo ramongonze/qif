@@ -7,8 +7,8 @@
 /**
  * \brief Class used to represent a hyper-distribution.
  *
- * A hyper-distribution is a distribution on distributions on a set of secrets. Each output in a informational channel is a possible "world",
- * and each possible world is a new distribution on the set of secrets. We call the possible worlds the *inner distributions*. 
+ * A hyper-distribution is a distribution on distributions on a set of secrets. Each output in an informational channel is a possible "world",
+ * and each possible world is a new distribution on the set of secrets. We call the possible worlds the *inner distributions*.
  * Each possible world has a probability to occur, and we call the distribution on the possible worlds as the *outer distribution*.
  *
  * We can calculate the outer and the inner distributions using the joint distribution between the set of secrets and the set of outputs.
@@ -59,7 +59,7 @@ class Hyper{
 		 * \warning The number of rows in the channel matrix must be as same as the number of elements in the prior distribution.
 		 */
 		Hyper(Distribution &prior, Channel &channel);
-		
+
 		/**
 		 * \brief A pointer to a probability distribution on a set of secrets.
 		 */
@@ -73,7 +73,7 @@ class Hyper{
 		/**
 		 * \brief Joint distribution matrix.
 		 *
-		 * The joint distribution is build multiplying the prior distribution and each row of the channel matrix. 
+		 * The joint distribution is build multiplying the prior distribution and each row of the channel matrix.
 		 */
 		std::vector<std::vector<long double> > joint;
 
@@ -96,13 +96,13 @@ class Hyper{
 		 * The choice of what will be returned is passed in the first parameter \c type.
 		 *
 		 * The joint matrix is returned in the following format:
-		 * 
+		 *
 		 * 	p11 p12 ... p1y
 		 * 	p21 p22 ... p2y
 		 * 	...
 		 * 	pn1 pn2 ... pny
 		 *
-		 * where \c n is the number of secrets, \c y is the number of outputs and \c pij is 
+		 * where \c n is the number of secrets, \c y is the number of outputs and \c pij is
 		 * the joint probability p(\c i,\c j) of a secret \c i and an output \c j.
 		 *
 		 * The outer distribution is returned in the following format:
@@ -118,7 +118,7 @@ class Hyper{
 		 * 	...
 		 * 	pn1 pn2 ... pny
 		 *
-		 * where \c n is the number of secrets, \c y is the number of outputs and \c pij is 
+		 * where \c n is the number of secrets, \c y is the number of outputs and \c pij is
 		 * the conditional probability p(\c i|\c j), which is the probability of the secret being \c i when the output is \c j.
 		 *
 		 * Each two numbers in any choice are are separated by a " " (space).
