@@ -225,7 +225,9 @@ must be a <code>std::vector&lt;std::vector&lt;long double&gt;&gt;</code>.
 To create a matrix from a matrix <code>M</code> you shall use:
 <pre class="fragment">
 <a style="color:#0066ff">Distribution</a> dist(<a style="color:#b3b300">"prior_distribution.txt"</a>);
-std::vector&lt;std::vector&lt;<a style="color:#0066ff">long double</a>&gt;&gt;<a style="color:#0066ff"> M</a>({{0.25, 0.25, 0.5}, {0.3, 0.3, 0.4}, {1, 0, 0}});
+std::vector&lt;std::vector&lt;<a style="color:#0066ff">long double</a>&gt;&gt;<a style="color:#0066ff"> M</a>({{0.25, 0.25, 0.50},
+                                         {0.30, 0.30, 0.40},
+                                         {1.00, 0.00, 0.00}});
 <a style="color:#0066ff">Channel</a> channel(dist, M);
 </pre>
 
@@ -426,6 +428,21 @@ For example, to access the conditional probability p(x<sub>2</sub>|y<sub>1</sub>
 </pre>
 
 <br>
+<h3>Changing the prior distribution or the channel</h3>
+If you have already created a hyper-distribution and need to change the prior
+distribution or the channel, it is possible.
+<br>
+For example, to change the prior, you can create a <i>new</i> <code>Distribution</code>
+object at replace the pointer <code><b>prior</b></code>:
+<pre class="fragment">
+<a style="color:#0066ff">Hyper</a> hyper(<a style="color:#b3b300">"prior_distribution.txt"</a>, <a style="color:#b3b300">channel.txt</a>);
+
+<a style="color:#c2c2d6">// Change the prior distribution</a>
+free(hyper.prior);
+hyper.prior = new Distribution(<a style="color:#b3b300">"new_prior.txt"</a>);
+</pre>
+
+<br>
 <h3>Printing</h3>
 To print the joint, the outer or the inners, you can use the method <code>toString()</code>.
 It has two parameters:
@@ -438,7 +455,7 @@ This method returns a <code>std::string</code>.
 <br>
 For example, if you want to get a string of the joint matrix with precision of 3, you shall use:
 <pre class="fragment">
-std::string joint_matrix = hyper.toString("joint", 3);
+std::string joint_matrix = hyper.toString(<a style="color:#b3b300">"joint"</a>, 3);
 std::cout << joint_matrix << std::endl;
 </pre>
 <br>
