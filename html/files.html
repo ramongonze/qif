@@ -82,18 +82,21 @@ $(function() {
 
 <h2 id="creating_distributions">Creating distribtuions</h2>
 <div class="textblock">
-  A probability distribution is represented as a vector of <code>long double</code> numbers, which:
-  <ul>
-    <li>The sum of all numbers in the vector is 1;</li>
-    <li>Every number is in the interval [0,1].</li>
-  </ul>
+A probability distribution is represented as a vector of numbers, which:
+<ul>
+  <li>The sum of all numbers in the vector is 1;</li>
+  <li>Every number is in the interval [0,1].</li>
+</ul>
 
-To create an object <b>Distribution</b>, you shall use its constructor, and there are 3 options:
+The vector of probabilities is structed as a <code>std::vector&lt;long double&gt;</code>.
+
+<br><br>
+To create an object <b>Distribution</b> there are 3 constructors available:
 
 <ul style="list-style-type:circle;">
-<li><u>Read the distribution from a file</u></li>
+<li><u>Read the vector of probabilities from a file</u></li>
 
-You can read it from a file in the following format:
+The vector of probabilities can be read from a file in the following format:
 <pre class="fragment">n
 p1
 p2
@@ -101,17 +104,18 @@ p2
 pn</pre>
 <p>where <code>n</code> is the number of elements in the distribution and <code>pi</code> is the probability of the ith element occurs.</p>
 
-Suppose you have a file <code>prior_distribution.txt</code> containing the distribution. To create a distribution, you shall use:
+Suppose you have a file called <code>prior_distribution.txt</code> containing the vector of probabilities. To create a distribution, you shall use:
 <pre class="fragment">
 <a style="color:#0066ff">Distribution</a> dist(<a style="color:#b3b300">"prior_distribution.txt"</a>);
 </pre>
 
 <br><br>
-<li><u>Use an existing vector of numbers</u></li>
-You just have to use the constructor and give the vector of numbers. The type
-of the vector must be a <code>std::vector&lt;long double&gt;</code>.
-<br>
-To create a distribution from a vector <code>v</code> you shall use:
+<li><u>Use an existing vector of probabilities</u></li>
+A distribution can be created using an already existing vector.
+The vector type must be <code>std::vector&lt;long double&gt;</code>.
+
+<br><br>
+To create a distribution from a vector of probabilities <code>v</code> you shall use:
 <pre class="fragment">
 std::vector&lt;<a style="color:#0066ff">long double</a>&gt;<a style="color:#0066ff"> v</a>({0.25, 0.25, 0.5});
 <a style="color:#0066ff">Distribution</a> dist(v);
@@ -119,8 +123,12 @@ std::vector&lt;<a style="color:#0066ff">long double</a>&gt;<a style="color:#0066
 
 <br><br>
 <li><u>Create a random or uniform distribution</u></li>
-To create an uniform distribution, the first parameter of the constructor must be
-the number of elements and the second parameter <code>"uniform"</code>.
+To create an uniform or a random distribution, there are 2 parameters in the constructor:
+<ul>
+	<li><b>First:</b> The number of elements;</li>
+	<li><b>Second:</b> The string <code>"uniform"</code> or <code>"random"</code>, to create an uniform distribution or a random distribution, respectivelly.</li>
+</ul>
+
 <br>
 For example, to create an uniform distribution with 5 elements you shall use:
 <pre class="fragment">
@@ -128,10 +136,7 @@ For example, to create an uniform distribution with 5 elements you shall use:
 </pre>
 
 <br>
-To create a random distribution, the first argument of the constructor must be
-the number of elements and the second parameter <code>"random"</code>.
-<br>
-For example, to create a random distribution with 10 elements, you shall use:
+To create a random distribution with 10 elements you shall use:
 <pre class="fragment">
 <a style="color:#0066ff">Distribution</a> dist(10, <a style="color:#b3b300">"random"</a>);
 </pre>
@@ -481,6 +486,61 @@ For more details about the class, see the documentation <a href="classHyper.html
 <hr><hr>
 
 <h2 id="creating_gain_functions">Creating gain functions</h2>
+
+A gain function is a function from a set of secrets (X) and a set of adversary actions (W) to a real number. So its a function g: X,W --> R.
+<br>
+A gain makes reference to an adversary's gain. The adversary can take some action, and for each secret, he or she achieves a gain.
+<br>
+As a gain function makes reference to a set of secrets, one of the attributes is a pointer to a Distribution, which represents the prior probability distribution on the set of secrets.
+
+<br><br>
+We can represent this function as a matrix, where each position (w<sub>i</sub>,x<sub>j</sub>) corresponds to the gain that the adversary achieves when taking the action w<sub>i</sub> and the real value of the secret is x<sub>j</sub>. The rows in the matrix correspond to adversary actions and the columns correspond to secrets.
+
+<br><br>
+Before creating a gain function object, you must already have an object <b>Distribution</b>, which contains the <i>prior distribution</i> on the set of secrets. The set of secrets of the channel must be the same as the set from the prior. After that, to create a <b>Gain</b> object you shall use its constructors, and there are 3 options:
+
+<ul style="list-style-type:circle;">
+<li><u>Read the gain function matrix from a file</u></li>
+You can read the gain function matrix from a file in the following format:
+<pre class="fragment">
+w x
+p11 p12 ... p1x
+p21 p22 ... p2x
+...
+pw1 pw2 ... pwx
+</pre>
+where <code>w</code> is the number of actions, <code>x</code> is the number of secrets and each two values in the same line are separated by a space (" ").
+
+<br><br>
+Suppose you have a file called <code>gain.txt</code>. To create a gain function you shall use:
+<br>
+<pre class="fragment">
+<a style="color:#0066ff">Distribution</a> dist(<a style="color:#b3b300">"prior_distribution.txt"</a>);
+<a style="color:#0066ff">Gain</a> gain(dist, <a style="color:#b3b300">"gain.txt"</a>);
+</pre>
+
+<br><br>
+
+<li><u>Use an existing matrix of numbers</u></li>
+You just have to use the constructor and give the matrix. The type of the matrix must be a <code>std::vector&lt;std::&lt;long double&gt;&gt;</code>.
+<br>
+To crete a gain function from a matrix <code>M</code> you shall use:
+<pre class="fragment">
+<a style="color:#0066ff">Distribution</a> dist(<a style="color:#b3b300">"prior_distribution.txt"</a>);
+std::vector&lt;std::vector&lt;<a style="color:#0066ff">long double</a>&gt;&gt;<a style="color:#0066ff"> M</a>({{10, 20, 30},
+                                         {-5, -6, 10},
+                                         { 0, 10,  0}});
+<a style="color:#0066ff">Gain</a> gain(dist, M);
+</pre>
+
+br><br>
+
+<li><u>Generate a random gain function matrix</u></li>
+To create a random gain function, the first 
+
+</ul>
+
+
 
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
