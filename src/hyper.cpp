@@ -1,33 +1,64 @@
 #include "../include/hyper.hpp"
 
-void Hyper::buildHyper(Distribution &prior, Channel &channel){
+void Hyper::buildJoint(){
+	joint.resize(prior->num_el, std::vector<long double>(channel->num_out));
 
-	joint.resize(prior.num_el, std::vector<long double>(channel.num_out));
+	for(int i = 0; i < prior->num_el; i++){
+		for(int j = 0; j < channel->num_out; j++){
+			joint[i][j] = channel->matrix[i][j] * prior->prob[i];
+		}
+	}
+}
 
-	outer.num_el = channel.num_out;
+void Hyper::buildOuter(){
+	outer.num_el = channel->num_out;
 	outer.prob.resize(outer.num_el);
 
-	for(int i = 0; i < outer.num_el; i++)
-		outer.prob[i] = 0.0f;
-
-	for(int i = 0; i < prior.num_el; i++){
-		for(int j = 0; j < channel.num_out; j++){
-			joint[i][j] = channel.matrix[i][j] * prior.prob[i];
+	/* outer.prob[x] = sum of column x in joint matrix */
+	for(int j = 0; j < channel->num_out; j++){
+		outer.prob[j] = 0.0f;
+		for(int i = 0; i < prior->num_el; i++){
 			outer.prob[j] += joint[i][j];
 		}
 	}
+}
 
-	inners.resize(prior.num_el, std::vector<long double>(channel.num_out));
+void Hyper::buildInners(){
+	inners.resize(prior->num_el, std::vector<long double>(channel->num_out));	
 
-	for(int i = 0; i < prior.num_el; i++){
-		for(int j = 0; j < channel.num_out; j++){
-			if(outer.prob[j] == 0){
-				inners[i][j] = 0;
-			}else{
-				inners[i][j] = joint[i][j]/outer.prob[j];
-			}
-		}
-	}
+
+}
+
+void Hyper::buildHyper(){
+	// buildJoint();
+	// buildOuter();
+	// buildInners();
+
+
+	// // outer.num_el = channel->num_out;
+	// // outer.prob.resize(outer.num_el);
+
+	// // for(int i = 0; i < outer.num_el; i++)
+	// // 	outer.prob[i] = 0.0f;
+
+	// // for(int i = 0; i < prior.num_el; i++){
+	// // 	for(int j = 0; j < channel.num_out; j++){
+	// // 		joint[i][j] = channel.matrix[i][j] * prior.prob[i];
+	// // 		outer.prob[j] += joint[i][j];
+	// // 	}
+	// // }
+
+	// inners.resize(prior.num_el, std::vector<long double>(channel.num_out));
+
+	// for(int i = 0; i < prior.num_el; i++){
+	// 	for(int j = 0; j < channel.num_out; j++){
+	// 		if(outer.prob[j] == 0){
+	// 			inners[i][j] = 0;
+	// 		}else{
+	// 			inners[i][j] = joint[i][j]/outer.prob[j];
+	// 		}
+	// 	}
+	// }
 }
 
 Hyper::Hyper(){
@@ -41,14 +72,14 @@ Hyper::Hyper(std::string prior_file, std::string channel_file){
 	prior = new Distribution(prior_file);
 	channel = new Channel(*prior, channel_file);
 
-	buildHyper(*prior, *channel);
+	buildHyper();
 }
 
 Hyper::Hyper(Distribution &prior, Channel &channel){
 	this->prior = &prior;
 	this->channel = &channel;
 
-	buildHyper(prior, channel);
+	buildHyper();
 }
 
 std::string Hyper::toString(std::string type, int precision){

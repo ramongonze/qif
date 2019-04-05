@@ -14,7 +14,14 @@
  * We can calculate the outer and the inner distributions using the joint distribution between the set of secrets and the set of outputs.
  */
 class Hyper{
+	private:
+		void buildJoint();
+		void buildOuter();
+		void buildInners();
+		void buildHyper();
+
 	public:
+
 		/**
 		 * \brief A method used to build the joint, outer and inner distributions.
 		 *
@@ -31,7 +38,8 @@ class Hyper{
 		 *
 		 * \warning The number of rows in the channel matrix must be as same as the number of elements in the prior distribution.
 		 */
-		void buildHyper(Distribution &prior, Channel &channel);
+		void rebuildHyper(Distribution &prior);
+		void rebuildHyper(Channel &channel);
 
 		/**
 		 * \brief Default constructor.

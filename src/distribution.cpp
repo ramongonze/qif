@@ -49,7 +49,6 @@ Distribution::Distribution(std::vector<long double> &prob){
 }
 
 Distribution::Distribution(int num_el, std::string type){
-
 	this->num_el = num_el;
 	
 	if(type == "uniform"){

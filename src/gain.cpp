@@ -40,6 +40,26 @@ Gain::Gain(Distribution &prior, std::string file){
 	fclose(F);
 }
 
+Gain::Gain(Distribution &prior, std::vector<std::vector<long double> > &matrix){
+
+	/* Check if the number of elements in the prior distribution is equal
+	 * to the number of secrets in the gain function matrix */
+	if((unsigned int)prior.num_el != matrix[0].size()){
+		fprintf(stderr, "Invalid matrix size!\n");
+		exit(EXIT_FAILURE);
+	}
+
+	this->prior = &prior;
+	this->num_act = matrix[0].size();
+
+	this->matrix.resize(this->num_act, std::vector<long double>(this->prior->num_el));
+	for(int i = 0; i < this->prior->num_el; i++){
+		for(int j = 0; j < this->num_act; j++){
+			this->matrix[i][j] = matrix[i][j];
+		}
+	}
+}
+
 Gain::Gain(Distribution &prior, int num_act, int MIN, int MAX){
 	this->prior = &prior;
 	this->num_act = num_act;

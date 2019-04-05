@@ -16,6 +16,9 @@
  *
  */
 class Channel{
+	private:
+		void buildReducedMatrix();
+
 	public:
 		/**
 		 * \brief Default constructor
@@ -91,6 +94,13 @@ class Channel{
 		 * The matrix has dimensions N*Y, where N = @ref Distribution::num_el in the @ref prior and Y = @ref num_out.
 		 */
 		std::vector<std::vector<long double> > matrix;
+
+		/**
+		 * \brief Reduced channel matrix
+		 *
+		 * This is the representation of the abstract channel
+		 */
+		std::vector<std::vector<long double> > reducedMatrix;
 
 		/**
 		 * \brief Verify if a matrix corresponds to a valid channel matrix.

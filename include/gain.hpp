@@ -47,6 +47,16 @@ class Gain{
 		Gain(Distribution &prior, std::string file);
 
 		/**
+		 * \brief Constructor used when there is already a gain function matrix in a variable. 
+		 *
+		 * \param prior Prior distribution on a set of secrets
+		 * \param matrix Matrix W x X, where W is the number of adversary's actions and X is the number of secrets.
+		 * 
+		 * \warning The number of cloumns in the gain function must be the same as the number of elements in prior attribute.
+		 */
+		Gain(Distribution &prior, std::vector<std::vector<long double> > &matrix);
+
+		/**
 		 * \brief Constructor used to generate random gain function to a set of secrets.
 		 *
 		 * The set of secrets can be described by a @ref Distribution, so it is the first parameter.
@@ -59,7 +69,6 @@ class Gain{
 		 * The parameters @ref MIN and @ref MAX must form an interval. All the gains generated randomly will be in the interval [@ref MIN,@ref MAX].
 		 * Each gain is a \c long \c double value.
 		 *
-		 * \warning The number of rows in the gain function matrix must be as same as the number of elements in the @ref prior distribution.
 		 */
 		Gain(Distribution &prior, int num_act, int MIN, int MAX);
 
