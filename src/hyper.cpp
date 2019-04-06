@@ -26,39 +26,49 @@ void Hyper::buildOuter(){
 void Hyper::buildInners(){
 	inners.resize(prior->num_el, std::vector<long double>(channel->num_out));	
 
-
+	for(int i = 0; i < prior->num_el; i++){
+		for(int j = 0; j < channel->num_out; j++){
+			if(outer.prob[j] == 0){
+				inners[i][j] = 0;
+			}else{
+				inners[i][j] = joint[i][j]/outer.prob[j];
+			}
+		}
+	}
 }
 
-void Hyper::buildHyper(){
-	// buildJoint();
-	// buildOuter();
-	// buildInners();
+void Hyper::reduceHyper(){
+	vector<int> equalInners(channel->num_out, -1);
 
+	int curInner = 0;
+	for(int i = 0; i < channel->num_out; i++){
+		if(equalInners[i] == -1){
+			/* At first each inner correspond only to itself */
+			labels.insert(std::make_pair(curInner,std::set({i})));
 
-	// // outer.num_el = channel->num_out;
-	// // outer.prob.resize(outer.num_el);
+			for(int j = i+1; j < channel->num_out; j++){
+				/* Check if the probability distributions of inners i and j are equal */
+				bool isEqual = true;
+				for(int k = 0; k < inners.size(); k++){
+					if(abs(inners[k][i] - inners[k][j]) > EPS){
+						isEqual = false;
+						break;
+					}
+				}
 
-	// // for(int i = 0; i < outer.num_el; i++)
-	// // 	outer.prob[i] = 0.0f;
+				if(isEqual)
+					equalInners[j] = curInner;
+			}
 
-	// // for(int i = 0; i < prior.num_el; i++){
-	// // 	for(int j = 0; j < channel.num_out; j++){
-	// // 		joint[i][j] = channel.matrix[i][j] * prior.prob[i];
-	// // 		outer.prob[j] += joint[i][j];
-	// // 	}
-	// // }
+			curInner++;
+		}
+	}
 
-	// inners.resize(prior.num_el, std::vector<long double>(channel.num_out));
+	/* Remove the similar inners based on the vector equalInners */
+	for(int i = 0; i < curInner; i++){
+		for(int j = i+1; j < )
+	}
 
-	// for(int i = 0; i < prior.num_el; i++){
-	// 	for(int j = 0; j < channel.num_out; j++){
-	// 		if(outer.prob[j] == 0){
-	// 			inners[i][j] = 0;
-	// 		}else{
-	// 			inners[i][j] = joint[i][j]/outer.prob[j];
-	// 		}
-	// 	}
-	// }
 }
 
 Hyper::Hyper(){
@@ -72,14 +82,20 @@ Hyper::Hyper(std::string prior_file, std::string channel_file){
 	prior = new Distribution(prior_file);
 	channel = new Channel(*prior, channel_file);
 
-	buildHyper();
+	buildJoint();
+	buildOuter();
+	buildInners();
+	reduceHyper();
 }
 
 Hyper::Hyper(Distribution &prior, Channel &channel){
 	this->prior = &prior;
 	this->channel = &channel;
 
-	buildHyper();
+	buildJoint();
+	buildOuter();
+	buildInners();
+	reduceHyper();
 }
 
 std::string Hyper::toString(std::string type, int precision){

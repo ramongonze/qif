@@ -3,6 +3,8 @@
 
 #include "../include/distribution.hpp"
 #include "../include/channel.hpp"
+#include <map>
+#include <set>
 
 /**
  * \brief Class used to represent a hyper-distribution.
@@ -19,6 +21,7 @@ class Hyper{
 		void buildOuter();
 		void buildInners();
 		void buildHyper();
+		void reduceHyper();
 
 	public:
 
@@ -98,6 +101,28 @@ class Hyper{
 		 * Each column is a posterior distribution.
 		 */
 		std::vector<std::vector<long double> > inners;
+
+		/**
+		 * \brief A map from a output index to a set of indexes
+		 *
+		 * When we look at the hyper-distrubtion, we have the outer distribution and the inner distributions.
+		 * Depending on the prior distribution and the channel, the hyper-distribution may have two different
+		 * outputs which yield the same posterior distribution on the set of secrets, and in this case, there is no
+		 * difference for the adversary choosing one or another output.
+		 * 
+		 * Indeed we can simplify the representation of a hyper-distribution matrix mergin all equal columns
+		 * in a single column, and sum their outer probabilities.
+		 *
+		 * The map key is the index of an output in the reduced hyper-distribution matrix.
+		 *
+		 * The value of a key is the set of columns indexes which gave rise this single column.
+		 *
+		 * Example: If the columns 2 and 4 were merged in a single column which its index is 3, when you call
+		 * \c labels[3] the result will be the set {2,4}.
+		 *
+		 */
+		std::map<int, std::set> labels;
+
 
 		/** \brief Returns a string with the joint matrix, the outer distribution or the inner distributions.
 		 *

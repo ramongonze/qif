@@ -16,9 +16,6 @@
  *
  */
 class Channel{
-	private:
-		void buildReducedMatrix();
-
 	public:
 		/**
 		 * \brief Default constructor
