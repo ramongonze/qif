@@ -109,7 +109,7 @@ class Hyper{
 		 * Depending on the prior distribution and the channel, the hyper-distribution may have two different
 		 * outputs which yield the same posterior distribution on the set of secrets, and in this case, there is no
 		 * difference for the adversary choosing one or another output.
-		 * 
+		 *
 		 * Indeed we can simplify the representation of a hyper-distribution matrix mergin all equal columns
 		 * in a single column, and sum their outer probabilities.
 		 *
@@ -121,7 +121,7 @@ class Hyper{
 		 * \c labels[3] the result will be the set {2,4}.
 		 *
 		 */
-		std::map<int, std::set> labels;
+		std::map<int, std::set<int> > labels;
 
 
 		/** \brief Returns a string with the joint matrix, the outer distribution or the inner distributions.

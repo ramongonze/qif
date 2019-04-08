@@ -24,7 +24,7 @@ void Hyper::buildOuter(){
 }
 
 void Hyper::buildInners(){
-	inners.resize(prior->num_el, std::vector<long double>(channel->num_out));	
+	inners.resize(prior->num_el, std::vector<long double>(channel->num_out));
 
 	for(int i = 0; i < prior->num_el; i++){
 		for(int j = 0; j < channel->num_out; j++){
@@ -38,37 +38,44 @@ void Hyper::buildInners(){
 }
 
 void Hyper::reduceHyper(){
-	vector<int> equalInners(channel->num_out, -1);
+	std::vector<int> equalInners(channel->num_out, -1);
+	std::vector<bool> shouldErase(channel->num_out, false);
 
 	int curInner = 0;
 	for(int i = 0; i < channel->num_out; i++){
 		if(equalInners[i] == -1){
 			/* At first each inner correspond only to itself */
-			labels.insert(std::make_pair(curInner,std::set({i})));
+			labels.insert(std::make_pair(curInner,std::set<int>({i})));
 
 			for(int j = i+1; j < channel->num_out; j++){
 				/* Check if the probability distributions of inners i and j are equal */
 				bool isEqual = true;
-				for(int k = 0; k < inners.size(); k++){
+				for(unsigned int k = 0; k < inners.size(); k++){
 					if(abs(inners[k][i] - inners[k][j]) > EPS){
 						isEqual = false;
 						break;
 					}
 				}
 
-				if(isEqual)
+				if(isEqual){
 					equalInners[j] = curInner;
+					labels[i].insert(j);
+					outer.prob[i] += outer.prob[j];
+					shouldErase[j] = true;
+				}
 			}
 
 			curInner++;
 		}
 	}
 
-	/* Remove the similar inners based on the vector equalInners */
-	for(int i = 0; i < curInner; i++){
-		for(int j = i+1; j < )
+	for(int j = inners.size(); j >= 0; j--){
+		if(shouldErase[j]){
+			for(int i = 0; i <= prior->num_el; i++){
+				inners[i].erase(inners[i].begin()+j);
+			}
+		}
 	}
-
 }
 
 Hyper::Hyper(){
@@ -101,7 +108,7 @@ Hyper::Hyper(Distribution &prior, Channel &channel){
 std::string Hyper::toString(std::string type, int precision){
 	std::ostringstream out;
 	out << std::fixed << std::setprecision(precision);
-	
+
 	if(type == "joint"){
 		for(int i = 0; i < prior->num_el; i++){
 			for(int j = 0; j < channel->num_out-1; j++){
@@ -142,7 +149,7 @@ void Hyper::printToFile(std::string type, std::string file, int precision){
 
 	if(type == "joint"){
 		F << prior->num_el << " " << channel->num_out << "\n";
-			
+
 		for(int i = 0; i < prior->num_el; i++){
 			for(int j = 0; j < channel->num_out-1; j++){
 				F << joint[i][j] << " ";
@@ -151,7 +158,7 @@ void Hyper::printToFile(std::string type, std::string file, int precision){
 		}
 	}else if(type == "outer"){
 		F << channel->num_out << "\n";
-			
+
 		for(int i = 0; i < channel->num_out-1; i++){
 			F << outer.prob[i] << " ";
 		}
@@ -159,7 +166,7 @@ void Hyper::printToFile(std::string type, std::string file, int precision){
 		F << outer.prob[channel->num_out-1] << "\n";
 	}else if(type == "inners"){
 		F << prior->num_el << " " << channel->num_out << "\n";
-			
+
 		for(int i = 0; i < prior->num_el; i++){
 			for(int j = 0; j < channel->num_out-1; j++){
 				F << inners[i][j] << " ";

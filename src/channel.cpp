@@ -44,9 +44,6 @@ Channel::Channel(Distribution &prior, std::string file){
 		fprintf(stderr, "Error reading a channel. One of the rows is not a probability distribution!\n");
 		exit(EXIT_FAILURE);
 	}
-
-	/* Build the reduced matrix */
-	Channel::buildReducedMatrix();
 }
 
 Channel::Channel(Distribution &prior, std::vector<std::vector<long double> > &matrix){
@@ -70,9 +67,6 @@ Channel::Channel(Distribution &prior, std::vector<std::vector<long double> > &ma
 		fprintf(stderr, "The channel matrix is not valid!\n");
 		exit(EXIT_FAILURE);
 	}
-
-	/* Build the reduced matrix */
-	Channel::buildReducedMatrix();
 }
 
 Channel::Channel(Distribution &prior, int num_out){
@@ -95,9 +89,6 @@ Channel::Channel(Distribution &prior, int num_out){
 
 		matrix[i][this->num_out-1] = (long double)threshold/RAND_MAX;
 	}
-
-	/* Build the reduced matrix */
-	Channel::buildReducedMatrix();
 }
 
 bool Channel::isChannel(std::vector<std::vector<long double> > &matrix){
@@ -113,7 +104,7 @@ bool Channel::isChannel(std::vector<std::vector<long double> > &matrix){
 std::string Channel::toString(int precision){
 	std::ostringstream out;
 	out << std::fixed << std::setprecision(precision);
-	
+
 	for(int i = 0; i < prior->num_el; i++){
 		for(int j = 0; j < num_out-1; j++){
 			out << matrix[i][j] << " ";
