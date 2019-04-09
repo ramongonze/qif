@@ -38,28 +38,56 @@ void Hyper::buildInners(){
 }
 
 void Hyper::reduceHyper(){
-	std::vector<int> equalInners(channel->num_out, -1);
 	std::vector<bool> shouldErase(channel->num_out, false);
 
 	int curInner = 0;
 	for(int i = 0; i < channel->num_out; i++){
-		if(equalInners[i] == -1){
-			/* At first each inner correspond only to itself */
-			labels.insert(std::make_pair(curInner,std::set<int>({i})));
+		printf("shouldErase\n");
+		for(unsigned int ii = 0; ii < shouldErase.size(); ii++)
+			printf("%d ", (int)shouldErase[ii]);
+		printf("\n");
 
+		if(!shouldErase[i]){
+			
+			/* Check if the column i contains only zeros */
+			bool onlyZero = true;
+			for(unsigned int k = 0; k < inners.size(); k++){
+				if(inners[k][i] > EPS){
+					onlyZero = false;
+					break;
+				}
+			}
+
+			if(onlyZero){
+				shouldErase[i] = true;
+				continue;
+			}
+
+			/* At first, each inner correspond only to itself */
+			labels.insert(std::make_pair(curInner,std::set<int>({i})));
+			
 			for(int j = i+1; j < channel->num_out; j++){
 				/* Check if the probability distributions of inners i and j are equal */
 				bool isEqual = true;
+				bool onlyZero = true;
 				for(unsigned int k = 0; k < inners.size(); k++){
+					if(inners[k][j] > EPS){
+						onlyZero = false;
+					}
+
 					if(abs(inners[k][i] - inners[k][j]) > EPS){
 						isEqual = false;
 						break;
 					}
 				}
 
+				if(onlyZero){
+					shouldErase[j] = true;
+					continue;
+				}
+
 				if(isEqual){
-					equalInners[j] = curInner;
-					labels[i].insert(j);
+					labels[curInner].insert(j);
 					outer.prob[i] += outer.prob[j];
 					shouldErase[j] = true;
 				}
@@ -69,16 +97,26 @@ void Hyper::reduceHyper(){
 		}
 	}
 
-	for(int j = inners.size(); j >= 0; j--){
+	printf("shouldErase\n");
+	for(unsigned int i = 0; i < shouldErase.size(); i++)
+		printf("%d ", (int)shouldErase[i]);
+	printf("\n");
+
+	for(int j = channel->num_out-1; j >= 0; j--){
 		if(shouldErase[j]){
-			for(int i = 0; i <= prior->num_el; i++){
+			outer.prob.erase(outer.prob.begin() + j);
+			for(int i = 0; i < prior->num_el; i++){
 				inners[i].erase(inners[i].begin()+j);
 			}
 		}
 	}
+
+	outer.num_el = outer.prob.size();
+	posteriors = outer.num_el;
 }
 
 Hyper::Hyper(){
+	posteriors = 0;
 	prior = NULL;
 	channel = NULL;
 	joint.resize(0, std::vector<long double>(0));
@@ -129,6 +167,8 @@ std::string Hyper::toString(std::string type, int precision){
 			}
 			out << inners[i][channel->num_out-1] << "\n";
 		}
+	}else if(type == "labels"){
+		printf("ola\n");
 	}else{
 		fprintf(stderr, "Invalid parameter type! It must be ""joint"", ""outer"" or ""inners""\n");
 		exit(EXIT_FAILURE);

@@ -94,6 +94,11 @@ class Hyper{
 		Distribution outer;
 
 		/**
+		 * \brief Number of posterior distributions
+		 */
+		int posteriors;
+
+		/**
 		 * \brief A matrix for the inner distributions.
 		 *
 		 * Each position (\c x,\c y) in the matrix is the conditional

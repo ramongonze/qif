@@ -7,16 +7,21 @@ using namespace std;
 int main(){
 
 	vector<vector<long double> > ch = {
-		{   1,   0,    0},
-		{0.25, 0.5, 0.25},
-		{ 0.5, 0.33, 0.17}
+		{1.0/2, 1.0/6, 1.0/3,   0},
+		{  0, 1.0/3, 2.0/3,   0},
+		{  0, 1.0/2,   0, 1.0/2},
+		{ 1.0/4, 1.0/4, 1.0/2,   0},
 	};
 
-	vector<long double> p = {0.25, 0.25, 0.5};
+	vector<long double> p = {0.33, 0.33, 0, 0.34};
 
 	Distribution prior(p);
 
 	Channel channel(prior, ch);
+
+	Hyper hyper(prior, channel);
+
+	std::cout << hyper.toString("inners", 4) << std::endl;
 
 	return 0;
 }
