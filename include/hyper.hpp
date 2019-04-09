@@ -3,6 +3,7 @@
 
 #include "../include/distribution.hpp"
 #include "../include/channel.hpp"
+#include <math.h>
 #include <map>
 #include <set>
 

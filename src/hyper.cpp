@@ -42,11 +42,6 @@ void Hyper::reduceHyper(){
 
 	int curInner = 0;
 	for(int i = 0; i < channel->num_out; i++){
-		printf("shouldErase\n");
-		for(unsigned int ii = 0; ii < shouldErase.size(); ii++)
-			printf("%d ", (int)shouldErase[ii]);
-		printf("\n");
-
 		if(!shouldErase[i]){
 			
 			/* Check if the column i contains only zeros */
@@ -70,12 +65,12 @@ void Hyper::reduceHyper(){
 				/* Check if the probability distributions of inners i and j are equal */
 				bool isEqual = true;
 				bool onlyZero = true;
-				for(unsigned int k = 0; k < inners.size(); k++){
+				for(int k = 0; k < prior->num_el; k++){
 					if(inners[k][j] > EPS){
 						onlyZero = false;
 					}
 
-					if(abs(inners[k][i] - inners[k][j]) > EPS){
+					if(fabs(inners[k][i] - inners[k][j]) > EPS){
 						isEqual = false;
 						break;
 					}
@@ -96,11 +91,6 @@ void Hyper::reduceHyper(){
 			curInner++;
 		}
 	}
-
-	printf("shouldErase\n");
-	for(unsigned int i = 0; i < shouldErase.size(); i++)
-		printf("%d ", (int)shouldErase[i]);
-	printf("\n");
 
 	for(int j = channel->num_out-1; j >= 0; j--){
 		if(shouldErase[j]){
@@ -148,27 +138,38 @@ std::string Hyper::toString(std::string type, int precision){
 	out << std::fixed << std::setprecision(precision);
 
 	if(type == "joint"){
-		for(int i = 0; i < prior->num_el; i++){
-			for(int j = 0; j < channel->num_out-1; j++){
+		unsigned int n_secrets = joint.size();
+		unsigned int n_outputs = joint[0].size();
+
+		for(int i = 0; i < n_secrets; i++){
+			for(int j = 0; j < n_outputs-1; j++){
 				out << joint[i][j] << " ";
 			}
-			out << joint[i][channel->num_out-1] << "\n";
+			out << joint[i][n_outputs-1] << "\n";
 		}
 	}else if(type == "outer"){
-		for(int i = 0; i < channel->num_out-1; i++){
+		unsigned int n_elements = outer.prob.size();
+
+		for(int i = 0; i < n_elements-1; i++){
 			out << outer.prob[i] << " ";
 		}
 
-		out << outer.prob[channel->num_out-1] << "\n";
+		out << outer.prob[n_elements-1] << "\n";
 	}else if(type == "inners"){
-		for(int i = 0; i < prior->num_el; i++){
-			for(int j = 0; j < channel->num_out-1; j++){
+		unsigned int n_secrets = inners.size();
+		unsigned int n_posteriors = inners[0].size();
+
+		for(int i = 0; i < n_secrets; i++){
+			for(int j = 0; j < n_posteriors-1; j++){
 				out << inners[i][j] << " ";
 			}
-			out << inners[i][channel->num_out-1] << "\n";
+			out << inners[i][n_posteriors-1] << "\n";
 		}
 	}else if(type == "labels"){
-		printf("ola\n");
+		for(std::map<int, std::set<int> >::iterator i = labels.begin(); i != labels.end(); i++){
+			
+		}
+
 	}else{
 		fprintf(stderr, "Invalid parameter type! It must be ""joint"", ""outer"" or ""inners""\n");
 		exit(EXIT_FAILURE);
@@ -188,30 +189,30 @@ void Hyper::printToFile(std::string type, std::string file, int precision){
 	F << std::fixed << std::setprecision(precision);
 
 	if(type == "joint"){
-		F << prior->num_el << " " << channel->num_out << "\n";
+		F << joint.size() << " " << joint[0].size() << "\n";
 
-		for(int i = 0; i < prior->num_el; i++){
-			for(int j = 0; j < channel->num_out-1; j++){
+		for(int i = 0; i < joint.size(); i++){
+			for(int j = 0; j < joint[i].size()-1; j++){
 				F << joint[i][j] << " ";
 			}
-			F << joint[i][channel->num_out-1] << "\n";
+			F << joint[i][joint[i].size()-1] << "\n";
 		}
 	}else if(type == "outer"){
-		F << channel->num_out << "\n";
+		F << outer.size() << "\n";
 
-		for(int i = 0; i < channel->num_out-1; i++){
+		for(int i = 0; i < outer.prob.size()-1; i++){
 			F << outer.prob[i] << " ";
 		}
 
-		F << outer.prob[channel->num_out-1] << "\n";
+		F << outer.prob[outer.prob.size()-1] << "\n";
 	}else if(type == "inners"){
-		F << prior->num_el << " " << channel->num_out << "\n";
+		F << inners.size() << " " << inners[0].size() << "\n";
 
-		for(int i = 0; i < prior->num_el; i++){
-			for(int j = 0; j < channel->num_out-1; j++){
+		for(int i = 0; i < inners.size(); i++){
+			for(int j = 0; j < inners[i].size()-1; j++){
 				F << inners[i][j] << " ";
 			}
-			F << inners[i][channel->num_out-1] << "\n";
+			F << inners[i][inners[i].size()-1] << "\n";
 		}
 	}else{
 		fprintf(stderr, "Invalid parameter type! It must be ""joint"", ""outer"" or ""inners""\n");
