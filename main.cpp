@@ -21,7 +21,12 @@ int main(){
 
 	Hyper hyper(prior, channel);
 
+	std::cout << prior.toString(4) << std::endl;
+
+	std::cout << std::endl << channel.toString(4) << std::endl;
 	std::cout << hyper.toString("inners", 4) << std::endl;
+
+	std::cout << std::endl << hyper.toString("labels", 4) << endl;
 
 	return 0;
 }

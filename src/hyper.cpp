@@ -141,8 +141,8 @@ std::string Hyper::toString(std::string type, int precision){
 		unsigned int n_secrets = joint.size();
 		unsigned int n_outputs = joint[0].size();
 
-		for(int i = 0; i < n_secrets; i++){
-			for(int j = 0; j < n_outputs-1; j++){
+		for(unsigned int i = 0; i < n_secrets; i++){
+			for(unsigned int j = 0; j < n_outputs-1; j++){
 				out << joint[i][j] << " ";
 			}
 			out << joint[i][n_outputs-1] << "\n";
@@ -150,7 +150,7 @@ std::string Hyper::toString(std::string type, int precision){
 	}else if(type == "outer"){
 		unsigned int n_elements = outer.prob.size();
 
-		for(int i = 0; i < n_elements-1; i++){
+		for(unsigned int i = 0; i < n_elements-1; i++){
 			out << outer.prob[i] << " ";
 		}
 
@@ -159,19 +159,30 @@ std::string Hyper::toString(std::string type, int precision){
 		unsigned int n_secrets = inners.size();
 		unsigned int n_posteriors = inners[0].size();
 
-		for(int i = 0; i < n_secrets; i++){
-			for(int j = 0; j < n_posteriors-1; j++){
+		for(unsigned int i = 0; i < n_secrets; i++){
+			for(unsigned int j = 0; j < n_posteriors-1; j++){
 				out << inners[i][j] << " ";
 			}
 			out << inners[i][n_posteriors-1] << "\n";
 		}
 	}else if(type == "labels"){
-		for(std::map<int, std::set<int> >::iterator i = labels.begin(); i != labels.end(); i++){
-			
-		}
+		for(std::map<int, std::set<int> >::iterator new_label = labels.begin(); new_label != labels.end(); new_label++){
+			out << new_label->first << ": {";
 
+			std::set<int>::iterator old_label = new_label->second.begin();
+			while(true){
+				out << *old_label;
+				old_label++;
+				if(old_label == new_label->second.end()){
+					out << "}\n";
+					break;
+				}else{
+					out << ", ";
+				}
+			}
+		}
 	}else{
-		fprintf(stderr, "Invalid parameter type! It must be ""joint"", ""outer"" or ""inners""\n");
+		fprintf(stderr, "Invalid parameter type! It must be ""joint"", ""outer"", ""inners"", ""labels""\n");
 		exit(EXIT_FAILURE);
 	}
 
@@ -190,17 +201,11 @@ void Hyper::printToFile(std::string type, std::string file, int precision){
 
 	if(type == "joint"){
 		F << joint.size() << " " << joint[0].size() << "\n";
-
-		for(int i = 0; i < joint.size(); i++){
-			for(int j = 0; j < joint[i].size()-1; j++){
-				F << joint[i][j] << " ";
-			}
-			F << joint[i][joint[i].size()-1] << "\n";
-		}
+		F << toString("inners", precision);
 	}else if(type == "outer"){
-		F << outer.size() << "\n";
+		F << outer.prob.size() << "\n";
 
-		for(int i = 0; i < outer.prob.size()-1; i++){
+		for(unsigned int i = 0; i < outer.prob.size()-1; i++){
 			F << outer.prob[i] << " ";
 		}
 
@@ -208,12 +213,14 @@ void Hyper::printToFile(std::string type, std::string file, int precision){
 	}else if(type == "inners"){
 		F << inners.size() << " " << inners[0].size() << "\n";
 
-		for(int i = 0; i < inners.size(); i++){
-			for(int j = 0; j < inners[i].size()-1; j++){
+		for(unsigned int i = 0; i < inners.size(); i++){
+			for(unsigned int j = 0; j < inners[i].size()-1; j++){
 				F << inners[i][j] << " ";
 			}
 			F << inners[i][inners[i].size()-1] << "\n";
 		}
+	}else if(type == "labels"){
+		
 	}else{
 		fprintf(stderr, "Invalid parameter type! It must be ""joint"", ""outer"" or ""inners""\n");
 		exit(EXIT_FAILURE);
