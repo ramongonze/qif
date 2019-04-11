@@ -25,26 +25,6 @@ class Hyper{
 		void reduceHyper();
 
 	public:
-
-		/**
-		 * \brief A method used to build the joint, outer and inner distributions.
-		 *
-		 * It calculates:
-		 *
-		 * - The @ref joint distribution - multiplying the @ref channel and the @ref prior distribution;
-		 *
-		 * - The @ref outer distribution - summing all the joint probabilities for each posterior distribution;
-		 *
-		 * - The @ref inners - normalizing each column of the joint matrix by the respectively outer probability.
-		 *
-		 * \param prior Prior distribution on a set of secrets
-		 * \param channel Information channel, corresponding to the @ref prior
-		 *
-		 * \warning The number of rows in the channel matrix must be as same as the number of elements in the prior distribution.
-		 */
-		void rebuildHyper(Distribution &prior);
-		void rebuildHyper(Channel &channel);
-
 		/**
 		 * \brief Default constructor.
 		 *
@@ -97,7 +77,7 @@ class Hyper{
 		/**
 		 * \brief Number of posterior distributions
 		 */
-		int posteriors;
+		int num_post;
 
 		/**
 		 * \brief A matrix for the inner distributions.
@@ -211,6 +191,24 @@ class Hyper{
 		 * \param precision Decimal precision for float numbers. For example, use the value 3 to print 0.322, use 5 to print 0.32197, and so on.
 		 */
 		void printToFile(std::string type, std::string file, int precision);
+
+		/**
+		 * \brief A method used to rebuild the joint, outer and inner distributions.
+		 *
+		 * It calculates:
+		 *
+		 * - The @ref joint distribution - multiplying the @ref channel and the @ref prior distribution;
+		 *
+		 * - The @ref outer distribution - summing all the joint probabilities for each posterior distribution;
+		 *
+		 * - The @ref inners - normalizing each column of the joint matrix by the respectively outer probability.
+		 *
+		 * \param prior Prior distribution on a set of secrets
+		 *
+		 * \warning The number of rows in the channel matrix must be as same as the number of elements in the prior distribution.
+		 */
+		void rebuildHyper(Distribution &prior);
+		void rebuildHyper(Channel &channel);
 };
 
 #endif

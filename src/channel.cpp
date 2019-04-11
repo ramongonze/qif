@@ -4,7 +4,6 @@ Channel::Channel(){
 	num_out = 0;
 	prior = NULL;
 	matrix.resize(0, std::vector<long double>(0));
-	reducedMatrix.resize(0, std::vector<long double>(0));
 }
 
 Channel::Channel(Distribution &prior, std::string file){

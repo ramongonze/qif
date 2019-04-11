@@ -38,12 +38,14 @@ void Hyper::buildInners(){
 }
 
 void Hyper::reduceHyper(){
+	/* shouldErase[i] = true if the column i of the hyper matrix 
+	 * should be erased or shouldErase[i] = false otherwise */
 	std::vector<bool> shouldErase(channel->num_out, false);
 
 	int curInner = 0;
 	for(int i = 0; i < channel->num_out; i++){
 		if(!shouldErase[i]){
-			
+
 			/* Check if the column i contains only zeros */
 			bool onlyZero = true;
 			for(unsigned int k = 0; k < inners.size(); k++){
@@ -58,7 +60,7 @@ void Hyper::reduceHyper(){
 				continue;
 			}
 
-			/* At first, each inner correspond only to itself */
+			/* Create the set of old labels containing only the new label */
 			labels.insert(std::make_pair(curInner,std::set<int>({i})));
 			
 			for(int j = i+1; j < channel->num_out; j++){
@@ -76,11 +78,14 @@ void Hyper::reduceHyper(){
 					}
 				}
 
+				/* If the column j contains only zeros, check to delete it */
 				if(onlyZero){
 					shouldErase[j] = true;
 					continue;
 				}
 
+				/* If the column j is equal to the column i, add j to the set of
+				 * old labels of i and check delete it */
 				if(isEqual){
 					labels[curInner].insert(j);
 					outer.prob[i] += outer.prob[j];
@@ -92,6 +97,7 @@ void Hyper::reduceHyper(){
 		}
 	}
 
+	/* Delete all columns i where shouldErase[i] = true */
 	for(int j = channel->num_out-1; j >= 0; j--){
 		if(shouldErase[j]){
 			outer.prob.erase(outer.prob.begin() + j);
@@ -102,11 +108,11 @@ void Hyper::reduceHyper(){
 	}
 
 	outer.num_el = outer.prob.size();
-	posteriors = outer.num_el;
+	num_post = outer.num_el;
 }
 
 Hyper::Hyper(){
-	posteriors = 0;
+	num_post = 0;
 	prior = NULL;
 	channel = NULL;
 	joint.resize(0, std::vector<long double>(0));
@@ -133,8 +139,38 @@ Hyper::Hyper(Distribution &prior, Channel &channel){
 	reduceHyper();
 }
 
+void Hyper::rebuildHyper(Distribution &prior){
+	if(channel == NULL){
+		fprintf(stderr, "The hyper-distribution can not be rebuilt if it was not been created!\n");
+		exit(EXIT_FAILURE);
+	}
+
+	this->prior = &prior;
+
+	buildJoint();
+	buildOuter();
+	buildInners();
+	reduceHyper();
+}
+
+void Hyper::rebuildHyper(Channel &channel){
+	if(prior == NULL){
+		fprintf(stderr, "The hyper-distribution can not be rebuilt if it was not been created!\n");
+		exit(EXIT_FAILURE);
+	}
+
+	this->channel = &channel;
+
+	buildJoint();
+	buildOuter();
+	buildInners();
+	reduceHyper();
+}
+
 std::string Hyper::toString(std::string type, int precision){
 	std::ostringstream out;
+
+	/* Precision to print probabilities */
 	out << std::fixed << std::setprecision(precision);
 
 	if(type == "joint"){
@@ -157,13 +193,13 @@ std::string Hyper::toString(std::string type, int precision){
 		out << outer.prob[n_elements-1] << "\n";
 	}else if(type == "inners"){
 		unsigned int n_secrets = inners.size();
-		unsigned int n_posteriors = inners[0].size();
+		unsigned int n_num_post = inners[0].size();
 
 		for(unsigned int i = 0; i < n_secrets; i++){
-			for(unsigned int j = 0; j < n_posteriors-1; j++){
+			for(unsigned int j = 0; j < n_num_post-1; j++){
 				out << inners[i][j] << " ";
 			}
-			out << inners[i][n_posteriors-1] << "\n";
+			out << inners[i][n_num_post-1] << "\n";
 		}
 	}else if(type == "labels"){
 		for(std::map<int, std::set<int> >::iterator new_label = labels.begin(); new_label != labels.end(); new_label++){
@@ -201,30 +237,16 @@ void Hyper::printToFile(std::string type, std::string file, int precision){
 
 	if(type == "joint"){
 		F << joint.size() << " " << joint[0].size() << "\n";
-		F << toString("inners", precision);
 	}else if(type == "outer"){
 		F << outer.prob.size() << "\n";
-
-		for(unsigned int i = 0; i < outer.prob.size()-1; i++){
-			F << outer.prob[i] << " ";
-		}
-
-		F << outer.prob[outer.prob.size()-1] << "\n";
 	}else if(type == "inners"){
 		F << inners.size() << " " << inners[0].size() << "\n";
-
-		for(unsigned int i = 0; i < inners.size(); i++){
-			for(unsigned int j = 0; j < inners[i].size()-1; j++){
-				F << inners[i][j] << " ";
-			}
-			F << inners[i][inners[i].size()-1] << "\n";
-		}
-	}else if(type == "labels"){
-		
-	}else{
-		fprintf(stderr, "Invalid parameter type! It must be ""joint"", ""outer"" or ""inners""\n");
+	}else if(type != "labels"){
+		fprintf(stderr, "Invalid parameter type! It must be ""joint"", ""outer"", ""inners"" or ""labels""\n");
 		exit(EXIT_FAILURE);
 	}
+
+	F << toString(type, precision);		
 
 	F.close();
 }

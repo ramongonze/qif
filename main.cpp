@@ -24,6 +24,7 @@ int main(){
 	std::cout << prior.toString(4) << std::endl;
 
 	std::cout << std::endl << channel.toString(4) << std::endl;
+	cout << endl << hyper.toString("outer", 4) << endl;
 	std::cout << hyper.toString("inners", 4) << std::endl;
 
 	std::cout << std::endl << hyper.toString("labels", 4) << endl;

@@ -66,7 +66,7 @@ class Gain{
 		 * \param MIN: Lower bound for the gain of an action.
 		 * \param MAX: Upper bound for the gain of an action.
 		 *
-		 * The parameters @ref MIN and @ref MAX must form an interval. All the gains generated randomly will be in the interval [@ref MIN,@ref MAX].
+		 * The parameters MIN and MAX must form an interval. All the gains generated randomly will be in the interval [MIN,MAX].
 		 * Each gain is a \c long \c double value.
 		 *
 		 */
@@ -88,7 +88,7 @@ class Gain{
 		 * The lines are the actions, the columns are the secrets and each cell
 		 * (\c w,\c x) in the matrix is the gain that an adversary achieves by taking action \c w when the actual value of the secret is \c x. 
 		 *
-		 * The matrix has dimensions W x N, where W is the number of actions (@ref num_act) and N is the number of secrets (@ref num_el of the @ref prior).
+		 * The matrix has dimensions W x N, where W is the number of actions (@ref num_act) and N is the number of secrets (num_el of the @ref prior).
 		 */
 		std::vector<std::vector<long double> > matrix;
 
