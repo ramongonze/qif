@@ -54,7 +54,7 @@ class Distribution{
 		 *
 		 * where \c n is the number of elements in the distribution and \c pi is the probability of the ith element occurs.
 		 *
-		 * \param file File name which contains a probability distribution.
+		 * \param file File name that contains a probability distribution.
 		 */
 		Distribution(std::string file);
 		

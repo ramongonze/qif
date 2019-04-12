@@ -23,7 +23,7 @@
  *
  * - @ref num_out : The number of outputs in the channel. It is exactly the number of columns in @ref matrix.
  *
- * \warning To create a @ref Channel object you need first create a @ref Distribution object, to keep the prior
+ * \warning To create a @ref Channel object you need first to create a @ref Distribution object, to keep the prior
  * distribution on the set of secrets.
  */
 class Channel{
@@ -52,9 +52,9 @@ class Channel{
 		 * output _j_ given input _i_. Each two numbers must be separated by a space (" ").
 		 * 
 		 * \param prior Prior distribution on the set of secrets.
-		 * \param file File name which contains a channel matrix.
+		 * \param file File name that contains a channel matrix.
 		 *
-		 * \warning The number of rows in the channel matrix must be the same as @ref prior -> num_el.
+		 * \warning The number of rows in the channel matrix must be equals to @ref prior -> num_el.
 		 *
 		 */
 		Channel(Distribution &prior, std::string file);
@@ -65,7 +65,7 @@ class Channel{
 		 * \param prior: Prior distribution on the set of secrets.
 		 * \param matrix: A channel matrix.
 		 * 
-		 * \warning The number of rows in the channel matrix must be the same as @ref prior -> num_el.
+		 * \warning The number of rows in the channel matrix must be equals to @ref prior -> num_el.
 		 */
 		Channel(Distribution &prior, std::vector<std::vector<long double> > &matrix);
 

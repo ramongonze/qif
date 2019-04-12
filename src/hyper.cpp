@@ -129,8 +129,8 @@ Hyper::Hyper(std::string prior_file, std::string channel_file){
 	reduceHyper();
 }
 
-Hyper::Hyper(Distribution &prior, Channel &channel){
-	this->prior = &prior;
+Hyper::Hyper(Channel &channel){
+	this->prior = channel.prior;
 	this->channel = &channel;
 
 	buildJoint();
@@ -145,7 +145,14 @@ void Hyper::rebuildHyper(Distribution &prior){
 		exit(EXIT_FAILURE);
 	}
 
+	/* Check if the new prior is valid looking at the current channel */
+	if(prior.num_el != this->channel->prior->num_el){
+		fprintf(stderr, "The number of elements in the new prior differs from the number of rows in the current channel!\n");
+		exit(EXIT_FAILURE);
+	}
+
 	this->prior = &prior;
+	this->channel->prior = &prior;
 
 	buildJoint();
 	buildOuter();
@@ -159,7 +166,14 @@ void Hyper::rebuildHyper(Channel &channel){
 		exit(EXIT_FAILURE);
 	}
 
+	/* Check if the new channel is valid looking at the current prior */
+	if(this->prior->num_el != channel.prior->num_el){
+		fprintf(stderr, "The number of rows in the new channel differs from the number of elements in the current prior!\n");
+		exit(EXIT_FAILURE);
+	}
+
 	this->channel = &channel;
+	this->prior = this->channel->prior;
 
 	buildJoint();
 	buildOuter();
@@ -203,19 +217,12 @@ std::string Hyper::toString(std::string type, int precision){
 		}
 	}else if(type == "labels"){
 		for(std::map<int, std::set<int> >::iterator new_label = labels.begin(); new_label != labels.end(); new_label++){
-			out << new_label->first << ": {";
+			out << new_label->first << ":";
 
-			std::set<int>::iterator old_label = new_label->second.begin();
-			while(true){
-				out << *old_label;
-				old_label++;
-				if(old_label == new_label->second.end()){
-					out << "}\n";
-					break;
-				}else{
-					out << ", ";
-				}
+			for(std::set<int>::iterator old_label = new_label->second.begin(); old_label != new_label->second.end(); old_label++){
+				out << " " << *old_label;
 			}
+			out << "\n";
 		}
 	}else{
 		fprintf(stderr, "Invalid parameter type! It must be ""joint"", ""outer"", ""inners"", ""labels""\n");

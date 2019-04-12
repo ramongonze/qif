@@ -10,11 +10,35 @@
 /**
  * \brief Class used to represent a hyper-distribution.
  *
- * A hyper-distribution is a distribution on distributions on a set of secrets. Each output in an informational channel is a possible "world",
- * and each possible world is a new distribution on the set of secrets. We call the possible worlds the *inner distributions*.
- * Each possible world has a probability to occur, and we call the distribution on the possible worlds as the *outer distribution*.
+ * Definition of hyper-distribution:
  *
- * We can calculate the outer and the inner distributions using the joint distribution between the set of secrets and the set of outputs.
+ * If **X** is a finite set (of possible secret values), π is the prior distribution on **X**,
+ * and C is a channel, a hyper-distribution _[π>C]_ resulted from C on π is a 
+ * distribution on distributions on **X**. Each output in an informational channel is a possible "world",
+ * and each possible world is a new distribution on the set of secrets. We call the possible worlds
+ * the *inner distributions*. Each possible world has a probability to occur, and we call the 
+ * distribution on the possible worlds as the *outer distribution*.
+ *
+ * The @ref Hyper object has 7 attributes:
+ *
+ * - @ref prior : A pointer to a @ref Distribution object, which represents
+ * the prior probability distribution on the set of secrets.
+ *
+ * - @ref channel : A pointer to a @ref Channel object.
+ *
+ * - @ref joint : Joint dstribution matrix, where each position _joint[x][y]_ is the probability _p(x,y)_.
+ *
+ * - @ref inners : The inner distributions matrix. It is the set of possible "worlds" of a hyper-distribution.
+ * Each column of this matrix is a posterior distribution on the set of secrets.
+ *
+ * - @ref outer : The probability distribution on the inners.
+ *
+ * - @ref num_post : Number of posterior distributons.
+ *
+ * - @ref labels : A map from an integer to a set. The number of posterior distributions can differ from the
+ * number of channel outputs, because when we have two or more posteriors that are equals, we simplify them merging
+ * into a single posterior, and sum their outer probabilities. So _labels_ maps from new posteriors
+ * to a subset of channel outputs.
  */
 class Hyper{
 	private:
@@ -28,29 +52,31 @@ class Hyper{
 		/**
 		 * \brief Default constructor.
 		 *
-		 * It instances a @ref Hyper object with @ref prior = NULL, @ref channel = NULL, and empty @ref joint, @ref outer and @ref inners.
+		 * This constructor creates a @ref Hyper object with @ref prior and @ref channel equals to NULL,
+		 * @ref num_post = 0 and @ref joint matrix, @ref inners matrix, @ref outer and @ref labels empty.
 		 */
 		Hyper();
 
 		/**
 		 * \brief Constructor used when the prior distribution on the set of secrets and the channel are in a file.
 		 *
-		 * \param prior_file File's name which contains a @ref prior distribution on a set of secrets.
-		 * \param channel_file File's name which contains a @ref channel matrix.
+		 * \param prior_file File name that contains a probability distribution.
+		 * \param channel_file File name that contains a channel matrix.
 		 *
-		 * \warning The number of rows in the channel matrix must be as same as the number of elements in the prior distribution.
+		 * \warning The number of rows in the channel matrix must be equals to the number of
+		 * elements in the prior distribution.
 		 */
 		Hyper(std::string prior_file, std::string channel_file);
 
 		/**
-		 * \brief Constructor used when the prior distribution on the set of secrets and the channel are already instanced in variables.
+		 * \brief Constructor used when there is already a @ref Channel object in a variable.
 		 *
-		 * \param prior Prior distribution on a set of secrets
-		 * \param channel Information channel, corresponding to the @ref prior
+		 * As a channel has a pointer to a distribution (corresponding to the prior distribution on the set of secrets),
+		 * it is not necessary to give a @ref Distribution as a parameter.
 		 *
-		 * \warning The number of rows in the channel matrix must be as same as the number of elements in the prior distribution.
+		 * \param channel A @ref Channel object.
 		 */
-		Hyper(Distribution &prior, Channel &channel);
+		Hyper(Channel &channel);
 
 		/**
 		 * \brief A pointer to a probability distribution on a set of secrets.
@@ -110,40 +136,52 @@ class Hyper{
 		std::map<int, std::set<int> > labels;
 
 
-		/** \brief Returns a string with the joint matrix, the outer distribution or the inner distributions.
+		/** \brief Generates a string with the joint matrix, the outer distribution, the inner distributions or 
+		 * the @ref labels.
 		 *
-		 * The choice of what will be returned is passed in the first parameter \c type.
+		 * \return Possible returns:
 		 *
-		 * The joint matrix is returned in the following format:
+		 * - The joint matrix is returned in the following format:
 		 *
-		 * 	p11 p12 ... p1y
-		 * 	p21 p22 ... p2y
-		 * 	...
-		 * 	pn1 pn2 ... pny
+		 * 	  p11 p12 ... p1y
+		 * 	  p21 p22 ... p2y
+		 * 	  ...
+		 * 	  pn1 pn2 ... pny
 		 *
-		 * where \c n is the number of secrets, \c y is the number of outputs and \c pij is
-		 * the joint probability p(\c i,\c j) of a secret \c i and an output \c j.
+		 * 	 where \c n is the number of secrets, \c y is the number of channel outputs and \c pij is
+		 * 	 the joint probability _p(i,j)_.
 		 *
-		 * The outer distribution is returned in the following format:
+		 * - The outer distribution is returned in the following format:
 		 *
-		 * 	p1 p2 ... py
+		 * 	  p1 p2 ... py
 		 *
-		 * where \c y is the number of outputs. Each two numbers are separated by a " " (space).
+		 *   where \c y is the number of outputs.
 		 *
-		 * The inner distributions matrix is returned in the following format:
+		 * - The inner distributions matrix is returned in the following format:
 		 *
-		 * 	p11 p12 ... p1y
-		 * 	p21 p22 ... p2y
-		 * 	...
-		 * 	pn1 pn2 ... pny
+		 * 	  p11 p12 ... p1y
+		 * 	  p21 p22 ... p2y
+		 * 	  ...
+		 * 	  pn1 pn2 ... pny
 		 *
-		 * where \c n is the number of secrets, \c y is the number of outputs and \c pij is
-		 * the conditional probability p(\c i|\c j), which is the probability of the secret being \c i when the output is \c j.
+		 *   where \c n is the number of secrets, \c y is the number of outputs and \c pij is
+		 *   the conditional probability _p(i|j)_.
 		 *
-		 * Each two numbers in any choice are are separated by a " " (space).
+		 * - The labels are returned in the following format:
 		 *
-		 * \param type The name of what will be returned. It must be "joint", "outer" or "inners", to return the joint matrix, outer distribution
-		 * or the inners' matrix, respectively.
+		 * 	  1: x11 x12 ...
+		 * 	  2: x21 x22 ...
+		 * 	  ...
+		 * 	  3: xn1 xn2 ...
+		 *
+		 *   where \c n is the number of posteriors (@ref num_post) and \c xij is an integer between 0 and @ref channel -> num_out.
+		 *
+		 * Each two numbers in any choice are are separated by a space (" ").
+		 *
+		 * \param type The name of what will be returned. It must be "labels" to return the @ref labels, "joint",
+		 * "outer" or "inners", to return the @ref joint matrix, @ref outer distribution
+		 * or the @ref inners' matrix, respectively.
+		 *
 		 * \param precision Decimal precision for float numbers. For example, use the value 3 to print 0.322, use 5 to print 0.32197, and so on.
 		 */
 		std::string toString(std::string type, int precision);
@@ -205,7 +243,7 @@ class Hyper{
 		 *
 		 * \param prior Prior distribution on a set of secrets
 		 *
-		 * \warning The number of rows in the channel matrix must be as same as the number of elements in the prior distribution.
+		 * \warning The number of rows in the channel matrix must be as equals to the number of elements in the prior distribution.
 		 */
 		void rebuildHyper(Distribution &prior);
 		void rebuildHyper(Channel &channel);
