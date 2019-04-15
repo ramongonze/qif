@@ -8,7 +8,7 @@ This library models the basics of QIF such as probability distributions, informa
 
 ## Library Documentation
 
-The documentation is available in HTML format. To access the documentation, download the folder ```html``` and inside it open the file ```index.html``` in a browser.
+The documentation is available in HTML format. To access the documentation, download the folder ```doc-html``` and inside it open the file ```index.html``` in a browser.
 
 ## System Requirements
 
