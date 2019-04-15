@@ -22,7 +22,7 @@
 /**
  * \brief Used to represent a probability distribution on a set of elements.
  * 
- * The @ref Distribution object has two attributes:
+ * A @ref Distribution object has two attributes:
  *
  * - @ref num_el : The number of elements in the set.
  * - @ref prob : A vector containing the probability of each element from the set.
@@ -127,9 +127,9 @@ class Distribution{
 		 * 	...
 		 * 	pn
 		 *
-		 * where \c n is the number of elements in the probability distribution and \c pi is the ith element in the vector of probabilities.
+		 * where \c n is the number of elements in the probability distribution and \c pi is the probability _p(i) of the ith element occuring.
 		 *
-		 * \param file A file's name to print the distribution.
+		 * \param file File name to print the distribution.
 		 * \param precision Decimal precision for long double numbers. For example, use the value 3 to print 0.322, use 5 to print 0.32197, and so on.
 		 */
 		void printToFile(std::string file, int precision);

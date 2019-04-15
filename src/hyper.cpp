@@ -46,16 +46,8 @@ void Hyper::reduceHyper(){
 	for(int i = 0; i < channel->num_out; i++){
 		if(!shouldErase[i]){
 
-			/* Check if the column i contains only zeros */
-			bool onlyZero = true;
-			for(unsigned int k = 0; k < inners.size(); k++){
-				if(inners[k][i] > EPS){
-					onlyZero = false;
-					break;
-				}
-			}
-
-			if(onlyZero){
+			/* Check if the posterior i has 0 probability of occuring */
+			if(outer.prob[i] < EPS){
 				shouldErase[i] = true;
 				continue;
 			}
@@ -64,24 +56,16 @@ void Hyper::reduceHyper(){
 			labels.insert(std::make_pair(curInner,std::set<int>({i})));
 			
 			for(int j = i+1; j < channel->num_out; j++){
+				if(shouldErase[j])
+					continue;
+
 				/* Check if the probability distributions of inners i and j are equal */
 				bool isEqual = true;
-				bool onlyZero = true;
 				for(int k = 0; k < prior->num_el; k++){
-					if(inners[k][j] > EPS){
-						onlyZero = false;
-					}
-
 					if(fabs(inners[k][i] - inners[k][j]) > EPS){
 						isEqual = false;
 						break;
 					}
-				}
-
-				/* If the column j contains only zeros, check to delete it */
-				if(onlyZero){
-					shouldErase[j] = true;
-					continue;
 				}
 
 				/* If the column j is equal to the column i, add j to the set of

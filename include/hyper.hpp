@@ -16,17 +16,17 @@
  * and C is a channel, a hyper-distribution _[π>C]_ resulted from C on π is a 
  * distribution on distributions on **X**. Each output in an informational channel is a possible "world",
  * and each possible world is a new distribution on the set of secrets. We call the possible worlds
- * the *inner distributions*. Each possible world has a probability to occur, and we call the 
+ * the *inner distributions*. Each possible world has a probability of occurring, and we call the 
  * distribution on the possible worlds as the *outer distribution*.
  *
- * The @ref Hyper object has 7 attributes:
+ * A @ref Hyper object has 7 attributes:
  *
  * - @ref prior : A pointer to a @ref Distribution object, which represents
  * the prior probability distribution on the set of secrets.
  *
  * - @ref channel : A pointer to a @ref Channel object.
  *
- * - @ref joint : Joint dstribution matrix, where each position _joint[x][y]_ is the probability _p(x,y)_.
+ * - @ref joint : Joint dstribution matrix, where each position _joint[x][y]_ is the joint probability _p(x,y)_.
  *
  * - @ref inners : The inner distributions matrix. It is the set of possible "worlds" of a hyper-distribution.
  * Each column of this matrix is a posterior distribution on the set of secrets.
@@ -37,7 +37,7 @@
  *
  * - @ref labels : A map from an integer to a set. The number of posterior distributions can differ from the
  * number of channel outputs, because when we have two or more posteriors that are equals, we simplify them merging
- * into a single posterior, and sum their outer probabilities. So _labels_ maps from new posteriors
+ * into a single posterior, and sum their outer probabilities. So _labels_ maps from posterior distributions
  * to a subset of channel outputs.
  */
 class Hyper{
@@ -80,58 +80,74 @@ class Hyper{
 
 		/**
 		 * \brief A pointer to a probability distribution on a set of secrets.
+		 *
+		 * It is a distribution on the set of secrets. See @ref Distribution for more details.
 		 */
 		Distribution *prior = NULL;
 
 		/**
 		 * \brief A pointer to a channel.
+		 *
+		 * It is an informational channel. See @ref Channel for more details.
 		 */
 		Channel *channel = NULL;
 
 		/**
 		 * \brief Joint distribution matrix.
 		 *
-		 * The joint distribution is build multiplying the prior distribution and each row of the channel matrix.
+		 * It is a matrix \c n x \c y where \c n is the number of secrets in @ref channel and \c y is the number of outputs in @ref channel.
+		 * Each cell (i,j) in the matrix is the joint probability _p(i,j)_.
+		 * The joint distribution is build multiplying the @ref prior distribution by each row of the @ref channel matrix.
 		 */
 		std::vector<std::vector<long double> > joint;
 
 		/**
-		 * \brief The distribution on the set of outputs.
+		 * \brief A distribution on posterior distributions.
+		 *
+		 * Each probability _p(i)_ in the outer distribution is the probability of the _ith_ posterior distribution occuring.
 		 */
 		Distribution outer;
 
 		/**
 		 * \brief Number of posterior distributions
+		 *
+		 * It is the number of posterior distributions yield by @ref channel and @ref prior.
+		 *
+		 * \warning The number of posterior distributions can be different from the number of outputs in @ref channel.
+		 * See @ref labels for more details.
 		 */
 		int num_post;
 
 		/**
 		 * \brief A matrix for the inner distributions.
 		 *
-		 * Each position (\c x,\c y) in the matrix is the conditional
-		 * probability p(\c x|\c y) which is the probability of the secret being \c x when the output is \c y.
-		 * Each column is a posterior distribution.
+		 * It is a matrix \c n x \c y where \c n is the number of secrets in @ref channel and \c y is the number of posterior distributions (@ref num_post).
+		 * Each position (i,j) in the matrix is the conditional probability _p(i|j)_, that is, the probability
+		 * of the secret being _i_ when the output is _j_. Each column is a posterior distribution.
+		 *
+		 * \warning The number of columns in @ref inners (that is, the number of posterior distrbutions) can be different from the number of outputs in @ref channel.
+		 * See @ref labels for more details.
 		 */
 		std::vector<std::vector<long double> > inners;
 
 		/**
-		 * \brief A map from a output index to a set of indexes
+		 * \brief A map from posterior dsitributions indexes to a set of channel outputs indexes.
 		 *
 		 * When we look at the hyper-distrubtion, we have the outer distribution and the inner distributions.
 		 * Depending on the prior distribution and the channel, the hyper-distribution may have two different
 		 * outputs which yield the same posterior distribution on the set of secrets, and in this case, there is no
-		 * difference for the adversary choosing one or another output.
+		 * difference for the adversary observing both.
 		 *
 		 * Indeed we can simplify the representation of a hyper-distribution matrix mergin all equal columns
-		 * in a single column, and sum their outer probabilities.
+		 * in a single column, and sum their outer probabilities. We also delete a posterior column when
+		 * its outer probability of ocurring is 0 (which means that this "world" has 0 probability of occuring).
 		 *
-		 * The map key is the index of an output in the reduced hyper-distribution matrix.
+		 * The map key is the index of a posterior distribution in the reduced hyper-distribution matrix.
 		 *
-		 * The value of a key is the set of columns indexes which gave rise this single column.
+		 * The map value of a key \c i is the set of channel outputs indexes which gave rise this single posterior distribution \c i.
 		 *
-		 * Example: If the columns 2 and 4 were merged in a single column which its index is 3, when you call
-		 * \c labels[3] the result will be the set {2,4}.
-		 *
+		 * Example: If the outputs 2 and 4 from the @ref channel yield the same posterior distribution, they are merged in, for example,
+		 * the \c 3rd posterior distribution. Then, when you call \c labels\c[2\c] (the 3rd posterior has index 2), you will have the set {2,4}.
 		 */
 		std::map<int, std::set<int> > labels;
 
@@ -141,7 +157,7 @@ class Hyper{
 		 *
 		 * \return Possible returns:
 		 *
-		 * - The joint matrix is returned in the following format:
+		 * - The @ref joint matrix is returned in the following format:
 		 *
 		 * 	  p11 p12 ... p1y
 		 * 	  p21 p22 ... p2y
@@ -151,13 +167,13 @@ class Hyper{
 		 * 	 where \c n is the number of secrets, \c y is the number of channel outputs and \c pij is
 		 * 	 the joint probability _p(i,j)_.
 		 *
-		 * - The outer distribution is returned in the following format:
+		 * - The @ref outer distribution is returned in the following format:
 		 *
 		 * 	  p1 p2 ... py
 		 *
 		 *   where \c y is the number of outputs.
 		 *
-		 * - The inner distributions matrix is returned in the following format:
+		 * - The @ref inners matrix is returned in the following format:
 		 *
 		 * 	  p11 p12 ... p1y
 		 * 	  p21 p22 ... p2y
@@ -167,14 +183,14 @@ class Hyper{
 		 *   where \c n is the number of secrets, \c y is the number of outputs and \c pij is
 		 *   the conditional probability _p(i|j)_.
 		 *
-		 * - The labels are returned in the following format:
+		 * - The @ref labels are returned in the following format:
 		 *
 		 * 	  1: x11 x12 ...
 		 * 	  2: x21 x22 ...
 		 * 	  ...
 		 * 	  3: xn1 xn2 ...
 		 *
-		 *   where \c n is the number of posteriors (@ref num_post) and \c xij is an integer between 0 and @ref channel -> num_out.
+		 *   where \c n is the number of posteriors (@ref num_post) and \c xij is an integer between 0 and the number of outputs in @ref channel.
 		 *
 		 * Each two numbers in any choice are are separated by a space (" ").
 		 *
@@ -187,65 +203,79 @@ class Hyper{
 		std::string toString(std::string type, int precision);
 
 		/**
-		 * \brief Print the joint matrix, outer distribution or the inner distributions in a file.
+		 * \brief Prints the joint matrix, the outer distribution, the inners or the labels. in a file.
 		 *
-		 * The choice of what will be printed is passed in the first parameter \c type.
+		 * - The @ref joint matrix is printed in the following format:
 		 *
-		 * The joint matrix is printed in the following format:
+		 * 	  n y
+		 * 	  p11 p12 ... p1y
+		 * 	  p21 p22 ... p2y
+		 * 	  ...
+		 * 	  pn1 pn2 ... pny
 		 *
-		 * 	n y
-		 * 	p11 p12 ... p1y
-		 * 	p21 p22 ... p2y
-		 * 	...
-		 * 	pn1 pn2 ... pny
+		 * 	 where \c n is the number of secrets, \c y is the number of channel outputs and \c pij is
+		 * 	 the joint probability _p(i,j)_.
 		 *
-		 * where \c n is the number of secrets and \c y is the number of outputs of the channel.
-		 * Each \c pij is the joint probability p(\c i,\c j), for a secret \c i and an output \c j.
+		 * - The @ref outer distribution is printed in the following format:
 		 *
-		 * The outer distribution is printed in the following format:
+		 * 	  y
+		 * 	  p1
+		 * 	  p2
+		 * 	  ...
+		 * 	  py
 		 *
-		 * 	y
-		 * 	p1 p2 ... py
+		 *   where \c y is the number of posterior distributions (@ref num_post) and \c pi is the probability _p(i)_
+		 *	 of the ith posterior distribution ocurring.
 		 *
-		 * where \c n is the number of outputs in the channel.
-		 * Each \c pi is the probability of the ith output happens.
+		 * - The @ref inners matrix is printed in the following format:
 		 *
-		 * The inners' matrix is printed in the following format:
+		 * 	  n y
+		 * 	  p11 p12 ... p1y
+		 * 	  p21 p22 ... p2y
+		 * 	  ...
+		 * 	  pn1 pn2 ... pny
 		 *
-		 * 	n y
-		 * 	p11 p12 ... p1y
-		 * 	p21 p22 ... p2y
-		 * 	...
-		 * 	pn1 pn2 ... pny
+		 *   where \c n is the number of secrets, \c y is the number of posterior distributions (@ref num_post)
+		 *	 and \c pij is the conditional probability _p(i|j)_.
 		 *
-		 * where \c n is the number of secrets and \c y is the number of outputs of the channel.
-		 * Each \c pij is the conditional probability p(\c i|\c j) which is the probability of the secret being \c i when the output is \c j.
+		 * - The @ref labels are printed in the following format:
 		 *
-		 * Each two numbers in any printing are separated by a " " (space).
+		 * 	  y
+		 * 	  1: x11 x12 ...
+		 * 	  2: x21 x22 ...
+		 * 	  ...
+		 * 	  y: xy1 xy2 ...
 		 *
-		 * \param type The name of what will be printed. It must be "joint", "outer" or "inners", to print the joint matrix, outer distribution
-		 * or the inners' matrix, respectively.
-		 * \param file A file's name.
+		 *   where \c y is the number of posterior distributions (@ref num_post) and \c xij is an integer between 0 and the number of outputs in @ref channel.
+		 *
+		 * Each two numbers in any choice are are separated by a space (" ").
+		 *
+		 * \param type The name of what will be returned. It must be "labels" to return the @ref labels, "joint",
+		 * "outer" or "inners", to return the @ref joint matrix, @ref outer distribution
+		 * or the @ref inners' matrix, respectively.
+		 *
+		 * \param file File name to print one of the four options.
+		 *
 		 * \param precision Decimal precision for float numbers. For example, use the value 3 to print 0.322, use 5 to print 0.32197, and so on.
 		 */
 		void printToFile(std::string type, std::string file, int precision);
 
 		/**
-		 * \brief A method used to rebuild the joint, outer and inner distributions.
+		 * \brief Given a new prior distribution, rebuild the joint, outer and inner distributions.
 		 *
-		 * It calculates:
+		 * \param prior Prior distribution on a set of secrets.
 		 *
-		 * - The @ref joint distribution - multiplying the @ref channel and the @ref prior distribution;
-		 *
-		 * - The @ref outer distribution - summing all the joint probabilities for each posterior distribution;
-		 *
-		 * - The @ref inners - normalizing each column of the joint matrix by the respectively outer probability.
-		 *
-		 * \param prior Prior distribution on a set of secrets
-		 *
-		 * \warning The number of rows in the channel matrix must be as equals to the number of elements in the prior distribution.
+		 * \warning The number of rows in the current channel matrix must be equals to the number of elements in the new prior distribution.
 		 */
 		void rebuildHyper(Distribution &prior);
+
+		/**
+		 * \brief Given a new channel, rebuild the joint, outer and inner distributions.
+		 *
+		 * \param channel Channel matrix.
+		 *
+		 * \warning The number of rows in the new channel matrix must be equals to the number of elements in the current prior distribution.
+		 */
 		void rebuildHyper(Channel &channel);
 };
 

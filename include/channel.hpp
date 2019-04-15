@@ -10,7 +10,7 @@
  * values come from a finite set **X** , and whose only observable behavior is to produce an
  * output _y_, whose possible values come from a finite set **Y**.
  *
- * The @ref Channel object has three attributes:
+ * A @ref Channel object has three attributes:
  * 
  * - @ref matrix : A channel matrix from **X** to **Y** whose rows give the 
  * distribution on outputs corresponding to each possible input. That is, entry 
