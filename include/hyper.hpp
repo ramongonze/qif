@@ -8,7 +8,7 @@
 #include <set>
 
 /**
- * \brief Class used to represent a hyper-distribution.
+ * \brief Hyper-distributions.
  *
  * Definition of hyper-distribution:
  *
@@ -60,6 +60,28 @@ class Hyper{
 		/**
 		 * \brief Constructor used when the prior distribution on the set of secrets and the channel are in a file.
 		 *
+		 * The file format of @ref prior must be the following:
+		 *
+		 * 	n
+		 * 	p1
+		 * 	p2
+		 * 	...
+		 * 	pn
+		 *
+		 * where \c n is the number of elements in the distribution and \c pi is the probability of the ith element occurs.
+		 *
+		 * The file format of @ref channel must be the following:
+		 *
+		 * 	n y
+		 * 	p11 p12 ... p1y
+		 * 	p21 p22 ... p2y
+		 * 	...
+		 * 	pn1 pn2 ... pny
+		 *
+		 * where \c n is the number of secrets and \c y is the number of outputs.
+		 * Each \c pij denotes _p(j|i)_, the conditional probability of getting
+		 * output _j_ given input _i_. Each two numbers must be separated by a space (" ").
+		 *
 		 * \param prior_file File name that contains a probability distribution.
 		 * \param channel_file File name that contains a channel matrix.
 		 *
@@ -95,23 +117,31 @@ class Hyper{
 		/**
 		 * \brief Joint distribution matrix.
 		 *
-		 * It is a matrix \c n x \c y where \c n is the number of secrets in @ref channel and \c y is the number of outputs in @ref channel.
-		 * Each cell (i,j) in the matrix is the joint probability _p(i,j)_.
-		 * The joint distribution is build multiplying the @ref prior distribution by each row of the @ref channel matrix.
+		 * It is a matrix \c n x \c y where \c n is the number of secrets in
+		 * @ref channel and \c y is the number of outputs in @ref channel.
+		 * Each value _joint[i][j]_ is the joint probability _p(i,j)_.
+		 * The joint distribution is build multiplying @ref prior distribution
+		 * by each row of the @ref channel matrix.
+		 *
+		 * The rows and columns are indexed from the position 0 (1st element) to the
+		 * position @ref prior ->num_el-1 (for rows) or @ref num_out-1 (for columns).
 		 */
 		std::vector<std::vector<long double> > joint;
 
 		/**
 		 * \brief A distribution on posterior distributions.
 		 *
-		 * Each probability _p(i)_ in the outer distribution is the probability of the _ith_ posterior distribution occuring.
+		 * Each value _outer[i]_ is the probability _p(i)_ of the _ith_ posterior distribution occuring.
+		 *
+		 * The vector is indexed from the position 0 (1st element) to the
+		 * position @ref num_post - 1 (last element). So the vector size = @ref num_post.
 		 */
 		Distribution outer;
 
 		/**
 		 * \brief Number of posterior distributions
 		 *
-		 * It is the number of posterior distributions yield by @ref channel and @ref prior.
+		 * It is the number of posterior distributions yielded by @ref channel and @ref prior.
 		 *
 		 * \warning The number of posterior distributions can be different from the number of outputs in @ref channel.
 		 * See @ref labels for more details.
@@ -122,8 +152,11 @@ class Hyper{
 		 * \brief A matrix for the inner distributions.
 		 *
 		 * It is a matrix \c n x \c y where \c n is the number of secrets in @ref channel and \c y is the number of posterior distributions (@ref num_post).
-		 * Each position (i,j) in the matrix is the conditional probability _p(i|j)_, that is, the probability
+		 * Each value _inners[i][j]_ is the conditional probability _p(i|j)_, that is, the probability
 		 * of the secret being _i_ when the output is _j_. Each column is a posterior distribution.
+		 *
+		 * The rows and columns are indexed from the position 0 (1st element) to the
+		 * position @ref prior ->num_el-1 (for rows) or @ref num_post-1 (for columns).
 		 *
 		 * \warning The number of columns in @ref inners (that is, the number of posterior distrbutions) can be different from the number of outputs in @ref channel.
 		 * See @ref labels for more details.
@@ -152,7 +185,7 @@ class Hyper{
 		std::map<int, std::set<int> > labels;
 
 
-		/** \brief Generates a string with the joint matrix, the outer distribution, the inner distributions or 
+		/** \brief Generates a string with the @ref joint matrix, the @ref outer distribution, the @ref inner distributions or 
 		 * the @ref labels.
 		 *
 		 * \return Possible returns:
@@ -192,7 +225,7 @@ class Hyper{
 		 *
 		 *   where \c n is the number of posteriors (@ref num_post) and \c xij is an integer between 0 and the number of outputs in @ref channel.
 		 *
-		 * Each two numbers in any choice are are separated by a space (" ").
+		 * Each two numbers in any choice are separated by a space (" ").
 		 *
 		 * \param type The name of what will be returned. It must be "labels" to return the @ref labels, "joint",
 		 * "outer" or "inners", to return the @ref joint matrix, @ref outer distribution

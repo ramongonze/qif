@@ -20,7 +20,7 @@
 #define EPS 1e-6
 
 /**
- * \brief Used to represent a probability distribution on a set of elements.
+ * \brief Probability distributions on sets of elements.
  * 
  * A @ref Distribution object has two attributes:
  *
@@ -82,8 +82,10 @@ class Distribution{
 		/**
 		 * \brief A vector of elements' probabilities.
 		 * 
-		 * The vector contains the probabilities of all elements from a set. Each position \c i in the vector is the probability of the ith element occurs.
-		 * The vector is indexed from the position 0 (1st element) to the position @ref num_el - 1 (last element). So the vector size = @ref num_el.
+		 * The vector contains the probabilities of all elements from a set.
+		 * Each value _prob[i]_ is the probability of the ith element occurs.
+		 * The vector is indexed from the position 0 (1st element) to the
+		 * position @ref num_el - 1 (last element). So the vector size = @ref num_el.
 		 */
 		std::vector<long double> prob;
 

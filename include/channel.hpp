@@ -4,7 +4,7 @@
 #include "../include/distribution.hpp"
 
 /**
- * \brief Class used to represent an informational channel.
+ * \brief Informational channels.
  *
  * A channel is a system that takes as input a secret _x_, whose possible
  * values come from a finite set **X** , and whose only observable behavior is to produce an
@@ -47,7 +47,6 @@ class Channel{
 		 * 	pn1 pn2 ... pny
 		 *
 		 * where \c n is the number of secrets and \c y is the number of outputs.
-		 * The rows correspond to secrets and the columns correspond to outputs.
 		 * Each \c pij denotes _p(j|i)_, the conditional probability of getting
 		 * output _j_ given input _i_. Each two numbers must be separated by a space (" ").
 		 * 
@@ -83,7 +82,7 @@ class Channel{
 		/**
 		 * \brief Number of outputs in the channel.
 		 *
-		 * This attribute is exactly the number of columns in @ref matrix .
+		 * This attribute is exactly the number of columns in @ref matrix.
 		 */
 		int num_out;
 		
@@ -97,11 +96,14 @@ class Channel{
 		/**
 		 * \brief Channel matrix.
 		 *
-		 * A channel matrix from a set of secrets **X** to a set of possible outputs **Y**,
+		 * A channel matrix of a set of secrets **X** and a set of possible outputs **Y**,
 		 * whose rows give the distribution on outputs corresponding to each 
-		 * possible input. That is, entry matrix[_x_][_y_] denotes _p(y|x)_, the conditional
+		 * possible input. That is, entry _matrix[x][y]_ denotes _p(y|x)_, the conditional
 		 * probability of getting output _y_ given input _x_. Note that all entries in a 
 		 * channel matrix are between 0 and 1, and each row sums to 1.
+		 *
+		 * The rows and columns are indexed from the position 0 (1st element) to the
+		 * position @ref prior ->num_el-1 (for rows) or @ref num_out-1 (for columns).
 		 */
 		std::vector<std::vector<long double> > matrix;
 
