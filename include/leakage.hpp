@@ -5,10 +5,7 @@
 #include "../include/gain.hpp"
 #include "../include/vulnerability.hpp"
 
-/**
- * \brief A definition for positive infinite.
- */
-#define POSITIVE_INFINITE -7
+#include <limits>
 
 /* Leakage measures */
 
@@ -18,7 +15,7 @@
  * \param hyper A hyper-distribution.
  * \param gain A gain function for a set of secrets.
  *
- * \return gVulnerability(hyper-distribtuion) - gVulnerability(prior distribtuion)
+ * \return Vg([π>C]) - Vg(π)
  */
 long double additiveLeakage(Hyper &hyper, Gain &gain);
 
@@ -28,14 +25,16 @@ long double additiveLeakage(Hyper &hyper, Gain &gain);
  * \param hyper A hyper-distribution.
  * \param gain A gain function for a set of secrets.
  *
- * \return If gVulnerability(prior distribution) is 0 and gVulnerability(hyper-distribtuion) is also 0, it returns 1.
+ * \return
+ * - If Vg(π) != 0 and Vg([π>C]) != 0, 
+ * it returns Vg([π>C]) / Vg(π).
  *
- * \return If gVulnerability(prior distribtuion) is 0 and gVulnerability(hyper-distribtuion) is different of 0, it returns @ref POSITIVE_INFINITE.
+ * - If Vg(π) = 0 and Vg([π>C]) = 0, it returns 1.
  *
- * \return If both gVulnerability(prior distribtuion) and gVulnerability(hyper-distribtuion) are different of 0, it returns gVulnerability(hyper-distribtuion) / gVulnerability(prior distribtuion).
+ * - If Vg(π) = 0 and Vg([π>C]) != 0, it returns +∞.
  *
- * See the section 5.2 in the reference [[1]](https://www.springer.com/us/book/9783319961293) for more details about the return of multiplicative leakage.
- *
+ * See the section 5.2 in the reference [[1]](https://www.springer.com/us/book/9783319961293) 
+ * for more details about the return value of multiplicative leakage.
  */
 long double multiplicativeLeakage(Hyper &hyper, Gain &gain);
 

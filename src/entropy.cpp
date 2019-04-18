@@ -1,13 +1,13 @@
 #include "../include/entropy.hpp"
 
-long double guessingEntropy(Distribution &dist){
+long double guessingEntropy(Distribution &prior){
 	long double g_entropy = 0;
 
-	std::vector<long double> ordered_distribution = dist.prob;
-	sort(ordered_distribution.rbegin(), ordered_distribution.rend());
+	std::vector<long double> ordered_prior = prior.prob;
+	sort(ordered_prior.rbegin(), ordered_prior.rend());
 
-	for(int i = 0; i < dist.num_el; i++){
-		g_entropy += ((i+1) * ordered_distribution[i]);
+	for(int i = 0; i < prior.num_el; i++){
+		g_entropy += ((i+1) * ordered_prior[i]);
 	}
 
 	return g_entropy;

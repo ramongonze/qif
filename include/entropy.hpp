@@ -5,50 +5,54 @@
 #include <cmath>
 
 /**
- * \brief Guessing entropy of a prior probability distribtuion.
+ * \brief Guessing entropy of a prior probability distribution.
  *
- * It is the expected number of tries of the adversary trying to guess the secret correctly.
+ * The guessing entropy of a prior distribution on a set of secrets 
+ * is the expected number of tries needed by the adversary to guess the secret correctly.
  *
- * \param dist A prior probability distribution on a set of secrets.
+ * \param prior Prior distribution on the set of secrets.
  *
- * \return Guessing entropy of the distribution in the parameter @ref **dist**.
+ * \return Guessing entropy of a prior distribution.
  */
-long double guessingEntropy(Distribution &dist);
+long double guessingEntropy(Distribution &prior);
 
 /**
  * \brief Guessing entropy of a hyper-distribution.
  *
- * It is the expected number of tries of the adversary trying to guess the secret correctly,
- * looking to all possible worlds (inner distributions). 
+ * The guessing entropy of a hyper-distribution is the expected number of tries
+ * needed by the adversary to guess the secret correctly, looking to all possible
+ * worlds (inner distributions). 
  *
  * \param hyper A hyper-distribution.
  *
- * \return Guessing entropy of the hyper-distribution in the parameter @ref **hyper**.
+ * \return Guessing entropy of a hyper-distribution.
  */
 long double guessingEntropy(Hyper &hyper);
 
 /**
- * \brief Shannon entropy of a prior probability distribution.
+ * \brief Shannon entropy of a probability distribution.
  *
- * A way to measure the secrecy of a secret, looking to a prior probability distribution.
- * The returned value is in the interval [0,log2(\c n)], where \c n is the number of secrets.
+ * The Shannon entropy of a prior distribution is a way to measure the secrecy of a secret.
  *
- * \param dist A prior probability distribution on a set of secrets.
+ * \param dist Prior distribution on the set of secrets.
  *
- * \return Shannon entropy of the distribution in the parameter @ref **dist**.
+ * \return Shannon entropy of a probability distribution.
+ * The returned value is in the interval [0,log2(_n_)], where _n_ is the number of elements
+ * in the distribution.
  */
 long double shannonEntropy(Distribution &dist);
 
 /**
  * \brief Shannon entropy of a hyper-distribution.
  *
- * A way to measure the secrecy of a secret, looking to a hyper-distribution.
- * The returned value is in the interval [0,log2(\c y)], where \c y is the
- * number of outputs of a channel.
+ * The Shannon entropy of a hyper-distribution is a way to measure the secrecy of a secret,
+ * looking to all possible worlds (inner distributions).
  *
  * \param hyper A hyper-distribution.
  *
- * \return Shannon entropy of the hyper-distribution in the parameter @ref **hyper**.
+ * \return Shannon entropy of a hyper-distribution.
+ * The returned value is in the interval [0,log2(_y_)], where _y_ is the
+ * number of outputs of a channel.
  */
 long double shannonEntropy(Hyper &hyper);
 

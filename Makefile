@@ -26,5 +26,6 @@ leakage.o:
 
 binary:
 	ar rcs qif.a distribution.o channel.o gain.o hyper.o vulnerability.o entropy.o leakage.o
+	rm -r -f bin
 	mkdir bin
 	mv *.o ./bin/

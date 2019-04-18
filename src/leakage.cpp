@@ -12,7 +12,7 @@ long double multiplicativeLeakage(Hyper &hyper, Gain &gain){
 		if(vg_hyper < EPS){ /* Comparing if vg_hyper == 0 */
 			return 1;
 		}else{
-			return POSITIVE_INFINITE;
+			return std::numeric_limits<long double>::infinity();
 		}
 	}else{
 		return vg_hyper / vg_prior;
