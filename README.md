@@ -12,7 +12,7 @@ The documentation is available in HTML format. To access the documentation, down
 
 ## System Requirements
 
-- GNU **GCC** project C and C++ compiler - Available on most UNIX distributions. For more details access [GCC documentation](https://gcc.gnu.org/onlinedocs/).
+- GNU **GCC** project C and C++11 compiler - Available on most UNIX distributions. For more details access [GCC documentation](https://gcc.gnu.org/projects/cxx-status.html#cxx11).
  
 - GNU **ar**. Available on most UNIX distributions. For more details access [ar documentation](http://man7.org/linux/man-pages/man1/ar.1.html).
 
