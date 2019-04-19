@@ -52,54 +52,51 @@
             <ul>
               Distributions
             <ul>
-              <li><a href= "#creating_distributions">Creating distributions</a></li>
-              <li><a href= "#using_distributions">Using distributions</a></li>
+              <li><a href= "#creating_distributions"  class="m-doc">Creating distributions</a></li>
+              <li><a href= "#using_distributions"  class="m-doc">Using distributions</a></li>
             </ul>
               <br>
               Channels
               <ul>
-                <li><a href= "#creating_channels">Creating channels</a></li>
-                <li><a href= "#using_channels">Using channels</a></li>
+                <li><a href= "#creating_channels"  class="m-doc">Creating channels</a></li>
+                <li><a href= "#using_channels"  class="m-doc">Using channels</a></li>
               </ul>
               <br>
               Hyper-distributions
               <ul>
-                <li><a href= "#creating_hd">Creating hyper-distributions</a></li>
-                <li><a href= "#using_hd">Using hyper-distributions</a></li>
+                <li><a href= "#creating_hd"  class="m-doc">Creating hyper-distributions</a></li>
+                <li><a href= "#using_hd"  class="m-doc">Using hyper-distributions</a></li>
               </ul>
               <br>
               Gain functions
               <ul>
-                <li><a href= "#creating_gain_functions">Creating gain functions</a></li>
-                <li><a href= "#using_gain_functions">Using gain functions</a></li>
+                <li><a href= "#creating_gain_functions"  class="m-doc">Creating gain functions</a></li>
+                <li><a href= "#using_gain_functions"  class="m-doc">Using gain functions</a></li>
               </ul>
               <br>
               Functions to measure vulnerabilities, entropies and leakages.
               <ul>
-                <li><a href= "#using_functions">Using measure functions</li></a>
+                <li><a href= "#measurement_functions"  class="m-doc">Measurement functions</li></a>
               </ul>
             </ul>
             </li>
           </ul>
-        </div>
-<hr>
+        </div>    
 
-<h2 id="creating_distributions">Creating distribtuions</h2>
+<!--  ********************************************************************************* -->
+<!--  **************************** CREATING DISTRIBUTIONS ***************************** -->
+<!--  ********************************************************************************* -->
+
+
+<h2 id="creating_distributions">Creating distributions</h2>
 <div class="textblock">
-A probability distribution is represented as a vector of numbers, which:
-<ul>
-  <li>The sum of all numbers in the vector is 1;</li>
-  <li>Every number is in the interval [0,1].</li>
-</ul>
-
 The vector of probabilities is structed as a <code>std::vector&lt;long double&gt;</code>.
 
 <br><br>
-To create an object <b>Distribution</b> there are 3 constructors available:
-
+To create a <a href="classDistribution.html" class="m-doc">Distribution</a> object there are 3 constructors available:
 <ul style="list-style-type:circle;">
-<li><u>Read the vector of probabilities from a file</u></li>
 
+<h4><p><li><u>Read the vector of probabilities from a file</u></li></p></h4>
 The vector of probabilities can be read from a file in the following format:
 <pre class="fragment">n
 p1
@@ -108,216 +105,273 @@ p2
 pn</pre>
 <p>where <code>n</code> is the number of elements in the distribution and <code>pi</code> is the probability of the ith element occurs.</p>
 
-Suppose you have a file called <code>prior_distribution.txt</code> containing the vector of probabilities. To create a distribution, you shall use:
+Suppose you have a file called <code>prior_distribution.txt</code> containing the vector of probabilities. To create a distribution, you have to type:
+<p>
 <pre class="fragment">
-<a style="color:#0066ff">Distribution</a> dist(<a style="color:#b3b300">"prior_distribution.txt"</a>);
+<a style="color:#80b3ff">Distribution</a> dist(<a style="color:#e6e600">"prior_distribution.txt"</a>);
 </pre>
+</p>
+
+<br>
+<aside class="m-note m-default"><h4>Reference</h4><span class="m-doc-wrap-bumper"><a href="classDistribution.html#aa5f780aa951ba87ff0f98c1dec0c6a9e" class="m-doc">Distribution</a>(</span><span class="m-doc-wrap">std::string file)</span></aside>
 
 <br><br>
-<li><u>Use an existing vector of probabilities</u></li>
-A distribution can be created using an already existing vector.
-The vector type must be <code>std::vector&lt;long double&gt;</code>.
+<h4><p><li><u>Use an existing vector of probabilities</u></li></p></h4>
+A distribution can be created using a vector stored in a variable.
+<br>
+The type of the vector must be <code>std::vector&lt;long double&gt;</code>.
 
 <br><br>
-To create a distribution from a vector of probabilities <code>v</code> you shall use:
-<pre class="fragment">
-std::vector&lt;<a style="color:#0066ff">long double</a>&gt;<a style="color:#0066ff"> v</a>({0.25, 0.25, 0.5});
-<a style="color:#0066ff">Distribution</a> dist(v);
-</pre>
+To create a distribution from a vector of probabilities <code>v</code> you have to type:
+<p><pre class="fragment">
+std::vector&lt;<a style="color:#80b3ff">long double</a>&gt;<a style="color:#80b3ff"> v</a>({0.25, 0.25, 0.5});
+<a style="color:#80b3ff">Distribution</a> dist(v);
+</pre></p>
+
+<br>
+<aside class="m-note m-default"><h4>Reference</h4><span class="m-doc-wrap-bumper"><a href="classDistribution.html#af0a18ffe03e1720e4fc7049a7b8e726a" class="m-doc">Distribution</a>(</span><span class="m-doc-wrap">std::vector&lt;long double&gt;&amp; prob)</span></aside>
 
 <br><br>
-<li><u>Create a random or uniform distribution</u></li>
+<h4><p><li><u>Create a random or uniform distribution</u></li></p></h4>
 To create an uniform or a random distribution, there are 2 parameters in the constructor:
-<ul>
+<p><ul>
   <li><b>First:</b> The number of elements;</li>
   <li><b>Second:</b> The string <code>"uniform"</code> or <code>"random"</code>, to create an uniform distribution or a random distribution, respectivelly.</li>
-</ul>
+</ul></p>
+
 
 <br>
-For example, to create an uniform distribution with 5 elements you shall use:
-<pre class="fragment">
-<a style="color:#0066ff">Distribution</a> dist(5, <a style="color:#b3b300">"uniform"</a>);
-</pre>
+For example, to create an uniform distribution with 5 elements you have to type:
+<p><pre class="fragment">
+<a style="color:#80b3ff">Distribution</a> dist(5, <a style="color:#e6e600">"uniform"</a>);
+</pre></p>
 
 <br>
-To create a random distribution with 10 elements you shall use:
-<pre class="fragment">
-<a style="color:#0066ff">Distribution</a> dist(10, <a style="color:#b3b300">"random"</a>);
-</pre>
+To create a random distribution with 10 elements you have to type:
+<p><pre class="fragment">
+<a style="color:#80b3ff">Distribution</a> dist(10, <a style="color:#e6e600">"random"</a>);
+</pre></p>
+
+<br>
+<aside class="m-note m-default"><h4>Reference</h4><span class="m-doc-wrap-bumper"><a href="classDistribution.html#a1b89f88bbcd83f907fdc5191e70f7806" class="m-doc">Distribution</a>(</span><span class="m-doc-wrap">int num_el,
+              std::string type)</span></aside>
 </ul>
+
+<!--  ********************************************************************************* -->
+<!--  ****************************** USING DISTRIBUTIONS ****************************** -->
+<!--  ********************************************************************************* -->
 
 <br>
 <h2 id="using_distributions">Using distributions</h2>
 
-Suppose you have created a new distribution using one of the constructors above and stored it in the variable <b><code>dist</code></b>.
+Suppose you have created a new distribution using one of the constructors above and stored it in the variable <code>dist</code>.
 
-<br>
-<h3>Accessing the elements</h3>
-<p>To get the probability of each element, you have to access the attribute vector <b><code>prob</code></b>.
+<br><br>
+<h3><u>Accessing the elements</u></h3>
+<p>To get the probability of each element, you have to access the attribute <code>prob</code>.
 The elements in <code>prob</code> are indexed from 0 to <code>n-1</code>, where <code>n</code> is the number of elements in the probability distribution.
 For example, to get the fourth element of the distribution, you use the index 3:</p>
 <pre class="fragment">
-<a style="color:#0066ff">long double</a> prob_fourth_element = dist.prob[3];
+<a style="color:#80b3ff">long double</a> prob_fourth_element = dist.prob[3];
 </pre>
 
 <br>
-<h3>Getting the number of elements</h3>
-The number of elements is stored in the attribute <b><code>num_el</code></b>.
-<pre class="fragment">
-<a style="color:#0066ff">int</a> number_elements = dist.num_el;
-</pre>
+<h3><u>Getting the number of elements</u></h3>
+The number of elements is stored in the attribute <code>num_el</code>:
+<p><pre class="fragment">
+<a style="color:#80b3ff">int</a> number_elements = dist.num_el;
+</pre></p>
 
 <br>
-<h3>Printing</h3>
+<h3><u>Printing</u></h3>
 To print the distribution on the screen, you can use the method <code>toString()</code>.
-It has one parameter: the precision of the probabilities.
-This method returns a <code>std::string</code>.
 <br>
-For example, if you want to get a string with precision of 4, you shall use:
-<pre class="fragment">
-std::string d = dist.toString(4);
-std::cout << d << std::endl;
-</pre>
+The method has one parameter: the precision of the probabilities, and it returns a <code>std::string</code>.
+<br><br>
+For example, if you want to get a string with precision of 4, you have to type:
+<p><pre class="fragment">
+std::string str_dist = dist.toString(4);
+std::cout << str_dist << std::endl;
+</pre></p>
 
 <br>
 The result is the following:
-<pre class="fragment">
+<p><pre class="fragment">
 0.2500 0.2500 0.5000
-</pre>
+</pre></p>
 
 <br>
-For more details, see the documentation of <a href="classDistribution.html#a4d0b69f7838f42a9b24891930c7b886c">Distribution::toString()</a>.
+For more details, see the documentation of <a href="classDistribution.html#a4d0b69f7838f42a9b24891930c7b886c" class="m-doc">Distribution::toString()</a>.
 
 <br>
-You can also print the distribution right into a file using the method <code>printToFile()</code>. See the documentation of <a href="classDistribution.html#aadc1ad2ae8a06be2cf941377225f7932">Distribution::printToFile()</a>.
+You can also print the distribution right into a file using the method <code>printToFile()</code>. See the documentation of <a href="classDistribution.html#aadc1ad2ae8a06be2cf941377225f7932" class="m-doc">Distribution::printToFile()</a>.
 
 <br><br>
-For more details about the class, see the documentation <a href="classDistribution.html">here</a>.
+For more details about the class, see the documentation <a href="classDistribution.html" class="m-doc">here</a>.
 
 <br><br>
-<hr><hr>
+<pre class="m-code"></pre>
+
+<!--  ********************************************************************************* -->
+<!--  ******************************* CREATING CHANNELS ******************************* -->
+<!--  ********************************************************************************* -->
 
 <h2 id="creating_channels">Creating channels</h2>
 An informational channel can be represented as a matrix <code>n</code> x
 <code>y</code>, where <code>n</code> is the number of secrets (the rows),
-<code>y</code> is the number of possible outputs (the columns) and each cell
-(x<sub>i</sub>,y<sub>j</sub>) is the conditional probability p(y<sub>j</sub>|x<sub>i</sub>).
+<code>y</code> is the number of possible outputs (the columns) and each value
+<i>matrix[x][y]</i> is the conditional probability <i>p(y|x)</i>.
 
 <p>Before creating a channel, you must already have an object
-<b>Distribution</b>, which contains the <i>prior distribution</i> on the set
-of secrets. The set of secrets of the channel must be the same as the set
-from the prior distribution. After that, to create a <b>Channel</b> object
-you shall use its constructor, and there are 3 options:</p>
+<a href="classDistribution.html" class="m-doc">Distribution</a> which contains the <i>prior distribution</i> on the set
+of secrets.
+<br><br>
+To create a <a href="classChannel.html" class="m-doc">Channel</a> object there are 3 options available:</p>
 
 <ul style="list-style-type:circle;">
-<li><u>Read the channel from a file</u></li>
-You can read it from a file in the following format:
-<pre class="fragment">n y
+<h4><p><li><u>Read the channel from a file</u></li></p></h4>
+
+You can read the channel from a file in the following format:
+
+<p><pre class="fragment">n y
 p11 p12 ... p1y
 p21 p22 ... p2y
 ...
 pn1 pn2 ... pny
-</pre>
+</pre></p>
 
-<br>
-Suppose you have a file called <code>channel.txt</code>. To create a channel you shall use:
-<pre class="fragment">
-<a style="color:#0066ff">Distribution</a> dist(<a style="color:#b3b300">"prior_distribution.txt"</a>);
-<a style="color:#0066ff">Channel</a> channel(dist, <a style="color:#b3b300">"channel.txt"</a>);
-</pre>
+where <code>n</code> is the number of secrets, <code>y</code> is the number of outputs and each two values must be separated by a space (" ").
 
 <br><br>
-<li><u>Use an existing matrix of numbers</u></li>
-You just have to use the constructor and give the matrix. The type of the matrix
-must be a <code>std::vector&lt;std::vector&lt;long double&gt;&gt;</code>.
+Suppose you have a file called <code>channel.txt</code>. To create a channel you have to type:
+<p><pre class="fragment">
+<a style="color:#80b3ff">Distribution</a> dist(<a style="color:#e6e600">"prior_distribution.txt"</a>);
+<a style="color:#80b3ff">Channel</a> channel(dist, <a style="color:#e6e600">"channel.txt"</a>);
+</pre></p>
+
 <br>
-To create a matrix from a matrix <code>M</code> you shall use:
-<pre class="fragment">
-<a style="color:#0066ff">Distribution</a> dist(<a style="color:#b3b300">"prior_distribution.txt"</a>);
-std::vector&lt;std::vector&lt;<a style="color:#0066ff">long double</a>&gt;&gt;<a style="color:#0066ff"> M</a>({{0.25, 0.25, 0.50},
+<aside class="m-note m-default"><h4>Reference</h4><span class="m-doc-wrap-bumper"><a href="classChannel.html#a568efba8f7a7d0ceaa6c0605c96fa382" class="m-doc">Channel</a>(</span><span class="m-doc-wrap"><a href="classDistribution.html" class="m-doc">Distribution</a>&amp; prior,
+              std::string file)</span></aside>
+
+
+<br><br>
+<h4><p><li><u>Use an existing matrix of numbers</u></li></p></h4>
+The type of the matrix
+must be <code>std::vector&lt;std::vector&lt;long double&gt;&gt;</code>.
+
+<br><br>
+To create a channel from a matrix <code>M</code> you have to type:
+<p><pre class="fragment">
+<a style="color:#80b3ff">Distribution</a> prior(<a style="color:#e6e600">"prior_distribution.txt"</a>);
+std::vector&lt;std::vector&lt;<a style="color:#80b3ff">long double</a>&gt;&gt;<a style="color:#80b3ff"> M</a>({{0.25, 0.25, 0.50},
                                          {0.30, 0.30, 0.40},
                                          {1.00, 0.00, 0.00}});
-<a style="color:#0066ff">Channel</a> channel(dist, M);
-</pre>
+<a style="color:#80b3ff">Channel</a> channel(prior, M);
+</pre></p>
+
+<br>
+<aside class="m-note m-default"><h4>Reference</h4><span class="m-doc-wrap-bumper"><a href="classChannel.html#aeaccc051fe49d4e6f29a4f6e17c53981" class="m-doc">Channel</a>(</span><span class="m-doc-wrap"><a href="classDistribution.html" class="m-doc">Distribution</a>&amp; prior,
+              std::vector&lt;std::vector&lt;long double&gt;&gt;&amp; matrix)</span></aside>
 
 
 <br><br>
-<li><u>Generate a random channel</u></li>
-To create a random channel, the first parameter of the constructor must be the
-prior distribution and the second parameter the number of outputs of the channel.
+<h4><li><u>Generate a random channel</u></li></h4>
+To create a random channel, there are 2 parameters in the constructor:
+<p><ul>
+  <li><b>First:</b> Prior distribution;</li>
+  <li><b>Second:</b> Number of channel outputs.</li>
+</ul></p>
+
+For example, to create a channel with 3 outputs, you have to type:
+<p><pre class="fragment">
+<a style="color:#80b3ff">Distribution</a> prior(<a style="color:#e6e600">"prior_distribution.txt"</a>);
+<a style="color:#80b3ff">Channel</a> channel(prior, 3);
+</pre></p>
+
 <br>
-For example, to create a channel with 3 possible outputs, you shall use:
-<pre class="fragment">
-<a style="color:#0066ff">Distribution</a> dist(<a style="color:#b3b300">"prior_distribution.txt"</a>);
-<a style="color:#0066ff">Channel</a> channel(dist, 3);
-</pre>
+<aside class="m-note m-default"><h4>Reference</h4><span class="m-doc-wrap-bumper"><a href="classChannel.html#ae7dd6fe7ce68c47ee7bd6bfe44a62c07" class="m-doc">Channel</a>(</span><span class="m-doc-wrap"><a href="classDistribution.html" class="m-doc">Distribution</a>&amp; prior,
+              int num_out)</span></aside>
+
 </ul>
+
+<!--  ********************************************************************************* -->
+<!--  ******************************** USING CHANNELS ********************************* -->
+<!--  ********************************************************************************* -->
 
 <br>
 <h2 id="using_channels">Using channels</h2>
-Suppose you have created a channel using one of the constructors above and
-stored it in the variable <code><b>channel</b></code>.
-
-<h3>Acessing the prior distribution</h3>
-There is a pointer to a Distribution object: <code><b>prior</b></code>.
-You can get, for example, the number of secrets:
-<pre class="fragment">
-<a style="color:#0066ff">int</a> number_secrets = channel.prior->num_el;
-</pre>
+<p>Suppose you have created a channel using one of the constructors above and
+stored it in the variable <code>channel</code>.</p>
 
 <br>
-<h3>Acessing the matrix channel</h3>
-To get a conditional probability from the matrix, you have to access the
-attribute <code><b>matrix</b></code>. The rows are indexed from 0 to
+<h3><u>Acessing the prior distribution</u></h3>
+There is a pointer to a <a href="classDistribution.html" class="m-doc">Distribution</a> object: <code>prior</code>.
+You can get, for example, the number of secrets:
+<p><pre class="fragment">
+<a style="color:#80b3ff">int</a> number_secrets = channel.prior->num_el;
+</pre></p>
+
+<br>
+<h3><u>Acessing the channel matrix</u></h3>
+To get a conditional probability from the channel matrix, you have to access the
+attribute <code>matrix</code>. The rows are indexed from 0 to
 <code>n-1</code>, where <code>n</code> is the number of secrets, and the columns
 are indexed from 0 to <code>y-1</code>, where <code>y</code> is the number of
 outputs.
-<br>
+
+<br><br>
 For example, to get the probability p(y<sub>3</sub>|x<sub>2</sub>),
-you shall use:
-<pre class="fragment">
-<a style="color:#0066ff">long double</a> p = channel.matrix[2][1];
-</pre>
+you have to type:
+<p><pre class="fragment">
+<a style="color:#80b3ff">long double</a> p = channel.matrix[2][1];
+</pre></p>
 
 <br>
-<h3>Getting the number of outputs from the channel</h3>
-The number of outputs is stored in the attribute <code><b>num_out</b></code>.
-<pre class="fragment">
-<a style="color:#0066ff">int</a> number_outputs = channel.num_out;
-</pre>
+<h3><u>Getting the number of outputs from the channel</u></h3>
+The number of outputs is stored in the attribute <code>num_out</code>:
+<p><pre class="fragment">
+<a style="color:#80b3ff">int</a> number_outputs = channel.num_out;
+</pre></p>
 
 <br>
-<h3>Printing</h3>
+<h3><u>Printing</u></h3>
 To print the channel on the screen, you can use the method <code>toString()</code>.
-It has one parameter: the precision of the probabilities. This method returns a
-<code>std::string</code>.
 <br>
+The method has one parameter: the precision of the probabilities, and it returns a
+<code>std::string</code>.
+
+<br><br>
 For example, if you want to get a string with precision of
-4, you shall use:
-<pre class="fragment">
-std::string c = channel.toString(4);
-std::cout << c << std::endl;
-</pre>
+4, you have to type:
+<p><pre class="fragment">
+std::string str_channel = channel.toString(4);
+std::cout << str_channel << std::endl;
+</pre></p>
 
 <br>
 The result is the following:
-<pre class="fragment">
+<p><pre class="fragment">
 0.2500 0.2500 0.5000
 1.0000 0.0000 0.0000
 0.9000 0.0100 0.0900
-</pre>
+</pre></p>
 
 <br>
-For more details, see the documentation of <a href="classChannel.html#a2d97d823f68fe35f4c35dc04ebee3114">Channel::toString()</a>.
+For more details, see the documentation of <a href="classChannel.html#a2d97d823f68fe35f4c35dc04ebee3114" class="m-doc">Channel::toString()</a>.
 
 <br>
-You can also print the channel right into a file using the method <code>printToFile()</code>. See the documentation of <a href="classChannel.html#aa7823e1aa1dea119ae0bf41d42f24b31">Channel::printToFile()</a>.
+You can also print the channel right into a file using the method <code>printToFile()</code>. See the documentation of <a href="classChannel.html#aa7823e1aa1dea119ae0bf41d42f24b31" class="m-doc">Channel::printToFile()</a>.
 
 <br><br>
-For more details about the class, see the documentation <a href="classChannel.html">here</a>.
+For more details about the class, see the documentation <a href="classChannel.html" class="m-doc">here</a>.
 
 <br><br>
-<hr><hr>
+<pre class="m-code"></pre>
+
+<!--  ********************************************************************************* -->
+<!--  ************************* CREATING HYPER-DISTRIBUTIONS ************************** -->
+<!--  ******************************************************************************** -->
+
 
 <h2 id="creating_hd">Creating hyper-distributions</h2>
 
@@ -328,221 +382,379 @@ the <i>inner distributions</i>. Each possible world has a probability to occur, 
 call the distribution on the possible worlds as the <i>outer distribution</i>.
 
 <br><br>
-Before creating a <code><b>Hyper</b></code> object, you need to have a channel
-and a prior distribution on a set of secrets.
+Before creating a <a href="classHyper.html" class="m-doc">Hyper</a> object, you need to have a <a href="classChannel.html" class="m-doc">Channel</a> and a prior <a href="classDistribution.html" class="m-doc">Distribution</a> on a set of secrets.
 
-<br>
-After that, to create a Hyper object you shall use its constructor, and there are 2 options:
+<br><br>
+To create a <a href="classHyper.html" class="m-doc">Hyper</a> object there are 2 options available:
 
 <ul style="list-style-type:circle;">
-<li><u>Read the prior distribution and the channel from files</u></li>
+<h3><p><li><u>Read the prior distribution and the channel from files</u></li></p></h3>
 You can read the prior distribution on a set of secrets and the channel from files.
 
 <br><br>
 The prior distribution must be in the following format:
-<pre class="fragment">
+<p><pre class="fragment">
 n
 p1
 p2
 ...
 pn
-</pre>
+</pre></p>
 where <code>n</code> is the number of secrets and <code>pi</code> is the probability
 of the ith secret occurs.
 
 <br><br>
 The channel must be in the following format:
-<pre class="fragment">n y
+<p><pre class="fragment">n y
 p11 p12 ... p1y
 p21 p22 ... p2y
 ...
 pn1 pn2 ... pny
-</pre>
+</pre></p>
 where <code>n</code> is the number of secrets (the rows), <code>y</code> is
-the number of possible outputs (the columns) and each cell (x<sub>i</sub>,y<sub>j</sub>)
-is the conditional probability p(y<sub>j</sub>|x<sub>i</sub>).
+the number of possible outputs (the columns) and each value (x<sub>i</sub>,y<sub>j</sub>)
+is the conditional probability p(y<sub>j</sub>|x<sub>i</sub>). Each two values must be separated by a space (" ").
 
 <br><br>
 Suppose you have the prior distribution in a file called <code>prior_distribution.txt</code> and
 a channel in a file called <code>channel.txt</code>.
 <br>
-To create the hyper-distribution you shall use:
-<pre class="fragment">
-<a style="color:#0066ff">Hyper</a> hyper(<a style="color:#b3b300">"prior_distribution.txt"</a>, <a style="color:#b3b300">"channel.txt"</a>);
-</pre>
+To create the hyper-distribution you have to type:
+<p><pre class="fragment">
+<a style="color:#80b3ff">Hyper</a> hyper(<a style="color:#e6e600">"prior_distribution.txt"</a>, <a style="color:#e6e600">"channel.txt"</a>);
+</pre></p>
 
+<br>
+<aside class="m-note m-default"><h4>Reference</h4><span class="m-doc-wrap-bumper"><a href="classHyper.html#a8b42605e755e5fac732556cc75142445" class="m-doc">Hyper</a>(</span><span class="m-doc-wrap">std::string prior_file,
+              std::string channel_file)</span></aside>
 
 <br><br>
-<li><u>Use an existing Distribution and Channel objects</u></li>
-You just have to use the constructor and give two objects: The first one is a Distribution
-and the second one is a Channel. You shall use:
-<pre class="fragment">
-<a style="color:#0066ff">Distribtion</a> prior(<a style="color:#b3b300">"prior_distribution.txt"</a>);
-<a style="color:#0066ff">Channel</a> channel(<a style="color:#b3b300">"channel.txt"</a>);
-<a style="color:#0066ff">Hyper</a> hyper(prior, channel);
-</pre>
+<h3><li><u>Use existing Distribution and Channel objects</u></li></h3>
+As a <a href="classChannel.html" class="m-doc">Channel</a> has a pointer to a distribution (corresponding to the prior distribution on the set of secrets), it is not necessary to give a distribution as a parameter. So to create a hyper-distribution, you can give only the channel:
+<p><pre class="fragment">
+<a style="color:#80b3ff">Distribution</a> prior(<a style="color:#e6e600">"prior_distribution.txt"</a>);
+<a style="color:#80b3ff">Channel</a> channel(prior, <a style="color:#e6e600">"channel.txt"</a>);
+<a style="color:#80b3ff">Hyper</a> hyper(channel);
+</pre></p>
+
+<br>
+<aside class="m-note m-default"><h4>Reference</h4><span class="m-doc-wrap-bumper"><a href="classHyper.html#af4fad41da3d94d16ef6210b9a32a1e87" class="m-doc">Hyper</a>(</span><span class="m-doc-wrap"><a href="classChannel.html" class="m-doc">Channel</a>&amp; channel)</span></aside>
+
 </ul>
+
+<!--  ********************************************************************************* -->
+<!--  ************************** USING HYPER-DISTRIBUTIONS **************************** -->
+<!--  ******************************************************************************** -->
 
 <br><br>
 
 <h2 id="using_hd">Using hyper-distributions</h2>
-Suppose you have created a hyper-distribution object and stored it in a variable <code><b>hyper</b></code>.
-
-<br>
-<h3>Accessing the prior distribution and the channel</h3>
-There are two pointers to the prior distribution on the set of secrets and to the channel:
-<code><b>prior</b></code> and <code><b>channel</b></code> respectively.
-<br>
-For example, you can access the number of secrets and the number of outputs of the channel:
-<pre class="fragment">
-<a style="color:#0066ff">int</a> number_secrets = hyper.prior->num_el;
-<a style="color:#0066ff">int</a> number_outputs = hyper.channel->num_out;
-</pre>
-
-<br>
-<h3>Accessing the joint distribution</h3>
-When you mutiply the prior distribution by each column of the channel matrix, you obtain the <b>joint distribution</b>.
-<br>
-A <code>Hyper</code> object has an attribute called <code><b>joint</b></code> to keep the joint distribtuion,
-and it is a <code>std::vector&lt;std::vector&lt;long double&gt;&gt;</code>. There are <code>n</code> rows indexed from
-0 to <code>n</code>-1, where <code>n</code> is the number of secrets and there are <code>y</code> columns indexed from
-0 to <code>y</code>-1, where <code>y</code> is the number of outputs of the channel.
+Suppose you have created a <a href="classHyper.html" class="m-doc">Hyper</a> object and stored it in a variable <code>hyper</code>.
 
 <br><br>
-For example, to access the joint probability p(x<sub>1</sub>,y<sub>4</sub>) you shall use:
-<pre class="fragment">
-<a style="color:#0066ff">long double</a> prob_x1_y4 = hyper.joint[0][3];
-</pre>
+<h3><u>Accessing the prior distribution and the channel</u></h3>
+There are two pointers to the prior distribution on the set of secrets and to the channel:
+<code>prior</code> and <code>channel</code>, respectively.
+
+<br><br>
+For example, you can access the number of secrets and the number of channel outputs:
+<p><pre class="fragment">
+<a style="color:#80b3ff">int</a> number_secrets = hyper.prior->num_el;
+<a style="color:#80b3ff">int</a> number_outputs = hyper.channel->num_out;
+</pre></p>
 
 <br>
-<h3>Accessing the outer distributon</h3>
-A <code>Hyper</code> object has an attribute called <code><b>outer</b></code> to keep the outer distribution,
-and it is a <code>Distribution</code> object.
-<br>
-For example, to access the probability p(y<sub>2</sub>) of the 2<sup>nd</sup> output occur, you shall use:
-<pre class="fragment">
-<a style="color:#0066ff">long double</a> prob_second_output = hyper.outer.prob[1];
-</pre>
+<h3><u>Accessing the joint distribution</u></h3>
+A <a href="classHyper.html" class="m-doc">Hyper</a> object has an attribute called <code>joint</code> to keep the joint distribution.
+The <code>joint</code> type is <code>std::vector&lt;std::vector&lt;long double&gt;&gt;</code>. There are <b>n</b> rows indexed from
+0 to <b>n</b>-1, where <b>n</b> is the number of secrets and there are <b>y</b> columns indexed from
+0 to <b>y</b>-1, where <b>y</b> is the number of outputs of the channel.
+
+<br><br>
+For example, to access the joint probability p(x<sub>1</sub>,y<sub>4</sub>) you have to type:
+<p><pre class="fragment">
+<a style="color:#80b3ff">long double</a> prob_x1_y4 = hyper.joint[0][3];
+</pre></p>
 
 <br>
-<h3>Accessing the inner distributions</h3>
-A <code>Hyper</code> object has an attribute called <code><b>inners</b></code> to keep the inner distribtuions,
-and it is a <code>std::vector&lt;std::vector&lt;long double&gt;&gt;</code>. There are <code>n</code> rows indexed from
-0 to <code>n</code>-1, where <code>n</code> is the number of secrets and there are <code>y</code> columns indexed from
-0 to <code>y</code>-1, where <code>y</code> is the number of outputs of the channel.
-<br>
-For example, to access the conditional probability p(x<sub>2</sub>|y<sub>1</sub>) you shall use:
-<pre class="fragment">
-<a style="color:#0066ff">long double</a> prob_x2_y1 = hyper.inners[1][0];
-</pre>
+<h3><u>Accessing the outer distributon</u></h3>
+A <a href="classHyper.html" class="m-doc">Hyper</a> object has an attribute called <code>outer</code> to keep the outer distribution,
+and it is a <a href="classDistribution.html" class="m-doc">Distribution</a> object.
+
+<br><br>
+For example, to access the probability p(y<sub>2</sub>) of the 2<sup>nd</sup> posterior occurring, you have to type:
+<p><pre class="fragment">
+<a style="color:#80b3ff">long double</a> prob_second_posterior = hyper.outer.prob[1];
+</pre></p>
 
 <br>
-<h3>Changing the prior distribution or the channel</h3>
+<h3><u>Accessing the inner distributions</u></h3>
+A <a href="classHyper.html" class="m-doc">Hyper</a> object has an attribute called <code>inners</code> to keep the inner distributions.
+The type of <code>inners</code> is <code>std::vector&lt;std::vector&lt;long double&gt;&gt;</code>. There are <b>n</b> rows indexed from
+0 to <b>n</b>-1, where <b>n</b> is the number of secrets and there are <b>y</b> columns indexed from
+0 to <b>y</b>-1, where <b>y</b> is the number of posterior distributions.
+
+<br><br>
+For example, to access the conditional probability p(x<sub>2</sub>|y<sub>1</sub>) you have to type:
+<p><pre class="fragment">
+<a style="color:#80b3ff">long double</a> prob_x2_y1 = hyper.inners[1][0];
+</pre></p>
+
+<br>
+<h3><u>Changing the prior distribution or the channel</u></h3>
 If you have already created a hyper-distribution and need to change the prior
-distribution or the channel, it is possible.
-<br>
-For example, to change the prior, you can create a <i>new</i> <code>Distribution</code>
-object at replace the pointer <code><b>prior</b></code>:
-<pre class="fragment">
-<a style="color:#0066ff">Hyper</a> hyper(<a style="color:#b3b300">"prior_distribution.txt"</a>, <a style="color:#b3b300">channel.txt</a>);
+distribution or the channel, it is possible using the function <a href="classHyper.html#aebc411ab3484e9a0e6723b872f774ed9" class="m-doc">rebuildHyper</a>.
 
-<a style="color:#c2c2d6">// Change the prior distribution</a>
-free(hyper.prior);
-hyper.prior = new Distribution(<a style="color:#b3b300">"new_prior.txt"</a>);
-</pre>
+<br><br>
+To change the prior distribution or the channel, you have to type:
+<p><pre class="fragment">
+<a style="color:#c2c2d6">// Original hyper-distribution</a>
+<a style="color:#80b3ff">Hyper</a> hyper(<a style="color:#e6e600">"prior.txt"</a>, <a style="color:#e6e600">"channel.txt"</a>);
+
+<a style="color:#c2c2d6">// Creating new prior and channel</a>
+<a style="color:#80b3ff">Distribution</a> new_prior(<a style="color:#e6e600">"another_prior.txt"</a>);
+<a style="color:#80b3ff">Channel</a> new_channel(<a style="color:#e6e600">"another_channel.txt"</a>);
+
+<a style="color:#c2c2d6">// Rebuilding the hyper-distribution using the new prior</a>
+hyper.rebuildHyper(new_prior);
+
+<a style="color:#c2c2d6">// Or rebuild using a new channel</a>
+hyper.rebuildHyper(new_channel);
+</pre></p>
 
 <br>
-<h3>Printing</h3>
+<aside class="m-note m-default"><h4>References</h4><span class="m-doc-wrap-bumper">void <a href="#aebc411ab3484e9a0e6723b872f774ed9" class="m-doc">rebuildHyper</a>(</span><span class="m-doc-wrap"><a href="classDistribution.html" class="m-doc">Distribution</a>&amp; prior)</span>
+<br>
+<span class="m-doc-wrap-bumper">void <a href="#ae9971d672c55e3e90d7bb1c1d2058535" class="m-doc">rebuildHyper</a>(</span><span class="m-doc-wrap"><a href="classChannel.html" class="m-doc">Channel</a>&amp; channel)</span>
+</aside>
+
+
+<br>
+<h3><u>Printing</u></h3>
 To print the joint, the outer or the inners, you can use the method <code>toString()</code>.
 It has two parameters:
-<ul>
-  <li>First: What you want to print. It must be <code>"joint"</code>, <code>"outer"</code>
-    or <code>"inners"</code>;</li>
-  <li>Second: The precision of the probabilities.</li>
-</ul>
+<p><ul>
+  <li><b>First:</b> What you want to print. It must be <code>"joint"</code>, <code>"outer"</code>
+    ,<code>"inners"</code> or <code>"labels"</code>;</li>
+  <li><b>Second:</b> The precision of the probabilities.</li>
+</ul></p>
 This method returns a <code>std::string</code>.
-<br>
-For example, if you want to get a string of the joint matrix with precision of 3, you shall use:
-<pre class="fragment">
-std::string joint_matrix = hyper.toString(<a style="color:#b3b300">"joint"</a>, 3);
+
+<br><br>
+For example, if you want to get a string of the joint matrix with precision of 3, you have to type:
+<p><pre class="fragment">
+std::string joint_matrix = hyper.toString(<a style="color:#e6e600">"joint"</a>, 3);
 std::cout << joint_matrix << std::endl;
-</pre>
+</pre></p>
 <br>
 The result is the following:
-<pre class="fragment">
+<p><pre class="fragment">
 0.062 0.062 0.125
 0.250 0.000 0.000
 0.000 0.500 0.000
-</pre>
+</pre></p>
 
 <br>
 
-For more details, see the documentation of <a href="classHyper.html#ac81a36d52602879830b2c49cc46f0b19">Hyper::toString()</a>.
+For more details, see the documentation of <a href="classHyper.html#ac81a36d52602879830b2c49cc46f0b19" class="m-doc">Hyper::toString()</a>.
 
 <br>
-You can also print the joint, the outer and the inners right into a file using the method <code>printToFile()</code>.
-See the documentation of <a href="classHyper.html#a6907c18d1a6810d1ab052ad08bc1bf1f">Hyper::printToFile()</a>.
+You can also print all elements from a hyper-distribution right into a file using the method <code>printToFile()</code>.
+See the documentation of <a href="classHyper.html#a6907c18d1a6810d1ab052ad08bc1bf1f" class="m-doc">Hyper::printToFile()</a>.
 
 <br><br>
-For more details about the class, see the documentation <a href="classHyper.html">here</a>.
+For more details about the class, see the documentation <a href="classHyper.html" class="m-doc">here</a>.
 
 <br><br>
-<hr><hr>
+<pre class="m-code"></pre>
+
+
+<!--  ********************************************************************************* -->
+<!--  *************************** CREATING GAIN FUNCTIONS ***************************** -->
+<!--  ********************************************************************************* -->
 
 <h2 id="creating_gain_functions">Creating gain functions</h2>
 
-A gain function is a function from a set of secrets (X) and a set of adversary actions (W) to a real number. So its a function g: X,W --> R.
-<br>
-A gain makes reference to an adversary's gain. The adversary can take some action, and for each secret, he or she achieves a gain.
-<br>
-As a gain function makes reference to a set of secrets, one of the attributes is a pointer to a Distribution, which represents the prior probability distribution on the set of secrets.
+A gain function can be represented as a matrix <code>w</code> x <code>n</code>, where <code>w</code> is the number of actions that the adversary can take and <code>n</code> is the number of secrets. Each value <i>gain(w<sub>i</sub>,x<sub>j</sub>)</i> corresponds to the gain that the adversary achieves when taking the action <i>w<sub>i</sub></i> and the real value of the secret is <i>x<sub>j</sub></i>.
 
 <br><br>
-We can represent this function as a matrix, where each position (w<sub>i</sub>,x<sub>j</sub>) corresponds to the gain that the adversary achieves when taking the action w<sub>i</sub> and the real value of the secret is x<sub>j</sub>. The rows in the matrix correspond to adversary actions and the columns correspond to secrets.
+Before creating a <a href="classGain.html" class="m-doc">Gain</a> object you need to have a prior <a href="classDistribution.html" class="m-doc">Distribution</a> on a set of secrets.
+
+To create a <a href="classGain.html" class="m-doc">Gain</a> object there are 3 options:
 
 <br><br>
-Before creating a gain function object, you must already have an object <b>Distribution</b>, which contains the <i>prior distribution</i> on the set of secrets. The set of secrets of the channel must be the same as the set from the prior. After that, to create a <b>Gain</b> object you shall use its constructors, and there are 3 options:
-
 <ul style="list-style-type:circle;">
-<li><u>Read the gain function matrix from a file</u></li>
+<h3><li><u>Read the gain function matrix from a file</u></li></h3>
 You can read the gain function matrix from a file in the following format:
-<pre class="fragment">
-w x
-p11 p12 ... p1x
-p21 p22 ... p2x
+<p><pre class="fragment">
+w n
+p11 p12 ... p1n
+p21 p22 ... p2n
 ...
-pw1 pw2 ... pwx
-</pre>
-where <code>w</code> is the number of actions, <code>x</code> is the number of secrets and each two values in the same line are separated by a space (" ").
+pw1 pw2 ... pwn
+</pre></p>
+where <code>w</code> is the number of actions, <code>n</code> is the number of secrets and each two values must be separated by a space (" ").
 
 <br><br>
-Suppose you have a file called <code>gain.txt</code>. To create a gain function you shall use:
+Suppose you have a file called <code>gain.txt</code>. To create a gain function you have to type:
 <br>
-<pre class="fragment">
-<a style="color:#0066ff">Distribution</a> dist(<a style="color:#b3b300">"prior_distribution.txt"</a>);
-<a style="color:#0066ff">Gain</a> gain(dist, <a style="color:#b3b300">"gain.txt"</a>);
-</pre>
+<p><pre class="fragment">
+<a style="color:#80b3ff">Distribution</a> prior(<a style="color:#e6e600">"prior_distribution.txt"</a>);
+<a style="color:#80b3ff">Gain</a> gain(prior, <a style="color:#e6e600">"gain.txt"</a>);
+</pre></p>
+
+<aside class="m-note m-danger"><h4>Warning</h4><p>The number of columns in the gain function matrix must be equals to the number of elements in the prior distribution.</p></aside>
+
+<br>
+<aside class="m-note m-default"><h4>Reference</h4><span class="m-doc-wrap-bumper"><a href="classGain.html#aa7f48629008620f51acf6d6e4e2f4706" class="m-doc">Gain</a>(</span><span class="m-doc-wrap"><a href="classDistribution.html" class="m-doc">Distribution</a>&amp; prior,
+              std::string file)</span></aside>
 
 <br><br>
 
-<li><u>Use an existing matrix of numbers</u></li>
-You just have to use the constructor and give the matrix. The type of the matrix must be a <code>std::vector&lt;std::&lt;long double&gt;&gt;</code>.
-<br>
-To crete a gain function from a matrix <code>M</code> you shall use:
-<pre class="fragment">
-<a style="color:#0066ff">Distribution</a> dist(<a style="color:#b3b300">"prior_distribution.txt"</a>);
-std::vector&lt;std::vector&lt;<a style="color:#0066ff">long double</a>&gt;&gt;<a style="color:#0066ff"> M</a>({{10, 20, 30},
+<p><li><u>Use an existing matrix of numbers</u></li></p>
+The type of the matrix must be <code>std::vector&lt;std::&lt;long double&gt;&gt;</code>.
+
+<br><br>
+To crete a gain function from a matrix <code>M</code> you have to type:
+<p><pre class="fragment">
+<a style="color:#80b3ff">Distribution</a> prior(<a style="color:#e6e600">"prior_distribution.txt"</a>);
+std::vector&lt;std::vector&lt;<a style="color:#80b3ff">long double</a>&gt;&gt;<a style="color:#80b3ff"> M</a>({{10, 20, 30},
                                          {-5, -6, 10},
                                          { 0, 10,  0}});
-<a style="color:#0066ff">Gain</a> gain(dist, M);
-</pre>
+<a style="color:#80b3ff">Gain</a> gain(prior, M);
+</pre></p>
 
-br><br>
+<aside class="m-note m-danger"><h4>Warning</h4><p>The number of columns in matrix <code>M</code> must be equals to the number of elements in the prior distribution.</p></aside>
 
-<li><u>Generate a random gain function matrix</u></li>
-To create a random gain function, the first 
+<br>
+<aside class="m-note m-default"><h4>Reference</h4><span class="m-doc-wrap-bumper"><a href="classGain.html#a93ee06b79825398ecbda567b0b217d5b" class="m-doc">Gain</a>(</span><span class="m-doc-wrap"><a href="classDistribution.html" class="m-doc">Distribution</a>&amp; prior,
+              std::vector&lt;std::vector&lt;long double&gt;&gt;&amp; matrix)</span></aside>
+
+<br><br>
+
+<p><li><u>Generate a random gain function</u></li></p>
+To create a random gain function, there are 4 parameters in the constructor:
+<p><ul>
+		<li><b>First:</b> Prior distribution on the set of secrets;</li>
+		<li><b>Second:</b> Number of actions that the adversary can take;</li>
+		<li><b>Third:</b> Lower bound for the gain of an action;</li>
+		<li><b>Fourth:</b> Upper bound for the gain of an action.</li>
+</ul></p>
+
+<br>
+For example, to create a gain function with 7 actions which give a gain in the interval [-5,5], you have to type:
+<p><pre class="fragment">
+<a style="color:#80b3ff">Distribution</a> prior(<a style="color:#e6e600">"prior_distribution.txt"</a>);
+<a style="color:#80b3ff">Gain</a> gain(prior, 7, -5, 5);
+</pre></p>
+<br>
+<aside class="m-note m-default"><h4>Reference</h4><span class="m-doc-wrap-bumper"><a href="classGain.html#a17ae92fd77401bc67a7be1b737dc92a2" class="m-doc">Gain</a>(</span><span class="m-doc-wrap"><a href="classDistribution.html" class="m-doc">Distribution</a>&amp; prior,
+              int num_act,
+              int MIN,
+              int MAX)</span></aside>
 
 </ul>
+
+<!--  ********************************************************************************* -->
+<!--  **************************** USING GAIN FUNCTIONS ******************************* -->
+<!--  ********************************************************************************* -->
+
+<h2 id="using_gain_functions">Using gain functions</h2>
+Suppose you have created a gain function using one of the constructors above and stored it in the variable <code>gain</code>.
+
+<br><br>
+<h3><u>Accesing the prior distribution</u></h3>
+There is a pointer to a <a href="classDistribution.html" class="m-doc">Distribution</a> object: <code>prior</code>.
+You can get, for example, the number of secrets:
+<p><pre class="fragment">
+<a style="color:#80b3ff">int</a> number_secrets = gain.prior->num_el;
+</pre></p>
+
+<br>
+<h3><u>Accesing the gain function matrix</u></h3>
+To get a gain from the gain function matrix, you have to access the attribute <code>matrix</code>. The rows are indexed from 0 to <code>w-1</code>, where <code>w</code> is the number of actions, and the columnds are indexed from 0 to <code>n-1</code>, where <code>n</code> is the number of secrets.
+
+<br><br>
+For example, to get the gain that the adversary achieves by taking actions <i>w<sub>4</sub></i> when the actual value of the secret is <i>n<sub>2</sub></i>, you have to type:
+
+<p><pre class="fragment">
+<a style="color:#80b3ff">long double</a> gain_w4_n2 = gain.matrix[3][1];
+</pre></p>
+
+<br>
+<h3><u>Getting the number of actions from the gain function</u></h3>
+The number of actions is stored in the attribute <code>num_act</code>:
+<p><pre class="fragment">
+<a style="color:#80b3ff">int</a> number_actions = gain.num_act;
+</pre></p>
+
+<br>
+<h3><u>Printing</u></h3>
+To print the gain function matrix on the screen, you can use the method <code>toString()</code>.
+<br>
+The method has one parameter: the precision of the probabilities, and it returns a
+<code>std::string</code>.
+
+<br><br>
+For example, if you want to get a string with precision of
+2, you have to type:
+<p><pre class="fragment">
+std::string str_gain = gain.toString(2);
+std::cout << str_gain << std::endl;
+</pre></p>
+
+<br>
+The result is the following:
+<p><pre class="fragment">
+50.00 -6.00 10.00
+-9.00 25.00 -9.00
+-3.00 12.00 33.00
+</pre></p>
+
+<br>
+For more details, see the documentation of <a href="classGain.html#af7d0e10e923439ab56033f719f67bea7" class="m-doc">Gain::toString()</a>.
+
+<br>
+You can also print the gain function matrix right into a file using the method <code>printToFile()</code>.
+See the documentation of <a href="classGain.html#a75fc2d0f0f74e4f24c39e4b04963c7b1" class="m-doc">Gain::printToFile()</a>.
+
+<br><br>
+For more details about the class, see the documentation <a href="classGain.html" class="m-doc">here</a>.
+
+<br><br>
+<pre class="m-code"></pre>
+
+<!--  ********************************************************************************* -->
+<!--  ****************************** MEASURE FUNCTIONS ******************************** -->
+<!--  ********************************************************************************* -->
+<h2 id="measurement_functions">Measurement functions</h2>
+This library offers some functions to calculate vulnerabilities, leakages and entropies of systems.
+
+<br>
+Here is a list of all available functions:
+
+<br><br>
+<section id="description"><h3><a href="#description">Vulnerability measures</a></h3>
+  <ul>
+    <li><a href="vulnerability_8hpp.html#a748b4757e966f1c67c48ea68205b7099"  class="m-doc">Bayes Vulnerability</a></li>
+    <li><a href="vulnerability_8hpp.html#a5819244754de43063cbe63f022c49c28"  class="m-doc">g-vulnerability</a></li>
+    <li><a href="vulnerability_8hpp.html#abd64bb03237bb0faa5c16e099eb8307d"  class="m-doc">k-tries</a></li>
+  </ul>
+</section>
+
+<section id="req"><h3><a href="#req">Leakage measures</a></h3>
+  <ul>
+    <li><a href="leakage_8hpp.html#a74339cfe6bbd5a9f63b63d27cb274cbc"  class="m-doc">Additive leakage</a></li>
+    <li><a href="leakage_8hpp.html#af44b52c4e2ed1fec9dbe8586dc022a6e"  class="m-doc">Multiplicative leakage</a></li>
+  </ul>
+</section>
+
+<section id="usage"><h3><a href="#usage">Entropy measures</a></h3>
+  <ul>
+    <li><a href="entropy_8hpp.html#a4deab39c6b37d0d42932c74bb1d57c03"  class="m-doc">Guessing entropy</a></li>
+    <li><a href="entropy_8hpp.html#a15d635d0861a89c8ff584a6a82c08e02"  class="m-doc">Shannon entropy</a></li>
+  </ul>
+
 
 </article></main>
 <div class="m-doc-search" id="search">
