@@ -1,28 +1,30 @@
+CFLAGS=-std=c++11 -O4 -Wall -Wextra -Werror -pedantic
+
 all: qif.o distribution.o channel.o gain.o hyper.o vulnerability.o entropy.o leakage.o binary
 
 qif.o:
-	g++ -std=c++11 -c ./src/qif.cpp -O2 -O3 -O4 -Wall -Wextra -Werror -pedantic
+	g++ -c ./src/qif.cpp $(CFLAGS)
 
 distribution.o:
-	g++ -std=c++11 -c ./src/distribution.cpp -O2 -O3 -O4 -Wall -Wextra -Werror -pedantic
+	g++ -c ./src/distribution.cpp $(CFLAGS)
 
 channel.o:
-	g++ -std=c++11 -c ./src/channel.cpp -O2 -O3 -O4 -Wall -Wextra -Werror -pedantic
+	g++ -c ./src/channel.cpp $(CFLAGS)
 
 gain.o:
-	g++ -std=c++11 -c ./src/gain.cpp -O2 -O3 -O4 -Wall -Wextra -Werror -pedantic
+	g++ -c ./src/gain.cpp $(CFLAGS)
 
 hyper.o:
-	g++ -std=c++11 -c ./src/hyper.cpp -O2 -O3 -O4 -Wall -Wextra -Werror -pedantic
+	g++ -c ./src/hyper.cpp $(CFLAGS)
 
 vulnerability.o:
-	g++ -std=c++11 -c ./src/vulnerability.cpp -O2 -O3 -O4 -Wall -Wextra -Werror -pedantic
+	g++ -c ./src/vulnerability.cpp $(CFLAGS)
 
 entropy.o:
-	g++ -std=c++11 -c ./src/entropy.cpp -O2 -O3 -O4 -Wall -Wextra -Werror -pedantic
+	g++ -c ./src/entropy.cpp $(CFLAGS)
 
 leakage.o:
-	g++ -std=c++11 -c ./src/leakage.cpp -O2 -O3 -O4 -Wall -Wextra -Werror -pedantic
+	g++ -c ./src/leakage.cpp $(CFLAGS)
 
 binary:
 	ar rcs qif.a distribution.o channel.o gain.o hyper.o vulnerability.o entropy.o leakage.o

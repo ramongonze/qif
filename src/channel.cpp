@@ -3,7 +3,7 @@
 Channel::Channel(){
 	num_out = 0;
 	prior = NULL;
-	matrix.resize(0, std::vector<long double>(0));
+	matrix = std::vector<std::vector<long double> >(0, std::vector<long double>(0));
 }
 
 Channel::Channel(Distribution &prior, std::string file){
@@ -28,7 +28,7 @@ Channel::Channel(Distribution &prior, std::string file){
 
 	this->prior = &prior;
 
-	matrix.resize(this->prior->num_el, std::vector<long double>(num_out));
+	matrix = std::vector<std::vector<long double> >(this->prior->num_el, std::vector<long double>(num_out));
 
 	for(int i = 0; i < this->prior->num_el; i++){
 		for(int j = 0; j < num_out; j++){
@@ -54,7 +54,7 @@ Channel::Channel(Distribution &prior, std::vector<std::vector<long double> > &ma
 		exit(EXIT_FAILURE);
 	}
 
-	this->matrix.resize(this->prior->num_el, std::vector<long double>(this->num_out));
+	this->matrix = std::vector<std::vector<long double> >(this->prior->num_el, std::vector<long double>(this->num_out));
 
 	for(int i = 0; i < prior.num_el; i++){
 		for(int j = 0; j < this->num_out; j++){
@@ -73,7 +73,7 @@ Channel::Channel(Distribution &prior, int num_out){
 	this->prior = &prior;
 	this->num_out = num_out;
 
-	matrix.resize(this->prior->num_el, std::vector<long double>(this->num_out));
+	matrix = std::vector<std::vector<long double> >(this->prior->num_el, std::vector<long double>(this->num_out));
 
 	for(int i = 0; i < this->prior->num_el; i++){
 		int threshold = RAND_MAX;

@@ -3,7 +3,7 @@
 Gain::Gain(){
 	num_act = 0;
 	prior = NULL;
-	matrix.resize(0, std::vector<long double>(0));
+	matrix = std::vector<std::vector<long double> >(0, std::vector<long double>(0));
 }
 
 Gain::Gain(Distribution &prior, std::string file){
@@ -27,7 +27,7 @@ Gain::Gain(Distribution &prior, std::string file){
 	}
 
 	this->prior = &prior;
-	matrix.resize(num_act, std::vector<long double>(this->prior->num_el));
+	matrix = std::vector<std::vector<long double> >(num_act, std::vector<long double>(this->prior->num_el));
 
 	for(int i = 0; i < num_act; i++){
 		for(int j = 0; j < this->prior->num_el; j++){
@@ -52,7 +52,7 @@ Gain::Gain(Distribution &prior, std::vector<std::vector<long double> > &matrix){
 	this->prior = &prior;
 	this->num_act = matrix[0].size();
 
-	this->matrix.resize(this->num_act, std::vector<long double>(this->prior->num_el));
+	this->matrix = std::vector<std::vector<long double> >(this->num_act, std::vector<long double>(this->prior->num_el));
 	for(int i = 0; i < this->prior->num_el; i++){
 		for(int j = 0; j < this->num_act; j++){
 			this->matrix[i][j] = matrix[i][j];
@@ -64,7 +64,7 @@ Gain::Gain(Distribution &prior, int num_act, int MIN, int MAX){
 	this->prior = &prior;
 	this->num_act = num_act;
 
-	matrix.resize(this->num_act, std::vector<long double>(this->prior->num_el));
+	matrix = std::vector<std::vector<long double> >(this->num_act, std::vector<long double>(this->prior->num_el));
 
 	for(int i = 0; i < this->num_act; i++){
 		for(int j = 0; j < this->prior->num_el; j++){

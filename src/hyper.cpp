@@ -1,7 +1,7 @@
 #include "../include/hyper.hpp"
 
 void Hyper::buildJoint(){
-	joint.resize(prior->num_el, std::vector<long double>(channel->num_out));
+	joint = std::vector<std::vector<long double> >(prior->num_el, std::vector<long double>(channel->num_out));
 
 	for(int i = 0; i < prior->num_el; i++){
 		for(int j = 0; j < channel->num_out; j++){
@@ -12,7 +12,7 @@ void Hyper::buildJoint(){
 
 void Hyper::buildOuter(){
 	outer.num_el = channel->num_out;
-	outer.prob.resize(outer.num_el);
+	outer.prob = std::vector<long double>(outer.num_el);
 
 	/* outer.prob[x] = sum of column x in joint matrix */
 	for(int j = 0; j < channel->num_out; j++){
@@ -24,7 +24,7 @@ void Hyper::buildOuter(){
 }
 
 void Hyper::buildInners(){
-	inners.resize(prior->num_el, std::vector<long double>(channel->num_out));
+	inners = std::vector<std::vector<long double> >(prior->num_el, std::vector<long double>(channel->num_out));
 
 	for(int i = 0; i < prior->num_el; i++){
 		for(int j = 0; j < channel->num_out; j++){
@@ -99,8 +99,8 @@ Hyper::Hyper(){
 	num_post = 0;
 	prior = NULL;
 	channel = NULL;
-	joint.resize(0, std::vector<long double>(0));
-	inners.resize(0, std::vector<long double>(0));
+	joint = std::vector<std::vector<long double> >(0, std::vector<long double>(0));
+	inners = std::vector<std::vector<long double> >(0, std::vector<long double>(0));
 }
 
 Hyper::Hyper(std::string prior_file, std::string channel_file){
@@ -125,7 +125,7 @@ Hyper::Hyper(Channel &channel){
 
 void Hyper::rebuildHyper(Distribution &prior){
 	if(channel == NULL){
-		fprintf(stderr, "The hyper-distribution can not be rebuilt if it was not been created!\n");
+		fprintf(stderr, "The hyper-distribution can not be rebuilt if it has not been created!\n");
 		exit(EXIT_FAILURE);
 	}
 
