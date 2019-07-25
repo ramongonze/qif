@@ -16,17 +16,17 @@ long double guessingEntropy(Distribution &prior){
 long double guessingEntropy(Hyper &hyper){
 	long double g_entropy = 0;
 
-	for(int i = 0; i < hyper.channel->num_out; i++){
+	for(int i = 0; i < hyper.channel.num_out; i++){
 		std::vector<long double> ordered_dist;
 
-		for(int j = 0; j < hyper.prior->num_el; j++){
+		for(int j = 0; j < hyper.prior.num_el; j++){
 			ordered_dist.push_back(hyper.inners[j][i]);
 		}
 
 		sort(ordered_dist.rbegin(), ordered_dist.rend());
 
 		long double post_g_entropy = 0;
-		for(int j = 0; j < hyper.prior->num_el; j++){
+		for(int j = 0; j < hyper.prior.num_el; j++){
 			post_g_entropy += ((j+1) * ordered_dist[j]);
 		}
 
@@ -52,11 +52,11 @@ long double shannonEntropy(Distribution &dist){
 long double shannonEntropy(Hyper &hyper){
 	long double entropy = 0;
 
-	for(int i = 0; i < hyper.channel->num_out; i++){
+	for(int i = 0; i < hyper.channel.num_out; i++){
 		/* For every posterior distribution */
 		
 		long double posteriorEntropy = 0;
-		for(int j = 0; j < hyper.prior->num_el; j++){
+		for(int j = 0; j < hyper.prior.num_el; j++){
 			if(hyper.inners[j][i] > 0){
 				posteriorEntropy += (hyper.inners[j][i] * log2(hyper.inners[j][i]));
 			}

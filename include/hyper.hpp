@@ -105,14 +105,14 @@ class Hyper{
 		 *
 		 * It is a distribution on the set of secrets. See @ref Distribution for more details.
 		 */
-		Distribution *prior = NULL;
+		Distribution prior;
 
 		/**
 		 * \brief A pointer to a channel.
 		 *
 		 * It is an informational channel. See @ref Channel for more details.
 		 */
-		Channel *channel = NULL;
+		Channel channel;
 
 		/**
 		 * \brief Joint distribution matrix.

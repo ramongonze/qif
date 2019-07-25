@@ -91,7 +91,7 @@ class Channel{
 		 *
 		 * See the documentation of @ref Distribution for more details. 
 		 */
-		Distribution *prior;
+		Distribution prior;
 		
 		/**
 		 * \brief Channel matrix.

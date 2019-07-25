@@ -2,7 +2,7 @@
 
 Gain::Gain(){
 	num_act = 0;
-	prior = NULL;
+	prior = Distribution();
 	matrix = std::vector<std::vector<long double> >(0, std::vector<long double>(0));
 }
 
@@ -26,11 +26,11 @@ Gain::Gain(Distribution &prior, std::string file){
 		exit(EXIT_FAILURE);
 	}
 
-	this->prior = &prior;
-	matrix = std::vector<std::vector<long double> >(num_act, std::vector<long double>(this->prior->num_el));
+	this->prior = Distribution(prior.prob);
+	matrix = std::vector<std::vector<long double> >(num_act, std::vector<long double>(this->prior.num_el));
 
 	for(int i = 0; i < num_act; i++){
-		for(int j = 0; j < this->prior->num_el; j++){
+		for(int j = 0; j < this->prior.num_el; j++){
 			if(!fscanf(F, "%Lf", &matrix[i][j])){
 				exit(EXIT_FAILURE);
 			}
@@ -49,11 +49,11 @@ Gain::Gain(Distribution &prior, std::vector<std::vector<long double> > &matrix){
 		exit(EXIT_FAILURE);
 	}
 
-	this->prior = &prior;
+	this->prior = Distribution();
 	this->num_act = matrix[0].size();
 
-	this->matrix = std::vector<std::vector<long double> >(this->num_act, std::vector<long double>(this->prior->num_el));
-	for(int i = 0; i < this->prior->num_el; i++){
+	this->matrix = std::vector<std::vector<long double> >(this->num_act, std::vector<long double>(this->prior.num_el));
+	for(int i = 0; i < this->prior.num_el; i++){
 		for(int j = 0; j < this->num_act; j++){
 			this->matrix[i][j] = matrix[i][j];
 		}
@@ -61,13 +61,13 @@ Gain::Gain(Distribution &prior, std::vector<std::vector<long double> > &matrix){
 }
 
 Gain::Gain(Distribution &prior, int num_act, int MIN, int MAX){
-	this->prior = &prior;
+	this->prior = Distribution(prior.prob);
 	this->num_act = num_act;
 
-	matrix = std::vector<std::vector<long double> >(this->num_act, std::vector<long double>(this->prior->num_el));
+	matrix = std::vector<std::vector<long double> >(this->num_act, std::vector<long double>(this->prior.num_el));
 
 	for(int i = 0; i < this->num_act; i++){
-		for(int j = 0; j < this->prior->num_el; j++){
+		for(int j = 0; j < this->prior.num_el; j++){
 			matrix[i][j] = rand()%(MAX-MIN+1) + MIN;
 		}
 	}
@@ -78,10 +78,10 @@ std::string Gain::toString(int precision){
 	out << std::fixed << std::setprecision(precision);
 	
 	for(int i = 0; i < num_act; i++){
-		for(int j = 0; j < prior->num_el-1; j++){
+		for(int j = 0; j < prior.num_el-1; j++){
 			out << matrix[i][j] << " ";
 		}
-		out << matrix[i][prior->num_el-1] << "\n";
+		out << matrix[i][prior.num_el-1] << "\n";
 	}
 
 	return out.str();
@@ -95,13 +95,13 @@ void Gain::printToFile(std::string file, int precision){
 		exit(EXIT_FAILURE);
 	}
 
-	F << num_act << " " << prior->num_el << "\n";
+	F << num_act << " " << prior.num_el << "\n";
 	F << std::fixed << std::setprecision(precision);
 	for(int i = 0; i < num_act; i++){
-		for(int j = 0; j < prior->num_el-1; j++){
+		for(int j = 0; j < prior.num_el-1; j++){
 			F << matrix[i][j] << " ";
 		}
-		F << matrix[i][prior->num_el-1] << "\n";
+		F << matrix[i][prior.num_el-1] << "\n";
 	}
 
 	F.close();

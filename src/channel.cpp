@@ -1,9 +1,9 @@
 #include "../include/channel.hpp"
 
 Channel::Channel(){
-	num_out = 0;
-	prior = NULL;
-	matrix = std::vector<std::vector<long double> >(0, std::vector<long double>(0));
+	this->num_out = 0;
+	this->prior = Distribution();
+	this->matrix = std::vector<std::vector<long double> >(0, std::vector<long double>(0));
 }
 
 Channel::Channel(Distribution &prior, std::string file){
@@ -17,46 +17,45 @@ Channel::Channel(Distribution &prior, std::string file){
 		exit(EXIT_FAILURE);
 	}
 
-	if(!fscanf(F, "%d %d", &k, &num_out)){
+	if(!fscanf(F, "%d %d", &k, &(this->num_out))){
 		exit(EXIT_FAILURE);
 	}
 
-	if(k != prior.num_el || num_out <= 0){
+	if(k != prior.num_el || this->num_out <= 0){
 		fprintf(stderr, "Invalid matrix size!\n");
 		exit(EXIT_FAILURE);
 	}
 
-	this->prior = &prior;
+	this->prior = Distribution(prior.prob);
+	this->matrix = std::vector<std::vector<long double> >(this->prior.num_el, std::vector<long double>(this->num_out));
 
-	matrix = std::vector<std::vector<long double> >(this->prior->num_el, std::vector<long double>(num_out));
-
-	for(int i = 0; i < this->prior->num_el; i++){
-		for(int j = 0; j < num_out; j++){
-			if(!fscanf(F, "%Lf", &(matrix[i][j]))){
+	for(int i = 0; i < this->prior.num_el; i++){
+		for(int j = 0; j < this->num_out; j++){
+			if(!fscanf(F, "%Lf", &(this->matrix[i][j]))){
 				exit(EXIT_FAILURE);
 			}
 		}
 	}
 	fclose(F);
 
-	if(!Channel::isChannel(matrix)){
+	if(!Channel::isChannel(this->matrix)){
 		fprintf(stderr, "Error reading a channel. One of the rows is not a probability distribution!\n");
 		exit(EXIT_FAILURE);
 	}
 }
 
 Channel::Channel(Distribution &prior, std::vector<std::vector<long double> > &matrix){
-	this->prior = &prior;
+	this->prior = Distribution(prior.prob);
 	this->num_out = matrix[0].size();
 
-	if((unsigned int)prior.num_el != matrix.size()){
+	if((unsigned int)prior.num_el != this->matrix.size()){
 		fprintf(stderr, "The number of secrets in the prior distribution is different of the number of rows in the channel matrix!\n");
 		exit(EXIT_FAILURE);
 	}
 
-	this->matrix = std::vector<std::vector<long double> >(this->prior->num_el, std::vector<long double>(this->num_out));
+	this->matrix = std::vector<std::vector<long double> >(this->prior.num_el, std::vector<long double>(this->num_out));
 
-	for(int i = 0; i < prior.num_el; i++){
+	for(int i = 0; i < this->prior.num_el; i++){
 		for(int j = 0; j < this->num_out; j++){
 			this->matrix[i][j] = matrix[i][j];
 		}
@@ -69,13 +68,12 @@ Channel::Channel(Distribution &prior, std::vector<std::vector<long double> > &ma
 }
 
 Channel::Channel(Distribution &prior, int num_out){
-
-	this->prior = &prior;
+	this->prior = Distribution(prior.prob);
 	this->num_out = num_out;
 
-	matrix = std::vector<std::vector<long double> >(this->prior->num_el, std::vector<long double>(this->num_out));
+	this->matrix = std::vector<std::vector<long double> >(this->prior.num_el, std::vector<long double>(this->num_out));
 
-	for(int i = 0; i < this->prior->num_el; i++){
+	for(int i = 0; i < this->prior.num_el; i++){
 		int threshold = RAND_MAX;
 		int x;
 
@@ -104,11 +102,11 @@ std::string Channel::toString(int precision){
 	std::ostringstream out;
 	out << std::fixed << std::setprecision(precision);
 
-	for(int i = 0; i < prior->num_el; i++){
-		for(int j = 0; j < num_out-1; j++){
-			out << matrix[i][j] << " ";
+	for(int i = 0; i < this->prior.num_el; i++){
+		for(int j = 0; j < this->num_out-1; j++){
+			out << this->matrix[i][j] << " ";
 		}
-		out << matrix[i][num_out-1] << "\n";
+		out << this->matrix[i][this->num_out-1] << "\n";
 	}
 
 	return out.str();
@@ -122,13 +120,13 @@ void Channel::printToFile(std::string file, int precision){
 		exit(EXIT_FAILURE);
 	}
 
-	F << prior->num_el << " " << num_out << "\n";
+	F << this->prior.num_el << " " << this->num_out << "\n";
 	F << std::fixed << std::setprecision(precision);
-	for(int i = 0; i < prior->num_el; i++){
-		for(int j = 0; j < num_out-1; j++){
-			F << matrix[i][j] << " ";
+	for(int i = 0; i < this->prior.num_el; i++){
+		for(int j = 0; j < this->num_out-1; j++){
+			F << this->matrix[i][j] << " ";
 		}
-		F << matrix[i][num_out-1] << "\n";
+		F << this->matrix[i][this->num_out-1] << "\n";
 	}
 
 	F.close();

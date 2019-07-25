@@ -1,33 +1,33 @@
 #include "../include/hyper.hpp"
 
 void Hyper::buildJoint(){
-	joint = std::vector<std::vector<long double> >(prior->num_el, std::vector<long double>(channel->num_out));
+	joint = std::vector<std::vector<long double> >(prior.num_el, std::vector<long double>(channel.num_out));
 
-	for(int i = 0; i < prior->num_el; i++){
-		for(int j = 0; j < channel->num_out; j++){
-			joint[i][j] = channel->matrix[i][j] * prior->prob[i];
+	for(int i = 0; i < prior.num_el; i++){
+		for(int j = 0; j < channel.num_out; j++){
+			joint[i][j] = channel.matrix[i][j] * prior.prob[i];
 		}
 	}
 }
 
 void Hyper::buildOuter(){
-	outer.num_el = channel->num_out;
+	outer.num_el = channel.num_out;
 	outer.prob = std::vector<long double>(outer.num_el);
 
 	/* outer.prob[x] = sum of column x in joint matrix */
-	for(int j = 0; j < channel->num_out; j++){
+	for(int j = 0; j < channel.num_out; j++){
 		outer.prob[j] = 0.0f;
-		for(int i = 0; i < prior->num_el; i++){
+		for(int i = 0; i < prior.num_el; i++){
 			outer.prob[j] += joint[i][j];
 		}
 	}
 }
 
 void Hyper::buildInners(){
-	inners = std::vector<std::vector<long double> >(prior->num_el, std::vector<long double>(channel->num_out));
+	inners = std::vector<std::vector<long double> >(prior.num_el, std::vector<long double>(channel.num_out));
 
-	for(int i = 0; i < prior->num_el; i++){
-		for(int j = 0; j < channel->num_out; j++){
+	for(int i = 0; i < prior.num_el; i++){
+		for(int j = 0; j < channel.num_out; j++){
 			if(outer.prob[j] == 0){
 				inners[i][j] = 0;
 			}else{
@@ -40,10 +40,10 @@ void Hyper::buildInners(){
 void Hyper::reduceHyper(){
 	/* shouldErase[i] = true if the column i of the hyper matrix 
 	 * should be erased or shouldErase[i] = false otherwise */
-	std::vector<bool> shouldErase(channel->num_out, false);
+	std::vector<bool> shouldErase(channel.num_out, false);
 
 	int curInner = 0;
-	for(int i = 0; i < channel->num_out; i++){
+	for(int i = 0; i < channel.num_out; i++){
 		if(!shouldErase[i]){
 
 			/* Check if the posterior i has 0 probability of occuring */
@@ -55,13 +55,13 @@ void Hyper::reduceHyper(){
 			/* Create the set of old labels containing only the new label */
 			labels.insert(std::make_pair(curInner,std::set<int>({i})));
 			
-			for(int j = i+1; j < channel->num_out; j++){
+			for(int j = i+1; j < channel.num_out; j++){
 				if(shouldErase[j])
 					continue;
 
 				/* Check if the probability distributions of inners i and j are equal */
 				bool isEqual = true;
-				for(int k = 0; k < prior->num_el; k++){
+				for(int k = 0; k < prior.num_el; k++){
 					if(fabs(inners[k][i] - inners[k][j]) > EPS){
 						isEqual = false;
 						break;
@@ -82,10 +82,10 @@ void Hyper::reduceHyper(){
 	}
 
 	/* Delete all columns i where shouldErase[i] = true */
-	for(int j = channel->num_out-1; j >= 0; j--){
+	for(int j = channel.num_out-1; j >= 0; j--){
 		if(shouldErase[j]){
 			outer.prob.erase(outer.prob.begin() + j);
-			for(int i = 0; i < prior->num_el; i++){
+			for(int i = 0; i < prior.num_el; i++){
 				inners[i].erase(inners[i].begin()+j);
 			}
 		}
@@ -97,15 +97,15 @@ void Hyper::reduceHyper(){
 
 Hyper::Hyper(){
 	num_post = 0;
-	prior = NULL;
-	channel = NULL;
+	prior = Distribution();
+	channel = Channel();
 	joint = std::vector<std::vector<long double> >(0, std::vector<long double>(0));
 	inners = std::vector<std::vector<long double> >(0, std::vector<long double>(0));
 }
 
 Hyper::Hyper(std::string prior_file, std::string channel_file){
-	prior = new Distribution(prior_file);
-	channel = new Channel(*prior, channel_file);
+	prior = Distribution(prior_file);
+	channel = Channel(prior, channel_file);
 
 	buildJoint();
 	buildOuter();
@@ -114,8 +114,10 @@ Hyper::Hyper(std::string prior_file, std::string channel_file){
 }
 
 Hyper::Hyper(Channel &channel){
-	this->prior = channel.prior;
-	this->channel = &channel;
+	this->prior = Distribution(channel.prior.prob);
+	this->channel = Channel(this->prior, channel.matrix);
+	// this->prior = channel.prior;
+	// this->channel = &channel;
 
 	buildJoint();
 	buildOuter();
@@ -124,19 +126,21 @@ Hyper::Hyper(Channel &channel){
 }
 
 void Hyper::rebuildHyper(Distribution &prior){
-	if(channel == NULL){
+	if(prior.num_el == 0 && prior.prob.size() == 0 && channel.num_out == 0 && channel.matrix.size() == 0){
 		fprintf(stderr, "The hyper-distribution can not be rebuilt if it has not been created!\n");
 		exit(EXIT_FAILURE);
 	}
 
 	/* Check if the new prior is valid looking at the current channel */
-	if(prior.num_el != this->channel->prior->num_el){
+	if(prior.num_el != this->channel.prior.num_el){
 		fprintf(stderr, "The number of elements in the new prior differs from the number of rows in the current channel!\n");
 		exit(EXIT_FAILURE);
 	}
 
-	this->prior = &prior;
-	this->channel->prior = &prior;
+	this->prior = Distribution(prior.prob);
+	this->channel.prior = Distribution(prior.prob);
+	// this->prior = &prior;
+	// this->channel->prior = &prior;
 
 	buildJoint();
 	buildOuter();
@@ -145,19 +149,21 @@ void Hyper::rebuildHyper(Distribution &prior){
 }
 
 void Hyper::rebuildHyper(Channel &channel){
-	if(prior == NULL){
+	if(prior.num_el == 0 && prior.prob.size() == 0){
 		fprintf(stderr, "The hyper-distribution can not be rebuilt if it was not been created!\n");
 		exit(EXIT_FAILURE);
 	}
 
 	/* Check if the new channel is valid looking at the current prior */
-	if(this->prior->num_el != channel.prior->num_el){
+	if(this->prior.num_el != channel.prior.num_el){
 		fprintf(stderr, "The number of rows in the new channel differs from the number of elements in the current prior!\n");
 		exit(EXIT_FAILURE);
 	}
 
-	this->channel = &channel;
-	this->prior = this->channel->prior;
+	this->prior = Distribution(channel.prior.prob);
+	this->channel = Channel(this->prior, channel.matrix);
+	// this->channel = &channel;
+	// this->prior = this->channel->prior;
 
 	buildJoint();
 	buildOuter();

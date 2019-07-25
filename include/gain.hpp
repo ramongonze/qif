@@ -95,7 +95,7 @@ class Gain{
 		 *
 		 * It is a distribution on the set of secrets. See @ref Distribution for more details.
 		 */
-		Distribution *prior = NULL;
+		Distribution prior;
 		
 		/**
 		 * \brief Gain function matrix.
