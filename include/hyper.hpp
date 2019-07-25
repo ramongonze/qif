@@ -21,10 +21,10 @@
  *
  * A @ref Hyper object has 7 attributes:
  *
- * - @ref prior : A pointer to a @ref Distribution object, which represents
+ * - @ref prior : A @ref Distribution object, which represents
  * the prior probability distribution on the set of secrets.
  *
- * - @ref channel : A pointer to a @ref Channel object.
+ * - @ref channel : A @ref Channel object.
  *
  * - @ref joint : Joint dstribution matrix, where each position _joint[x][y]_ is the joint probability _p(x,y)_.
  *
@@ -93,7 +93,7 @@ class Hyper{
 		/**
 		 * \brief Constructor used when there is already a @ref Channel object in a variable.
 		 *
-		 * As a channel has a pointer to a distribution (corresponding to the prior distribution on the set of secrets),
+		 * As a channel has a distribution object (corresponding to the prior distribution on the set of secrets),
 		 * it is not necessary to give a @ref Distribution as a parameter.
 		 *
 		 * \param channel A @ref Channel object.
@@ -101,14 +101,14 @@ class Hyper{
 		Hyper(Channel &channel);
 
 		/**
-		 * \brief A pointer to a probability distribution on a set of secrets.
+		 * \brief A probability distribution on a set of secrets.
 		 *
 		 * It is a distribution on the set of secrets. See @ref Distribution for more details.
 		 */
 		Distribution prior;
 
 		/**
-		 * \brief A pointer to a channel.
+		 * \brief An informational channel.
 		 *
 		 * It is an informational channel. See @ref Channel for more details.
 		 */

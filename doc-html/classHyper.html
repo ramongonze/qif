@@ -60,7 +60,7 @@
             </li>
           </ul>
         </div>
-<p>Definition of hyper-distribution:</p><p>If <strong>X</strong> is a finite set (of possible secret values), π is the prior distribution on <strong>X</strong>, and C is a channel, a hyper-distribution <em>[π&gt;C]</em> resulted from C on π is a distribution on distributions on <strong>X</strong>. Each output in an informational channel is a possible &quot;world&quot;, and each possible world is a new distribution on the set of secrets. We call the possible worlds the <em>inner distributions</em>. Each possible world has a probability of occurring, and we call the distribution on the possible worlds as the <em>outer distribution</em>.</p><p>A <a href="classHyper.html" class="m-doc">Hyper</a> object has 7 attributes:</p><ul><li><a href="classHyper.html#a8a00b7aa377e1cebcb9be34f9ac35fbe" class="m-doc">prior</a> : A pointer to a <a href="classDistribution.html" class="m-doc">Distribution</a> object, which represents the prior probability distribution on the set of secrets.</li><li><a href="classHyper.html#a0f80b944566c8bacb1c2de27b3b1b27b" class="m-doc">channel</a> : A pointer to a <a href="classChannel.html" class="m-doc">Channel</a> object.</li><li><a href="classHyper.html#ab906ba6923940b6eb754a7b690628fae" class="m-doc">joint</a> : Joint dstribution matrix, where each position <em>joint[x][y]</em> is the joint probability <em>p(x,y)</em>.</li><li><a href="classHyper.html#a8ebd2c596528b7809c1220833c93d07e" class="m-doc">inners</a> : The inner distributions matrix. It is the set of possible &quot;worlds&quot; of a hyper-distribution. Each column of this matrix is a posterior distribution on the set of secrets.</li><li><a href="classHyper.html#a3fd93e3ba31d6ef6f495316c864e9876" class="m-doc">outer</a> : The probability distribution on the inners.</li><li><a href="classHyper.html#aac4f40b2f4ead071811e08d4160d8d44" class="m-doc">num_<wbr />post</a> : Number of posterior distributons.</li><li><a href="classHyper.html#a6cf35e3ca0001959aaa2d404719a0e53" class="m-doc">labels</a> : A map from an integer to a set. The number of posterior distributions can differ from the number of channel outputs, because when we have two or more posteriors that are equals, we simplify them merging into a single posterior, and sum their outer probabilities. So <em>labels</em> maps from posterior distributions to a subset of channel outputs.</li></ul>
+<p>Definition of hyper-distribution:</p><p>If <strong>X</strong> is a finite set (of possible secret values), π is the prior distribution on <strong>X</strong>, and C is a channel, a hyper-distribution <em>[π&gt;C]</em> resulted from C on π is a distribution on distributions on <strong>X</strong>. Each output in an informational channel is a possible &quot;world&quot;, and each possible world is a new distribution on the set of secrets. We call the possible worlds the <em>inner distributions</em>. Each possible world has a probability of occurring, and we call the distribution on the possible worlds as the <em>outer distribution</em>.</p><p>A <a href="classHyper.html" class="m-doc">Hyper</a> object has 7 attributes:</p><ul><li><a href="classHyper.html#a8a00b7aa377e1cebcb9be34f9ac35fbe" class="m-doc">prior</a> : A <a href="classDistribution.html" class="m-doc">Distribution</a> object, which represents the prior probability distribution on the set of secrets.</li><li><a href="classHyper.html#a0f80b944566c8bacb1c2de27b3b1b27b" class="m-doc">channel</a> : A <a href="classChannel.html" class="m-doc">Channel</a> object.</li><li><a href="classHyper.html#ab906ba6923940b6eb754a7b690628fae" class="m-doc">joint</a> : Joint dstribution matrix, where each position <em>joint[x][y]</em> is the joint probability <em>p(x,y)</em>.</li><li><a href="classHyper.html#a8ebd2c596528b7809c1220833c93d07e" class="m-doc">inners</a> : The inner distributions matrix. It is the set of possible &quot;worlds&quot; of a hyper-distribution. Each column of this matrix is a posterior distribution on the set of secrets.</li><li><a href="classHyper.html#a3fd93e3ba31d6ef6f495316c864e9876" class="m-doc">outer</a> : The probability distribution on the inners.</li><li><a href="classHyper.html#aac4f40b2f4ead071811e08d4160d8d44" class="m-doc">num_<wbr />post</a> : Number of posterior distributons.</li><li><a href="classHyper.html#a6cf35e3ca0001959aaa2d404719a0e53" class="m-doc">labels</a> : A map from an integer to a set. The number of posterior distributions can differ from the number of channel outputs, because when we have two or more posteriors that are equals, we simplify them merging into a single posterior, and sum their outer probabilities. So <em>labels</em> maps from posterior distributions to a subset of channel outputs.</li></ul>
         <section id="typeless-methods">
           <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
           <dl class="m-doc">
@@ -107,13 +107,13 @@
           <h2><a href="#pub-attribs">Public variables</a></h2>
           <dl class="m-doc">
             <dt>
-              <a href="classDistribution.html" class="m-doc">Distribution</a>* <a href="#a8a00b7aa377e1cebcb9be34f9ac35fbe" class="m-doc">prior</a>
+              <a href="classDistribution.html" class="m-doc">Distribution</a> <a href="#a8a00b7aa377e1cebcb9be34f9ac35fbe" class="m-doc">prior</a>
             </dt>
-            <dd>A pointer to a probability distribution on a set of secrets.</dd>
+            <dd>A probability distribution on a set of secrets.</dd>
             <dt>
-              <a href="classChannel.html" class="m-doc">Channel</a>* <a href="#a0f80b944566c8bacb1c2de27b3b1b27b" class="m-doc">channel</a>
+              <a href="classChannel.html" class="m-doc">Channel</a> <a href="#a0f80b944566c8bacb1c2de27b3b1b27b" class="m-doc">channel</a>
             </dt>
-            <dd>A pointer to a channel.</dd>
+            <dd>An informational channel.</dd>
             <dt>
               std::vector&lt;std::vector&lt;long double&gt;&gt; <a href="#ab906ba6923940b6eb754a7b690628fae" class="m-doc">joint</a>
             </dt>
@@ -194,7 +194,7 @@ pn1 pn2 ... pny
                 </tr>
               </tbody>
             </table>
-<p>As a channel has a pointer to a distribution (corresponding to the prior distribution on the set of secrets), it is not necessary to give a <a href="classDistribution.html" class="m-doc">Distribution</a> as a parameter.</p>
+<p>As a channel has a <a href="classDistribution.html" class="m-doc">Distribution</a> object (corresponding to the prior distribution on the set of secrets), it is not necessary to give a <a href="classDistribution.html" class="m-doc">Distribution</a> as a parameter.</p>
           </div></section>
           <section class="m-doc-details" id="ac81a36d52602879830b2c49cc46f0b19"><div>
             <h3>
@@ -327,16 +327,16 @@ y: xy1 xy2 ...
           <h2>Variable documentation</h2>
           <section class="m-doc-details" id="a8a00b7aa377e1cebcb9be34f9ac35fbe"><div>
             <h3>
-              <a href="classDistribution.html" class="m-doc">Distribution</a>* Hyper::<wbr /><a href="#a8a00b7aa377e1cebcb9be34f9ac35fbe" class="m-doc-self">prior</a>
+              <a href="classDistribution.html" class="m-doc">Distribution</a> Hyper::<wbr /><a href="#a8a00b7aa377e1cebcb9be34f9ac35fbe" class="m-doc-self">prior</a>
             </h3>
-            <p>A pointer to a probability distribution on a set of secrets.</p>
+            <p>A probability distribution on a set of secrets.</p>
 <p>It is a distribution on the set of secrets. See <a href="classDistribution.html" class="m-doc">Distribution</a> for more details.</p>
           </div></section>
           <section class="m-doc-details" id="a0f80b944566c8bacb1c2de27b3b1b27b"><div>
             <h3>
-              <a href="classChannel.html" class="m-doc">Channel</a>* Hyper::<wbr /><a href="#a0f80b944566c8bacb1c2de27b3b1b27b" class="m-doc-self">channel</a>
+              <a href="classChannel.html" class="m-doc">Channel</a> Hyper::<wbr /><a href="#a0f80b944566c8bacb1c2de27b3b1b27b" class="m-doc-self">channel</a>
             </h3>
-            <p>A pointer to a channel.</p>
+            <p>An informational channel.</p>
 <p>It is an informational channel. See <a href="classChannel.html" class="m-doc">Channel</a> for more details.</p>
           </div></section>
           <section class="m-doc-details" id="ab906ba6923940b6eb754a7b690628fae"><div>

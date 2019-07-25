@@ -61,7 +61,7 @@
             </li>
           </ul>
         </div>
-<p>A channel is a system that takes as input a secret <em>x</em>, whose possible values come from a finite set <strong>X</strong> , and whose only observable behavior is to produce an output <em>y</em>, whose possible values come from a finite set <strong>Y</strong>.</p><p>A <a href="classChannel.html" class="m-doc">Channel</a> object has three attributes:</p><ul><li><a href="classChannel.html#a31b20e9e427d9508d330f0ade205f813" class="m-doc">matrix</a> : A channel matrix from <strong>X</strong> to <strong>Y</strong> whose rows give the distribution on outputs corresponding to each possible input. That is, entry matrix[<em>x</em>][<em>y</em>] denotes <em>p(y|x)</em>, the conditional probability of getting output <em>y</em> given input <em>x</em>. Note that all entries in a channel matrix are between 0 and 1, and each row sums to 1.</li><li><a href="classChannel.html#a6863998670fd1abd2a20abfa488d18e2" class="m-doc">prior</a> : A pointer to a <a href="classDistribution.html" class="m-doc">Distribution</a> object, which represents the prior probability distribution on the set of secrets.</li><li><a href="classChannel.html#a84733fc60f228eca16d759e11c8913a3" class="m-doc">num_<wbr />out</a> : The number of outputs in the channel. It is exactly the number of columns in <a href="classChannel.html#a31b20e9e427d9508d330f0ade205f813" class="m-doc">matrix</a>.</li></ul><aside class="m-note m-danger"><h4>Warning</h4><p>To create a <a href="classChannel.html" class="m-doc">Channel</a> object you need first to create a <a href="classDistribution.html" class="m-doc">Distribution</a> object, to keep the prior distribution on the set of secrets.</p></aside>
+<p>A channel is a system that takes as input a secret <em>x</em>, whose possible values come from a finite set <strong>X</strong> , and whose only observable behavior is to produce an output <em>y</em>, whose possible values come from a finite set <strong>Y</strong>.</p><p>A <a href="classChannel.html" class="m-doc">Channel</a> object has three attributes:</p><ul><li><a href="classChannel.html#a31b20e9e427d9508d330f0ade205f813" class="m-doc">matrix</a> : A channel matrix from <strong>X</strong> to <strong>Y</strong> whose rows give the distribution on outputs corresponding to each possible input. That is, entry matrix[<em>x</em>][<em>y</em>] denotes <em>p(y|x)</em>, the conditional probability of getting output <em>y</em> given input <em>x</em>. Note that all entries in a channel matrix are between 0 and 1, and each row sums to 1.</li><li><a href="classChannel.html#a6863998670fd1abd2a20abfa488d18e2" class="m-doc">prior</a> : A <a href="classDistribution.html" class="m-doc">Distribution</a> object, which represents the prior probability distribution on the set of secrets.</li><li><a href="classChannel.html#a84733fc60f228eca16d759e11c8913a3" class="m-doc">num_<wbr />out</a> : The number of outputs in the channel. It is exactly the number of columns in <a href="classChannel.html#a31b20e9e427d9508d330f0ade205f813" class="m-doc">matrix</a>.</li></ul><aside class="m-note m-danger"><h4>Warning</h4><p>To create a <a href="classChannel.html" class="m-doc">Channel</a> object you need first to create a <a href="classDistribution.html" class="m-doc">Distribution</a> object, to keep the prior distribution on the set of secrets.</p></aside>
         <section id="pub-static-methods">
           <h2><a href="#pub-static-methods">Public static functions</a></h2>
           <dl class="m-doc">
@@ -117,7 +117,7 @@
             </dt>
             <dd>Number of outputs in the channel.</dd>
             <dt>
-              <a href="classDistribution.html" class="m-doc">Distribution</a>* <a href="#a6863998670fd1abd2a20abfa488d18e2" class="m-doc">prior</a>
+              <a href="classDistribution.html" class="m-doc">Distribution</a> <a href="#a6863998670fd1abd2a20abfa488d18e2" class="m-doc">prior</a>
             </dt>
             <dd>A probability distribution on a set of secrets.</dd>
             <dt>
@@ -225,7 +225,7 @@ pn1 pn2 ... pny
                 </tr>
               </tbody>
             </table>
-<p>Given a set of secrets in the pointer <a href="classChannel.html#a6863998670fd1abd2a20abfa488d18e2" class="m-doc">prior</a>, the constructor builds a random channel matrix. The number of the channel outputs is passed as an argument.</p>
+<p>Given a set of secrets in the object <a href="classChannel.html#a6863998670fd1abd2a20abfa488d18e2" class="m-doc">prior</a>, the constructor builds a random channel matrix. The number of the channel outputs is passed as an argument.</p>
           </div></section>
           <section class="m-doc-details" id="a2d97d823f68fe35f4c35dc04ebee3114"><div>
             <h3>
@@ -291,7 +291,7 @@ pn1 pn2 ... pny
           </div></section>
           <section class="m-doc-details" id="a6863998670fd1abd2a20abfa488d18e2"><div>
             <h3>
-              <a href="classDistribution.html" class="m-doc">Distribution</a>* Channel::<wbr /><a href="#a6863998670fd1abd2a20abfa488d18e2" class="m-doc-self">prior</a>
+              <a href="classDistribution.html" class="m-doc">Distribution</a> Channel::<wbr /><a href="#a6863998670fd1abd2a20abfa488d18e2" class="m-doc-self">prior</a>
             </h3>
             <p>A probability distribution on a set of secrets.</p>
 <p>See the documentation of <a href="classDistribution.html" class="m-doc">Distribution</a> for more details.</p>

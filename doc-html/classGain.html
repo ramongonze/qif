@@ -60,7 +60,7 @@
             </li>
           </ul>
         </div>
-<p>Definition of a gain function:</p><p>Given a finite, non-empty set <strong>X</strong> (of possible secret values) and a non-empty set <strong>W</strong> (of possible actions), a gain function is a function <em>g</em>: <strong>W</strong> x <strong>X</strong> → R. The idea is that <em>g(w, x)</em> specifies the gain that the adversary achieves by taking action <em>w</em> when the actual value of the secret is <em>x</em>.</p><p>A <a href="classGain.html" class="m-doc">Gain</a> object has 3 attributes:</p><ul><li><a href="classGain.html#a10e6d2c415433bf66ace95cbb4bac0f6" class="m-doc">prior</a> : A pointer to a <a href="classDistribution.html" class="m-doc">Distribution</a> object, which represents the prior probability distribution on the set of secrets.</li><li><a href="classGain.html#aecb3179fc01b9f3f83f491492de11375" class="m-doc">matrix</a> : A matrix <code>w</code> x <code>n</code> where <code>w</code> is the number of actions that the adversary can take and <code>n</code> is the number of secrets.</li><li><a href="classGain.html#a27f3d6428f1fe183b5662fed0498d965" class="m-doc">num_<wbr />act</a> : Number of distinct actions that an adversary can take.</li></ul>
+<p>Definition of a gain function:</p><p>Given a finite, non-empty set <strong>X</strong> (of possible secret values) and a non-empty set <strong>W</strong> (of possible actions), a gain function is a function <em>g</em>: <strong>W</strong> x <strong>X</strong> → R. The idea is that <em>g(w, x)</em> specifies the gain that the adversary achieves by taking action <em>w</em> when the actual value of the secret is <em>x</em>.</p><p>A <a href="classGain.html" class="m-doc">Gain</a> object has 3 attributes:</p><ul><li><a href="classGain.html#a10e6d2c415433bf66ace95cbb4bac0f6" class="m-doc">prior</a> : A <a href="classDistribution.html" class="m-doc">Distribution</a> object, which represents the prior probability distribution on the set of secrets.</li><li><a href="classGain.html#aecb3179fc01b9f3f83f491492de11375" class="m-doc">matrix</a> : A matrix <code>w</code> x <code>n</code> where <code>w</code> is the number of actions that the adversary can take and <code>n</code> is the number of secrets.</li><li><a href="classGain.html#a27f3d6428f1fe183b5662fed0498d965" class="m-doc">num_<wbr />act</a> : Number of distinct actions that an adversary can take.</li></ul>
         <section id="typeless-methods">
           <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
           <dl class="m-doc">
@@ -109,9 +109,9 @@
             </dt>
             <dd>Number of distinct actions that an adversary can take.</dd>
             <dt>
-              <a href="classDistribution.html" class="m-doc">Distribution</a>* <a href="#a10e6d2c415433bf66ace95cbb4bac0f6" class="m-doc">prior</a>
+              <a href="classDistribution.html" class="m-doc">Distribution</a> <a href="#a10e6d2c415433bf66ace95cbb4bac0f6" class="m-doc">prior</a>
             </dt>
-            <dd>A pointer to a probability distribution on a set of secrets.</dd>
+            <dd>A probability distribution on a set of secrets.</dd>
             <dt>
               std::vector&lt;std::vector&lt;long double&gt;&gt; <a href="#aecb3179fc01b9f3f83f491492de11375" class="m-doc">matrix</a>
             </dt>
@@ -279,9 +279,9 @@ gw1 gw2 ... gwn
           </div></section>
           <section class="m-doc-details" id="a10e6d2c415433bf66ace95cbb4bac0f6"><div>
             <h3>
-              <a href="classDistribution.html" class="m-doc">Distribution</a>* Gain::<wbr /><a href="#a10e6d2c415433bf66ace95cbb4bac0f6" class="m-doc-self">prior</a>
+              <a href="classDistribution.html" class="m-doc">Distribution</a> Gain::<wbr /><a href="#a10e6d2c415433bf66ace95cbb4bac0f6" class="m-doc-self">prior</a>
             </h3>
-            <p>A pointer to a probability distribution on a set of secrets.</p>
+            <p>A probability distribution on a set of secrets.</p>
 <p>It is a distribution on the set of secrets. See <a href="classDistribution.html" class="m-doc">Distribution</a> for more details.</p>
           </div></section>
           <section class="m-doc-details" id="aecb3179fc01b9f3f83f491492de11375"><div>

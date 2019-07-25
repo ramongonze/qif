@@ -305,10 +305,10 @@ stored it in the variable <code>channel</code>.</p>
 
 <br>
 <h3><u>Acessing the prior distribution</u></h3>
-There is a pointer to a <a href="classDistribution.html" class="m-doc">Distribution</a> object: <code>prior</code>.
+There is a <a href="classDistribution.html" class="m-doc">Distribution</a> object: <code>prior</code>.
 You can get, for example, the number of secrets:
 <p><pre class="fragment">
-<a style="color:#80b3ff">int</a> number_secrets = channel.prior->num_el;
+<a style="color:#80b3ff">int</a> number_secrets = channel.prior.num_el;
 </pre></p>
 
 <br>
@@ -430,7 +430,7 @@ To create the hyper-distribution you have to type:
 
 <br><br>
 <h3><li><u>Use existing Distribution and Channel objects</u></li></h3>
-As a <a href="classChannel.html" class="m-doc">Channel</a> has a pointer to a distribution (corresponding to the prior distribution on the set of secrets), it is not necessary to give a distribution as a parameter. So to create a hyper-distribution, you can give only the channel:
+As a <a href="classChannel.html" class="m-doc">Channel</a> has a <a href="classDistribution.html" class="m-doc">Distribution</a> object attribute (corresponding to the prior distribution on the set of secrets), it is not necessary to give a distribution as a parameter. So to create a hyper-distribution, you can give only the channel:
 <p><pre class="fragment">
 <a style="color:#80b3ff">Distribution</a> prior(<a style="color:#e6e600">"prior_distribution.txt"</a>);
 <a style="color:#80b3ff">Channel</a> channel(prior, <a style="color:#e6e600">"channel.txt"</a>);
@@ -453,14 +453,14 @@ Suppose you have created a <a href="classHyper.html" class="m-doc">Hyper</a> obj
 
 <br><br>
 <h3><u>Accessing the prior distribution and the channel</u></h3>
-There are two pointers to the prior distribution on the set of secrets and to the channel:
+There are two objects to the prior distribution on the set of secrets and to the channel:
 <code>prior</code> and <code>channel</code>, respectively.
 
 <br><br>
 For example, you can access the number of secrets and the number of channel outputs:
 <p><pre class="fragment">
-<a style="color:#80b3ff">int</a> number_secrets = hyper.prior->num_el;
-<a style="color:#80b3ff">int</a> number_outputs = hyper.channel->num_out;
+<a style="color:#80b3ff">int</a> number_secrets = hyper.prior.num_el;
+<a style="color:#80b3ff">int</a> number_outputs = hyper.channel.num_out;
 </pre></p>
 
 <br>
@@ -664,10 +664,10 @@ Suppose you have created a gain function using one of the constructors above and
 
 <br><br>
 <h3><u>Accesing the prior distribution</u></h3>
-There is a pointer to a <a href="classDistribution.html" class="m-doc">Distribution</a> object: <code>prior</code>.
+There is a <a href="classDistribution.html" class="m-doc">Distribution</a> object: <code>prior</code>.
 You can get, for example, the number of secrets:
 <p><pre class="fragment">
-<a style="color:#80b3ff">int</a> number_secrets = gain.prior->num_el;
+<a style="color:#80b3ff">int</a> number_secrets = gain.prior.num_el;
 </pre></p>
 
 <br>

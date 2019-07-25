@@ -15,7 +15,7 @@
  * 
  * A @ref Gain object has 3 attributes:
  *
- * - @ref prior : A pointer to a @ref Distribution object, which represents
+ * - @ref prior : A @ref Distribution object, which represents
  * the prior probability distribution on the set of secrets.
  *
  * - @ref matrix : A matrix \c w x \c n where \c w is the number of actions that 
@@ -91,7 +91,7 @@ class Gain{
 		int num_act;
 
 		/**
-		 * \brief A pointer to a probability distribution on a set of secrets.
+		 * \brief A probability distribution on a set of secrets.
 		 *
 		 * It is a distribution on the set of secrets. See @ref Distribution for more details.
 		 */

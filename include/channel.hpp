@@ -18,7 +18,7 @@
  * _y_ given input _x_. Note that all entries in a channel matrix are between 0 and 1,
  * and each row sums to 1.
  *
- * - @ref prior : A pointer to a @ref Distribution object, which represents
+ * - @ref prior : A @ref Distribution object, which represents
  * the prior probability distribution on the set of secrets.
  *
  * - @ref num_out : The number of outputs in the channel. It is exactly the number of columns in @ref matrix.
@@ -71,7 +71,7 @@ class Channel{
 		/**
 		 * \brief Constructor used to generate random channels.
 		 *
-		 * Given a set of secrets in the pointer @ref prior, the constructor builds a random channel matrix.
+		 * Given a set of secrets in the @ref prior, the constructor builds a random channel matrix.
 		 * The number of the channel outputs is passed as an argument.
 		 *
 		 * \param prior: Prior distribution on the set of secrets.
