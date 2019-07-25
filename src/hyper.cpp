@@ -116,8 +116,6 @@ Hyper::Hyper(std::string prior_file, std::string channel_file){
 Hyper::Hyper(Channel &channel){
 	this->prior = Distribution(channel.prior.prob);
 	this->channel = Channel(this->prior, channel.matrix);
-	// this->prior = channel.prior;
-	// this->channel = &channel;
 
 	buildJoint();
 	buildOuter();
@@ -139,8 +137,6 @@ void Hyper::rebuildHyper(Distribution &prior){
 
 	this->prior = Distribution(prior.prob);
 	this->channel.prior = Distribution(prior.prob);
-	// this->prior = &prior;
-	// this->channel->prior = &prior;
 
 	buildJoint();
 	buildOuter();
@@ -162,8 +158,6 @@ void Hyper::rebuildHyper(Channel &channel){
 
 	this->prior = Distribution(channel.prior.prob);
 	this->channel = Channel(this->prior, channel.matrix);
-	// this->channel = &channel;
-	// this->prior = this->channel->prior;
 
 	buildJoint();
 	buildOuter();

@@ -48,7 +48,7 @@ Channel::Channel(Distribution &prior, std::vector<std::vector<long double> > &ma
 	this->prior = Distribution(prior.prob);
 	this->num_out = matrix[0].size();
 
-	if((unsigned int)prior.num_el != this->matrix.size()){
+	if((unsigned int)prior.num_el != matrix.size()){
 		fprintf(stderr, "The number of secrets in the prior distribution is different of the number of rows in the channel matrix!\n");
 		exit(EXIT_FAILURE);
 	}
