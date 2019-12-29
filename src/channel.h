@@ -1,7 +1,7 @@
 #ifndef _channel
 #define _channel
 
-#include "../include/distribution.hpp"
+#include "distribution.h"
 
 /**
  * \brief Informational channels.

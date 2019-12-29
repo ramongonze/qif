@@ -1,4 +1,4 @@
-#include "../include/hyper.hpp"
+#include "hyper.h"
 
 void Hyper::buildJoint(){
 	joint = std::vector<std::vector<long double> >(prior.num_el, std::vector<long double>(channel.num_out));

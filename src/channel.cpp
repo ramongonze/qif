@@ -1,4 +1,4 @@
-#include "../include/channel.hpp"
+#include "channel.h"
 
 Channel::Channel(){
 	this->num_out = 0;

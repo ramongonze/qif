@@ -1,13 +1,13 @@
 #ifndef _qif
 #define _qif
 
-#include "./include/distribution.hpp"
-#include "./include/channel.hpp"
-#include "./include/gain.hpp"
-#include "./include/hyper.hpp"
-#include "./include/vulnerability.hpp"
-#include "./include/entropy.hpp"
-#include "./include/leakage.hpp"
+#include "src/distribution.h"
+#include "src/channel.h"
+#include "src/gain.h"
+#include "src/hyper.h"
+#include "src/vulnerability.h"
+#include "src/entropy.h"
+#include "src/leakage.h"
 
 #endif
 

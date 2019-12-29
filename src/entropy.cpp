@@ -1,4 +1,4 @@
-#include "../include/entropy.hpp"
+#include "entropy.h"
 
 long double guessingEntropy(Distribution &prior){
 	long double g_entropy = 0;

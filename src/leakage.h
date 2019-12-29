@@ -1,9 +1,9 @@
 #ifndef _leakage
 #define _leakage
 
-#include "../include/hyper.hpp"
-#include "../include/gain.hpp"
-#include "../include/vulnerability.hpp"
+#include "hyper.h"
+#include "gain.h"
+#include "vulnerability.h"
 
 #include <limits>
 

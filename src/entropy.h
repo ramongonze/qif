@@ -1,7 +1,7 @@
 #ifndef _entropy
 #define _entropy
 
-#include "../include/hyper.hpp"
+#include "hyper.h"
 #include <cmath>
 
 /**

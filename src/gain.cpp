@@ -1,4 +1,4 @@
-#include "../include/gain.hpp"
+#include "gain.h"
 
 Gain::Gain(){
 	num_act = 0;

@@ -1,4 +1,4 @@
-#include "../include/distribution.hpp"
+#include "distribution.h"
 
 Distribution::Distribution(){
 	num_el = 0;

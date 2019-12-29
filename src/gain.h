@@ -1,7 +1,7 @@
 #ifndef _gain
 #define _gain
 
-#include "distribution.hpp"
+#include "distribution.h"
 
 /**
  * \brief Gain functions.

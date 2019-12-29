@@ -1,4 +1,4 @@
-#include "../include/leakage.hpp"
+#include "leakage.h"
 
 long double additiveLeakage(Hyper &hyper, Gain &gain){
 	return gVulnerability(hyper, gain) - gVulnerability(gain);

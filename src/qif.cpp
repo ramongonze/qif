@@ -1,1 +1,1 @@
-#include "../qif.hpp"
+#include "../qif.h"

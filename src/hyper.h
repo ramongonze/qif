@@ -1,8 +1,8 @@
 #ifndef _hyper
 #define _hyper
 
-#include "../include/distribution.hpp"
-#include "../include/channel.hpp"
+#include "distribution.h"
+#include "channel.h"
 #include <math.h>
 #include <map>
 #include <set>
