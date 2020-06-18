@@ -1,0 +1,543 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Getting started &mdash; QIF Library 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Classes" href="classes.html" />
+    <link rel="prev" title="QIF Library" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> QIF Library
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#distributions">Distributions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#creating-distributions">Creating distributions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-distributions">Using distributions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#accessing-the-elements">Accessing the elements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#getting-the-number-of-elements">Getting the number of elements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#printing">Printing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#channels">Channels</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#creating-channels">Creating channels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-channels">Using channels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#acessing-the-prior-distribution">Acessing the prior distribution</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#acessing-the-channel-matrix">Acessing the channel matrix</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#getting-the-number-of-outputs-from-the-channel">Getting the number of outputs from the channel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Printing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#hyper-distributions">Hyper-distributions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#creating-hyper-distributions">Creating hyper-distributions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-hyper-distributions">Using hyper-distributions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#gain-functions">Gain functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#creating-gain-functions">Creating gain functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-gain-functions">Using gain functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#vulnerabilities-entropies-and-leakages-measurements">Vulnerabilities, entropies and leakages measurements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#measurement-functions">Measurement functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="classes.html">Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions.html">Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">QIF Library</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Getting started</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/getting-started.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<div class="section" id="getting-started">
+<h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<p>Here is a tutorial to explain how to create and use distributions, channels,
+functions and so on.</p>
+<div class="section" id="distributions">
+<h2>Distributions<a class="headerlink" href="#distributions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="creating-distributions">
+<h3>Creating distributions<a class="headerlink" href="#creating-distributions" title="Permalink to this headline">¶</a></h3>
+<p>The vector of probabilities is structed as a <code class="code docutils literal notranslate"><span class="pre">std::vector&lt;long</span> <span class="pre">double&gt;</span></code>.
+To create a Distribution object there are 3 constructors available:</p>
+<ul>
+<li><p><strong>Read the vector of probabilities from a file</strong></p>
+<blockquote>
+<div><p>The vector of probabilities can be read from a file in the following format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n</span>
+<span class="n">p1</span>
+<span class="n">p2</span>
+<span class="o">...</span>
+<span class="n">pn</span>
+</pre></div>
+</div>
+<p>where <code class="code docutils literal notranslate"><span class="pre">n</span></code> is the number of elements in the distribution and <code class="code docutils literal notranslate"><span class="pre">pi</span></code> is
+the probability of the ith element occurs.</p>
+<p>Suppose you have a file called <code class="code bash docutils literal notranslate"><span class="pre">prior_distribution.txt</span></code> containing the vector
+of probabilities. To create a distribution, you have to type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Distribution</span> <span class="n">dist</span><span class="p">(</span><span class="s2">&quot;prior_distribution.txt&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Distribution(std::string file)</p>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Use an existing vector of probabilities</strong></p>
+<blockquote>
+<div><p>A distribution can be created using a vector stored in a variable.
+The type of the vector must be <code class="code docutils literal notranslate"><span class="pre">std::vector&lt;long</span> <span class="pre">double&gt;</span></code>.</p>
+<p>To create a distribution from a vector of probabilities <code class="code docutils literal notranslate"><span class="pre">v</span></code> you have to
+type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="p">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">long</span> <span class="n">double</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">({</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">});</span>
+<span class="n">Distribution</span> <span class="n">dist</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Distribution(std::vector&lt;long double&gt;&amp; prob)</p>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Create a random or uniform distribution</strong></p>
+<blockquote>
+<div><p>To create an uniform or a random distribution, there are 2 parameters in
+the constructor:
+* First: The number of elements;
+* Second: The string “uniform” or “random”, to create an uniform distribution or a random distribution, respectivelly.</p>
+<p>For example, to create two uniform distributions with 5 and 10 elements
+respectively, you have to type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Distribution</span> <span class="n">dist</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s2">&quot;uniform&quot;</span><span class="p">);</span>
+<span class="n">Distribution</span> <span class="n">dist</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;random&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Distribution(int num_el, std::string type)</p>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<hr class="docutils" />
+<div class="section" id="using-distributions">
+<h3>Using distributions<a class="headerlink" href="#using-distributions" title="Permalink to this headline">¶</a></h3>
+<p>Suppose you have created a new distribution using one of the constructors
+above and stored it in the variable <code class="code docutils literal notranslate"><span class="pre">dist</span></code>.</p>
+<div class="section" id="accessing-the-elements">
+<h4>Accessing the elements<a class="headerlink" href="#accessing-the-elements" title="Permalink to this headline">¶</a></h4>
+<p>To get the probability of each element, you have to access the attribute
+<code class="code docutils literal notranslate"><span class="pre">prob</span></code>. The elements in <code class="code docutils literal notranslate"><span class="pre">prob</span></code> are indexed from 0 to n-1, where n
+is the number of elements in the probability distribution.
+For example, to get the fourth element of the distribution, you use the index 3:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">long</span> <span class="n">double</span> <span class="n">prob_fourth_element</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">prob</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-the-number-of-elements">
+<h4>Getting the number of elements<a class="headerlink" href="#getting-the-number-of-elements" title="Permalink to this headline">¶</a></h4>
+<p>The number of elements is stored in the attribute <code class="code docutils literal notranslate"><span class="pre">num_el</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">number_elements</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">num_el</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="printing">
+<h4>Printing<a class="headerlink" href="#printing" title="Permalink to this headline">¶</a></h4>
+<p>To print the distribution on the screen, you can use the method <code class="code docutils literal notranslate"><span class="pre">toString()</span></code>.
+The method has one parameter: the precision of the probabilities, and it
+returns a <code class="code docutils literal notranslate"><span class="pre">std::string</span></code>.</p>
+<p>For example, if you want to get a string with precision of 4, you have to type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="p">::</span><span class="n">string</span> <span class="n">str_dist</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">toString</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+<span class="n">std</span><span class="p">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">str_dist</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="p">::</span><span class="n">endl</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>The result is the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">0.2500</span> <span class="mf">0.2500</span> <span class="mf">0.5000</span>
+</pre></div>
+</div>
+<p>For more details, see the documentation of Distribution::toString().
+You can also print the distribution right into a file using the method
+<code class="code docutils literal notranslate"><span class="pre">printToFile()</span></code>. See the documentation of Distribution::printToFile().</p>
+<p>For more details about the class, see the documentation here.</p>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="channels">
+<h2>Channels<a class="headerlink" href="#channels" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="creating-channels">
+<h3>Creating channels<a class="headerlink" href="#creating-channels" title="Permalink to this headline">¶</a></h3>
+<p>An informational channel can be represented as a matrix n x y, where n is the
+number of secrets (the rows), y is the number of possible outputs (the columns)
+and each value stored at <code class="code docutils literal notranslate"><span class="pre">matrix[x][y]</span></code> is the conditional probability p(y|x).
+Before creating a channel, you must already have an object Distribution which
+contains the prior distribution on the set of secrets.</p>
+<p>To create a <a class="reference internal" href="classes/channel.html#channel-class"><span class="std std-ref">Channel</span></a> object there are 3 options available:</p>
+<ul>
+<li><p><strong>Read the channel from a file</strong></p>
+<blockquote>
+<div><p>You can read the channel from a file in the following format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="n">y</span>
+<span class="n">p11</span> <span class="n">p12</span> <span class="o">...</span> <span class="n">p1y</span>
+<span class="n">p21</span> <span class="n">p22</span> <span class="o">...</span> <span class="n">p2y</span>
+<span class="o">...</span>
+<span class="n">pn1</span> <span class="n">pn2</span> <span class="o">...</span> <span class="n">pny</span>
+</pre></div>
+</div>
+<p>where n is the number of secrets, y is the number of outputs and each two values
+must be separated by a space (” “). Suppose you have a file called
+<code class="code docutils literal notranslate"><span class="pre">channel.txt</span></code>. To create a channel you have to type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Distribution</span> <span class="n">dist</span><span class="p">(</span><span class="s2">&quot;prior_distribution.txt&quot;</span><span class="p">);</span>
+<span class="n">Channel</span> <span class="n">channel</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="s2">&quot;channel.txt&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Channel(Distribution&amp; prior, std::string file)</p>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Use an existing matrix of numbers</strong></p>
+<blockquote>
+<div><p>The type of the matrix must be <code class="code docutils literal notranslate"><span class="pre">std::vector&lt;std::vector&lt;long</span> <span class="pre">double&gt;&gt;</span></code>.
+To create a channel from a matrix <code class="code docutils literal notranslate"><span class="pre">M</span></code> you have to type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Distribution</span> <span class="n">prior</span><span class="p">(</span><span class="s2">&quot;prior_distribution.txt&quot;</span><span class="p">);</span>
+<span class="n">std</span><span class="p">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="p">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">long</span> <span class="n">double</span><span class="o">&gt;&gt;</span> <span class="n">M</span><span class="p">({{</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.50</span><span class="p">},</span>
+                                         <span class="p">{</span><span class="mf">0.30</span><span class="p">,</span> <span class="mf">0.30</span><span class="p">,</span> <span class="mf">0.40</span><span class="p">},</span>
+                                         <span class="p">{</span><span class="mf">1.00</span><span class="p">,</span> <span class="mf">0.00</span><span class="p">,</span> <span class="mf">0.00</span><span class="p">}});</span>
+<span class="n">Channel</span> <span class="n">channel</span><span class="p">(</span><span class="n">prior</span><span class="p">,</span> <span class="n">M</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Channel(Distribution&amp; prior, std::vector&lt;std::vector&lt;long double&gt;&gt;&amp; matrix)</p>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Generate a random channel</strong></p>
+<blockquote>
+<div><p>To create a random channel, there are 2 parameters in the constructor:</p>
+<ul class="simple">
+<li><p>First: Prior distribution;</p></li>
+<li><p>Second: Number of channel outputs.</p></li>
+</ul>
+<p>For example, to create a channel with 3 outputs, you have to type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Distribution</span> <span class="n">prior</span><span class="p">(</span><span class="s2">&quot;prior_distribution.txt&quot;</span><span class="p">);</span>
+<span class="n">Channel</span> <span class="n">channel</span><span class="p">(</span><span class="n">prior</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Channel(Distribution&amp; prior, int num_out)</p>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<hr class="docutils" />
+<div class="section" id="using-channels">
+<h3>Using channels<a class="headerlink" href="#using-channels" title="Permalink to this headline">¶</a></h3>
+<p>Suppose you have created a channel using one of the constructors above and stored
+it in the variable <code class="code docutils literal notranslate"><span class="pre">channel</span></code>.</p>
+<div class="section" id="acessing-the-prior-distribution">
+<h4>Acessing the prior distribution<a class="headerlink" href="#acessing-the-prior-distribution" title="Permalink to this headline">¶</a></h4>
+<p>There is a Distribution object: <code class="code docutils literal notranslate"><span class="pre">prior</span></code>. You can get, for example, the
+number of secrets:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">number_secrets</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="n">prior</span><span class="o">.</span><span class="n">num_el</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="acessing-the-channel-matrix">
+<h4>Acessing the channel matrix<a class="headerlink" href="#acessing-the-channel-matrix" title="Permalink to this headline">¶</a></h4>
+<p>To get a conditional probability from the channel matrix, you have to access the
+attribute <code class="code docutils literal notranslate"><span class="pre">matrix</span></code>. The rows are indexed from 0 to n-1, where n is the number of
+secrets, and the columns are indexed from 0 to y-1, where y is the number of
+outputs.</p>
+<p>For example, to get the probability p(y3|x2), you have to type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">long</span> <span class="n">double</span> <span class="n">p</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="n">matrix</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">];</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-the-number-of-outputs-from-the-channel">
+<h4>Getting the number of outputs from the channel<a class="headerlink" href="#getting-the-number-of-outputs-from-the-channel" title="Permalink to this headline">¶</a></h4>
+<p>The number of outputs is stored in the attribute <code class="code docutils literal notranslate"><span class="pre">num_out</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">number_outputs</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="n">num_out</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id1">
+<h4>Printing<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<p>To print the channel on the screen, you can use the method <code class="code docutils literal notranslate"><span class="pre">toString()</span></code>.
+The method has one parameter: the precision of the probabilities, and it
+returns a <code class="code docutils literal notranslate"><span class="pre">std::string</span></code>.</p>
+<p>For example, if you want to get a string with precision of 4, you have to type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="p">::</span><span class="n">string</span> <span class="n">str_channel</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="n">toString</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+<span class="n">std</span><span class="p">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">str_channel</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="p">::</span><span class="n">endl</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>The result is the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">0.2500</span> <span class="mf">0.2500</span> <span class="mf">0.5000</span>
+<span class="mf">1.0000</span> <span class="mf">0.0000</span> <span class="mf">0.0000</span>
+<span class="mf">0.9000</span> <span class="mf">0.0100</span> <span class="mf">0.0900</span>
+</pre></div>
+</div>
+<p>For more details, see the documentation of Channel::toString().
+You can also print the channel right into a file using the method
+<code class="code docutils literal notranslate"><span class="pre">printToFile()</span></code>. See the documentation of Channel::printToFile().</p>
+<p>For more details about the class, see the documentation here.</p>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="hyper-distributions">
+<h2>Hyper-distributions<a class="headerlink" href="#hyper-distributions" title="Permalink to this headline">¶</a></h2>
+<p>A hyper-distribution is a distribution on distributions on a set of secrets.
+Each output in an informational channel is a possible “world”, and each possible
+world is a new distribution on the set of secrets. We call the possible worlds
+the <em>inner distributions</em>. Each possible world has a probability to occur, and we
+call the distribution on the possible worlds as the <em>outer distribution</em>.</p>
+<p>Before creating a Hyper object, you need to have a Channel and a prior Distribution on a set of secrets.</p>
+<p>To create a Hyper object there are 2 options available:
+Read the prior distribution and the channel from files
+You can read the prior distribution on a set of secrets and the channel from files.</p>
+<p>The prior distribution must be in the following format:
+n
+p1
+p2
+…
+pn
+where n is the number of secrets and pi is the probability of the ith secret occurs.</p>
+<p>The channel must be in the following format:
+n y
+p11 p12 … p1y
+p21 p22 … p2y
+…
+pn1 pn2 … pny
+where n is the number of secrets (the rows), y is the number of possible outputs (the columns) and each value (xi,yj) is the conditional probability p(yj|xi). Each two values must be separated by a space (” “).</p>
+<p>Suppose you have the prior distribution in a file called prior_distribution.txt and a channel in a file called channel.txt.
+To create the hyper-distribution you have to type:
+Hyper hyper(“prior_distribution.txt”, “channel.txt”);</p>
+<p>Reference
+Hyper(std::string prior_file,
+std::string channel_file)</p>
+<p>Use existing Distribution and Channel objects
+As a Channel has a Distribution object attribute (corresponding to the prior distribution on the set of secrets), it is not necessary to give a distribution as a parameter. So to create a hyper-distribution, you can give only the channel:
+Distribution prior(“prior_distribution.txt”);
+Channel channel(prior, “channel.txt”);
+Hyper hyper(channel);</p>
+<p>Reference
+Hyper(Channel&amp; channel)</p>
+<div class="section" id="creating-hyper-distributions">
+<h3>Creating hyper-distributions<a class="headerlink" href="#creating-hyper-distributions" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="using-hyper-distributions">
+<h3>Using hyper-distributions<a class="headerlink" href="#using-hyper-distributions" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="gain-functions">
+<h2>Gain functions<a class="headerlink" href="#gain-functions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="creating-gain-functions">
+<h3>Creating gain functions<a class="headerlink" href="#creating-gain-functions" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="using-gain-functions">
+<h3>Using gain functions<a class="headerlink" href="#using-gain-functions" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="vulnerabilities-entropies-and-leakages-measurements">
+<h2>Vulnerabilities, entropies and leakages measurements<a class="headerlink" href="#vulnerabilities-entropies-and-leakages-measurements" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="measurement-functions">
+<h3>Measurement functions<a class="headerlink" href="#measurement-functions" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="classes.html" class="btn btn-neutral float-right" title="Classes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="QIF Library" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Ramon Gonze
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

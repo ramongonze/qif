@@ -1,0 +1,473 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Functions &mdash; QIF Library 1.0.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="QIF Library 1.0.0 documentation" href="index.html"/>
+        <link rel="next" title="License" href="license.html"/>
+        <link rel="prev" title="Classes" href="classes.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> QIF Library
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="classes.html">Classes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#vulnerability">Vulnerability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#leakage-measures">Leakage measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#entropy">Entropy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">QIF Library</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Functions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="functions">
+<span id="id1"></span><h1>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-content admonition">
+<p class="admonition-title">Content</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#vulnerability"><span class="std std-ref">Vulnerability</span></a></p></li>
+<li><p><a class="reference internal" href="#leakage-measures"><span class="std std-ref">Leakage measures</span></a></p></li>
+<li><p><a class="reference internal" href="#entropy"><span class="std std-ref">Entropy</span></a></p></li>
+</ul>
+</div>
+<hr class="docutils" />
+<div class="section" id="vulnerability">
+<span id="id2"></span><h2>Vulnerability<a class="headerlink" href="#vulnerability" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="bayes-vulnerability"></span><dl class="cpp function">
+<dt id="_CPPv418bayesVulnerabilityR12Distribution">
+<span id="_CPPv318bayesVulnerabilityR12Distribution"></span><span id="_CPPv218bayesVulnerabilityR12Distribution"></span><span id="bayesVulnerability__DistributionR"></span>long double <code class="sig-name descname">bayesVulnerability</code><span class="sig-paren">(</span><a class="reference internal" href="classes.html#_CPPv412Distribution" title="Distribution">Distribution</a> &amp;<em>prior</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418bayesVulnerabilityR12Distribution" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Prior Bayes vulnerability. It is the probability of an adversary guessing a
+secret correctly in one try.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>prior</strong> – Prior distribution on the set of secrets.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Bayes vulnerability of a prior distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv418bayesVulnerabilityR5Hyper">
+<span id="_CPPv318bayesVulnerabilityR5Hyper"></span><span id="_CPPv218bayesVulnerabilityR5Hyper"></span><span id="bayesVulnerability__HyperR"></span>long double <code class="sig-name descname">bayesVulnerability</code><span class="sig-paren">(</span><a class="reference internal" href="classes.html#_CPPv45Hyper" title="Hyper">Hyper</a> &amp;<em>hyper</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418bayesVulnerabilityR5Hyper" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Posterior Bayes vulnerability. It is the expected probability of an adversary
+guessing a secret correctly in one try. It is calculated weighting the Bayes
+vulnerability of each posterior by its probability of occuring.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>hyper</strong> – A hyper-distribution.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Bayes vulnerability of a hyper-distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="g-vulnerability"></span><dl class="cpp function">
+<dt id="_CPPv414gVulnerabilityR4Gain">
+<span id="_CPPv314gVulnerabilityR4Gain"></span><span id="_CPPv214gVulnerabilityR4Gain"></span><span id="gVulnerability__GainR"></span>long double <code class="sig-name descname">gVulnerability</code><span class="sig-paren">(</span><a class="reference internal" href="classes.html#_CPPv44Gain" title="Gain">Gain</a> &amp;<em>gain</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414gVulnerabilityR4Gain" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Prior g-vulnerability. It is a function that measures how vulnerable a secret
+is. This value corresponds to the expected gain of an adversary guessing the
+secret correctly, given a set of actions that she/he can take.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>gain</strong> – A gain function.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>g-vulnerability of a prior distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv414gVulnerabilityR5HyperR4Gain">
+<span id="_CPPv314gVulnerabilityR5HyperR4Gain"></span><span id="_CPPv214gVulnerabilityR5HyperR4Gain"></span><span id="gVulnerability__HyperR.GainR"></span>long double <code class="sig-name descname">gVulnerability</code><span class="sig-paren">(</span><a class="reference internal" href="classes.html#_CPPv45Hyper" title="Hyper">Hyper</a> &amp;<em>hyper</em>, <a class="reference internal" href="classes.html#_CPPv44Gain" title="Gain">Gain</a> &amp;<em>gain</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414gVulnerabilityR5HyperR4Gain" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Posterior g-vulnerability. It is the expected gain of the adversary over the
+inner distributions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hyper</strong> – A hyper-distribution.</p></li>
+<li><p><strong>gain</strong> – A gain function for a set of secrets.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>g-vulnerability of a hyper-distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="k-tries"></span><dl class="cpp function">
+<dt id="_CPPv46kTriesR12Distributioni">
+<span id="_CPPv36kTriesR12Distributioni"></span><span id="_CPPv26kTriesR12Distributioni"></span><span id="kTries__DistributionR.i"></span>long double <code class="sig-name descname">kTries</code><span class="sig-paren">(</span><a class="reference internal" href="classes.html#_CPPv412Distribution" title="Distribution">Distribution</a> &amp;<em>prior</em>, int <em>k</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv46kTriesR12Distributioni" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Prior k-tries. It is the probability of the adversary guess the value of the
+secret correctly in k tries, looking into a prior distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>prior</strong> – Prior distribution on the set of secrets.</p></li>
+<li><p><strong>k</strong> – Number of tries the adversary has to guess the secret.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A probability.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv46kTriesR5Hyperi">
+<span id="_CPPv36kTriesR5Hyperi"></span><span id="_CPPv26kTriesR5Hyperi"></span><span id="kTries__HyperR.i"></span>long double <code class="sig-name descname">kTries</code><span class="sig-paren">(</span><a class="reference internal" href="classes.html#_CPPv45Hyper" title="Hyper">Hyper</a> &amp;<em>hyper</em>, int <em>k</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv46kTriesR5Hyperi" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hyper</strong> – A hyper-distribution.</p></li>
+<li><p><strong>k</strong> – Number of tries the adversary has to guess the secret.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The probability of an adversary guessing
+the secret correctly in k tries, looking into a hyper-distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<hr class="docutils" />
+</div>
+<div class="section" id="leakage-measures">
+<span id="id3"></span><h2>Leakage measures<a class="headerlink" href="#leakage-measures" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(V_g(\pi)\)</span>: Prior g-vulnerability for a prior distribution <span class="math notranslate nohighlight">\(\pi\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(V_g([\pi \triangleright C])\)</span>: Posterior g-vulnerability of a
+hyper-distribution <span class="math notranslate nohighlight">\([\pi \triangleright C]\)</span> resulted from a channel
+<span class="math notranslate nohighlight">\(C\)</span> and a prior <span class="math notranslate nohighlight">\(\pi\)</span>.</p></li>
+</ul>
+</div>
+<span class="target" id="additive-leakage"></span><dl class="cpp function">
+<dt id="_CPPv415additiveLeakageR5HyperR4Gain">
+<span id="_CPPv315additiveLeakageR5HyperR4Gain"></span><span id="_CPPv215additiveLeakageR5HyperR4Gain"></span><span id="additiveLeakage__HyperR.GainR"></span>long double <code class="sig-name descname">additiveLeakage</code><span class="sig-paren">(</span><a class="reference internal" href="classes.html#_CPPv45Hyper" title="Hyper">Hyper</a> &amp;<em>hyper</em>, <a class="reference internal" href="classes.html#_CPPv44Gain" title="Gain">Gain</a> &amp;<em>gain</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv415additiveLeakageR5HyperR4Gain" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The absolute difference between the posterior g-vulnerability and the prior
+g-vulnerability.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hyper</strong> – A hyper-distribution.</p></li>
+<li><p><strong>gain</strong> – A gain function for a set of secrets.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><span class="math notranslate nohighlight">\(V_g([\pi \triangleright C]) - V_g(\pi)\)</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="multiplicative-leakage"></span><dl class="cpp function">
+<dt id="_CPPv421multiplicativeLeakageR5HyperR4Gain">
+<span id="_CPPv321multiplicativeLeakageR5HyperR4Gain"></span><span id="_CPPv221multiplicativeLeakageR5HyperR4Gain"></span><span id="multiplicativeLeakage__HyperR.GainR"></span>long double <code class="sig-name descname">multiplicativeLeakage</code><span class="sig-paren">(</span><a class="reference internal" href="classes.html#_CPPv45Hyper" title="Hyper">Hyper</a> &amp;<em>hyper</em>, <a class="reference internal" href="classes.html#_CPPv44Gain" title="Gain">Gain</a> &amp;<em>gain</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421multiplicativeLeakageR5HyperR4Gain" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The relative difference between the posterior g-vulnerability and the
+prior g-vulnerability.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hyper</strong> – A hyper-distribution.</p></li>
+<li><p><strong>gain</strong> – A gain function for a set of secrets.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>If <span class="math notranslate nohighlight">\(V_g(\pi) \neq 0\)</span> and <span class="math notranslate nohighlight">\(V_g([\pi \triangleright C]) \neq 0\)</span>
+it returns <span class="math notranslate nohighlight">\(\frac{V_g([\pi \triangleright C])}{V_g(\pi)}\)</span>.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(V_g(\pi) = 0\)</span> and <span class="math notranslate nohighlight">\(V_g([\pi \triangleright C]) = 0\)</span>
+it returns 1.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(V_g(\pi) = 0\)</span> and <span class="math notranslate nohighlight">\(V_g([\pi \triangleright C]) \neq 0\)</span>
+it returns <span class="math notranslate nohighlight">\(+\infty\)</span>.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p>See the Definition 5.11 <a class="reference external" href="https://www.springer.com/us/book/9783319961293">here</a> for more details about the return
+value of multiplicative leakage.</p>
+</dd></dl>
+
+<hr class="docutils" />
+</div>
+<div class="section" id="entropy">
+<span id="id4"></span><h2>Entropy<a class="headerlink" href="#entropy" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="guessing-entropy"></span><dl class="cpp function">
+<dt id="_CPPv415guessingEntropyR12Distribution">
+<span id="_CPPv315guessingEntropyR12Distribution"></span><span id="_CPPv215guessingEntropyR12Distribution"></span><span id="guessingEntropy__DistributionR"></span>long double <code class="sig-name descname">guessingEntropy</code><span class="sig-paren">(</span><a class="reference internal" href="classes.html#_CPPv412Distribution" title="Distribution">Distribution</a> &amp;<em>prior</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv415guessingEntropyR12Distribution" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Guessing entropy of a prior probability distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>prior</strong> – Prior distribution on the set of secrets.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The expected number of tries needed by the adversary to guess the
+secret correctly.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv415guessingEntropyR5Hyper">
+<span id="_CPPv315guessingEntropyR5Hyper"></span><span id="_CPPv215guessingEntropyR5Hyper"></span><span id="guessingEntropy__HyperR"></span>long double <code class="sig-name descname">guessingEntropy</code><span class="sig-paren">(</span><a class="reference internal" href="classes.html#_CPPv45Hyper" title="Hyper">Hyper</a> &amp;<em>hyper</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv415guessingEntropyR5Hyper" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Guessing entropy of a hyper-distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>hyper</strong> – A hyper-distribution.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The expected number of tries needed by the adversary to guess the
+secret correctly, looking to all possible worlds (inner distributions).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="shannon-entropy"></span><dl class="cpp function">
+<dt id="_CPPv414shannonEntropyR12Distribution">
+<span id="_CPPv314shannonEntropyR12Distribution"></span><span id="_CPPv214shannonEntropyR12Distribution"></span><span id="shannonEntropy__DistributionR"></span>long double <code class="sig-name descname">shannonEntropy</code><span class="sig-paren">(</span><a class="reference internal" href="classes.html#_CPPv412Distribution" title="Distribution">Distribution</a> &amp;<em>dist</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414shannonEntropyR12Distribution" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Shannon entropy of a probability distribution is a way to measure the secrecy
+of a secret.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dist</strong> – Prior distribution on a set of secrets.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Shannon entropy of a probability distribution. The returned value is
+in the interval <span class="math notranslate nohighlight">\([0,\log_2 (n)]\)</span>, where <span class="math notranslate nohighlight">\(n\)</span> is the number of
+elements in the distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv414shannonEntropyR5Hyper">
+<span id="_CPPv314shannonEntropyR5Hyper"></span><span id="_CPPv214shannonEntropyR5Hyper"></span><span id="shannonEntropy__HyperR"></span>long double <code class="sig-name descname">shannonEntropy</code><span class="sig-paren">(</span><a class="reference internal" href="classes.html#_CPPv45Hyper" title="Hyper">Hyper</a> &amp;<em>hyper</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414shannonEntropyR5Hyper" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The Shannon entropy of a hyper-distribution is a way to measure the secrecy
+of a secret, looking to all possible worlds (inner distributions).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>hyper</strong> – A hyper-distribution.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Shannon entropy of a hyper-distribution. The returned value is in the
+interval <span class="math notranslate nohighlight">\([0,\log_2 (y)]\)</span>, where <span class="math notranslate nohighlight">\(y\)</span> is the number of outputs of
+the channel pointed by <a class="reference internal" href="#_CPPv414shannonEntropyR5Hyper" title="shannonEntropy::hyper"><code class="xref cpp cpp-var docutils literal notranslate"><span class="pre">hyper</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="license.html" class="btn btn-neutral float-right" title="License" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="classes.html" class="btn btn-neutral" title="Classes" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Ramon Gonçalves Gonze.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> and ❤️  using a custom <a href="https://github.com/LinxiFan/Sphinx-theme">theme</a> based on <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
