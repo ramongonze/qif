@@ -1,33 +1,35 @@
-CFLAGS=-std=c++11 -O4 -Wall -Wextra -Werror -pedantic
+PROJECT_NAME=qif
+PLATFORM=PLATFORM_DESKTOP
+CC=g++ # Compiler for desktop version
+EXT=.o
 
-all: qif.o distribution.o channel.o gain.o hyper.o vulnerability.o entropy.o leakage.o binary
+# Define all source files required
+CPP_SOURCE=$(wildcard src/*.cpp)
+H_SOURCE=$(wildcard src/*.h)
 
-qif.o:
-	g++ -c ./src/qif.cpp $(CFLAGS)
+# Take de list with all .cpp files and rename the extension to .o, generating a new list
+OBJS = $(patsubst %.cpp, %$(EXT), $(CPP_SOURCE))
 
-distribution.o:
-	g++ -c ./src/distribution.cpp $(CFLAGS)
+CFLAGS=-c -std=c++11 -Wall -Wextra -Werror -pedantic
+ifeq ($(PLATFORM),PLATFORM_WEB)
+    CC=em++ # Libraries for web (HTML5) compiling
+	EXT=.so
+else
+	CFLAGS += -O4
+endif
 
-channel.o:
-	g++ -c ./src/channel.cpp $(CFLAGS)
+all: $(PROJECT_NAME) bin
 
-gain.o:
-	g++ -c ./src/gain.cpp $(CFLAGS)
+$(PROJECT_NAME): $(OBJS)
 
-hyper.o:
-	g++ -c ./src/hyper.cpp $(CFLAGS)
+%$(EXT): %.cpp %.h
+	$(CC) -o $@ $< $(CFLAGS)
 
-vulnerability.o:
-	g++ -c ./src/vulnerability.cpp $(CFLAGS)
+bin: $(PROJECT_NAME)
+	mkdir -p ./bin
+	mv src/*$(EXT) ./bin
+	ar rcs qif.a bin/*$(EXT)
 
-entropy.o:
-	g++ -c ./src/entropy.cpp $(CFLAGS)
-
-leakage.o:
-	g++ -c ./src/leakage.cpp $(CFLAGS)
-
-binary:
-	ar rcs qif.a distribution.o channel.o gain.o hyper.o vulnerability.o entropy.o leakage.o
-	rm -r -f bin
-	mkdir bin
-	mv *.o ./bin/
+clean:
+	rm -rf ./bin
+	rm -f ./qif.a

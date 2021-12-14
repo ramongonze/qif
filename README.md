@@ -29,11 +29,25 @@ To use the library follow these steps:
 3. Open the folder ```qif``` in the terminal and type ```make``` to compile all the modules. 
 A binary file named ```qif.a``` will be generated;
 
-4. Include the library in your C++ project using ```#include "qif/qif.hpp"```;
+4. Include the library in your C++ project using ```#include "qif/src/qif.h"```;
 
 5. Compile your project adding ```qif/qif.a``` in the command line used to compile your C++ project. 
 
 Example:
+
+main.cpp
+```cpp
+#include "qif/src/qif.h"
+#include <vector>
+
+int main(){
+    std::vector<long double> v({0.25, 0.25, 0.5});
+    Distribution dist(v);
+    return 0;
+}
+```
+
+Command to compile main.cpp:
 ```bash
 $ g++ main.cpp qif/qif.a
 ```
