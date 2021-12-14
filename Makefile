@@ -2,6 +2,7 @@ PROJECT_NAME=qif
 PLATFORM=PLATFORM_DESKTOP
 CC=g++ # Compiler for desktop version
 EXT=.o
+AR=ar
 
 # Define all source files required
 CPP_SOURCE=$(wildcard src/*.cpp)
@@ -14,6 +15,7 @@ CFLAGS=-c -std=c++11 -Wall -Wextra -Werror -pedantic
 ifeq ($(PLATFORM),PLATFORM_WEB)
     CC=em++ # Libraries for web (HTML5) compiling
 	EXT=.so
+	AR=emar
 else
 	CFLAGS += -O4
 endif
@@ -28,7 +30,7 @@ $(PROJECT_NAME): $(OBJS)
 bin: $(PROJECT_NAME)
 	mkdir -p ./bin
 	mv src/*$(EXT) ./bin
-	ar rcs qif.a bin/*$(EXT)
+	$(AR) rcs qif.a bin/*$(EXT)
 
 clean:
 	rm -rf ./bin
